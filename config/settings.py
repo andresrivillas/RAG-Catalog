@@ -1,4 +1,6 @@
 from pathlib import Path
+from typing import Dict, List
+
 from pydantic_settings import BaseSettings
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -17,6 +19,28 @@ class Settings(BaseSettings):
     top_p: float = 0.9
     max_tokens: int = 400
     prompts_path: Path = BASE_DIR / "prompts"
+    enriched_path: Path = BASE_DIR / "data" / "enriched" / "enriched_catalog.json"
+    negative_categories: List[str] = [
+        "medico", "medicina", "insumo medico", "hospitalario",
+        "industrial", "industria", "materia prima", "produccion",
+        "quimico", "limpieza industrial", "maquinaria",
+    ]
+    evaluation_weights: Dict[str, float] = {
+        "budget": 0.20,
+        "commercial": 0.25,
+        "diversity": 0.10,
+        "category_diversity": 0.08,
+        "coherence": 0.15,
+        "utility": 0.07,
+        "brand": 0.05,
+        "premium": 0.05,
+        "eco": 0.05,
+        "personalization": 0.05,
+        "occasion": 0.15,
+        "audience": 0.10,
+        "balance": 0.05,
+    }
+    evaluation_debug: bool = False
 
     class Config:
         env_file = ".env"

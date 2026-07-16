@@ -10,6 +10,11 @@ from .application.prompt.commercial_writer import CommercialWriter
 from .application.prompt.prompt_context_builder import PromptContextBuilder
 from .application.prompt.prompt_loader import PromptLoader
 from .application.use_cases.generate_proposal import GenerateProposalUseCase
+from .application.use_cases.refine_proposal import RefineProposalUseCase
+from .domain.services.evaluation.proposal_evaluation_engine import (
+    ProposalEvaluationEngine,
+    EvaluationWeights,
+)
 from .domain.ports.llm_port import LLMPort
 from .infrastructure.embeddings.sentence_transformer_embedding import (
     SentenceTransformerEmbedding,
@@ -48,6 +53,26 @@ def build_knowledge_indexer() -> KnowledgeIndexer:
     )
 
 
+def build_cleaner() -> ProductCleaner:
+    return ProductCleaner()
+
+
+def build_enrichment_pipeline():
+    from .knowledge.enrichment.catalog_web_scraper import CatalogWebScraper
+    from .knowledge.enrichment.knowledge_merger import KnowledgeMerger
+    from .knowledge.enrichment.knowledge_enrichment_pipeline import (
+        KnowledgeEnrichmentPipeline,
+    )
+    from .knowledge.enrichment.product_html_parser import ProductHtmlParser
+
+    return KnowledgeEnrichmentPipeline(
+        scraper=CatalogWebScraper(),
+        parser=ProductHtmlParser(),
+        merger=KnowledgeMerger(),
+        output_path=settings.enriched_path,
+    )
+
+
 def build_llm() -> LLMPort:
     return OllamaLLM(
         host=settings.ollama_host,
@@ -64,12 +89,50 @@ def build_commercial_writer() -> CommercialWriter:
     )
 
 
-def build_generate_proposal_use_case() -> GenerateProposalUseCase:
+def build_generate_proposal_use_case(
+    top_k: int = None, llm_model: str = None
+) -> GenerateProposalUseCase:
     return GenerateProposalUseCase(
         intent_analyzer=IntentAnalyzer(),
         vector_store=build_vector_store(),
-        top_k=settings.top_k * 10,
+        top_k=top_k if top_k is not None else settings.top_k * 10,
         commercial_writer=build_commercial_writer(),
-        llm_model=settings.ollama_model,
+        llm_model=llm_model or settings.ollama_model,
         llm_temperature=settings.ollama_temperature,
+        negative_keywords=settings.negative_categories,
     )
+
+
+def build_refine_proposal_use_case(
+    top_k: int = None, llm_model: str = None
+) -> RefineProposalUseCase:
+    return RefineProposalUseCase(
+        intent_analyzer=IntentAnalyzer(),
+        vector_store=build_vector_store(),
+        top_k=top_k if top_k is not None else settings.top_k * 10,
+        commercial_writer=build_commercial_writer(),
+        llm_model=llm_model or settings.ollama_model,
+        llm_temperature=settings.ollama_temperature,
+        negative_keywords=settings.negative_categories,
+    )
+
+
+def is_catalog_indexed() -> bool:
+    try:
+        store = build_vector_store()
+        return store.count() > 0
+    except Exception:
+        return False
+
+
+def is_ollama_available(model: str = None) -> bool:
+    try:
+        client = OllamaLLM(
+            host=settings.ollama_host,
+            top_p=settings.top_p,
+            max_tokens=settings.max_tokens,
+        )
+        client.generate(prompt="test", temperature=0.0, model=model or settings.ollama_model)
+        return True
+    except Exception:
+        return False

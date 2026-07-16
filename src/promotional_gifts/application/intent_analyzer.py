@@ -70,8 +70,6 @@ class IntentAnalyzer(IntentAnalyzerPort):
         pattern = r"(\d[\d\.]*)\s*(?:regalos|unidades|productos|piezas|articulos|artículos)"
         match = re.search(pattern, text)
         if not match:
-            match = re.search(r"(\d[\d\.]*)", text)
-        if not match:
             return None
         value = float(match.group(1).replace(".", ""))
         return int(value)

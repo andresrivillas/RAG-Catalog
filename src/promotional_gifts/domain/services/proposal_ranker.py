@@ -3,9 +3,21 @@ from typing import List
 from ..entities.commercial_intent import CommercialIntent
 from ..entities.commercial_proposal import CommercialProposal
 from ..services.budget_plan import BudgetPlan
+from ..services.evaluation.proposal_evaluation_engine import (
+    ProposalEvaluationEngine,
+)
 
 
 class ProposalRanker:
+    def __init__(
+        self,
+        evaluation_engine: ProposalEvaluationEngine = None,
+        debug: bool = False,
+    ) -> None:
+        self.evaluation_engine = evaluation_engine or ProposalEvaluationEngine(
+            debug=debug
+        )
+
     def rank(
         self,
         proposals: List[CommercialProposal],
@@ -13,7 +25,11 @@ class ProposalRanker:
         plan: BudgetPlan,
     ) -> List[CommercialProposal]:
         for proposal in proposals:
-            proposal.score = self._score(proposal, plan)
+            card = self.evaluation_engine.evaluate(proposal, intent, plan)
+            proposal.score_card = card
+            proposal.score = card.overall_score
+
+        proposals = self._apply_diversity(proposals)
 
         proposals.sort(key=lambda p: p.score, reverse=True)
 
@@ -21,21 +37,19 @@ class ProposalRanker:
             proposal.name = f"PROPUESTA {index}"
         return proposals
 
-    def _score(
-        self, proposal: CommercialProposal, plan: BudgetPlan
-    ) -> float:
-        if plan.spendable_budget <= 0:
-            return 0.0
-        used_ratio = proposal.total_cost.amount / plan.spendable_budget
-        budget_score = min(used_ratio, 1.0) * 50
+    def _apply_diversity(
+        self, proposals: List[CommercialProposal]
+    ) -> List[CommercialProposal]:
+        for i, proposal in enumerate(proposals):
+            for other in proposals[:i]:
+                shared = self._shared_refs(proposal, other)
+                if shared:
+                    proposal.score -= 8 * shared
+        return proposals
 
-        categories = set()
-        for item in proposal.items:
-            categories.add(item.name.split()[0])
-        diversity_score = min(len(proposal.items), 5) / 5 * 25
-
-        value_score = 0.0
-        if proposal.items:
-            value_score = 25
-
-        return budget_score + diversity_score + value_score
+    def _shared_refs(
+        self, a: CommercialProposal, b: CommercialProposal
+    ) -> int:
+        refs_a = {item.reference for item in a.items}
+        refs_b = {item.reference for item in b.items}
+        return len(refs_a & refs_b)

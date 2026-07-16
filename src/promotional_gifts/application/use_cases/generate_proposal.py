@@ -1,15 +1,24 @@
 from typing import List, Tuple, Optional
 
+from config.settings import settings
+
 from ...domain.entities.commercial_intent import CommercialIntent
 from ...domain.entities.commercial_proposal import CommercialProposal
 from ...domain.entities.product_knowledge import ProductKnowledge
 from ...domain.ports.intent_analyzer_port import IntentAnalyzerPort
 from ...domain.ports.vector_store_port import VectorStorePort
 from ...domain.services.budget_optimizer import BudgetOptimizer
+from ...domain.services.commercial_scorer import CommercialScorer
+from ...domain.services.negative_filter import NegativeFilter
+from ...domain.services.occasion_matcher import OccasionMatcher
 from ...domain.services.product_selector import ProductSelector
 from ...domain.services.pricing_engine import PricingEngine
 from ...domain.services.proposal_builder import ProposalBuilder
 from ...domain.services.proposal_ranker import ProposalRanker
+from ...domain.services.evaluation.proposal_evaluation_engine import (
+    ProposalEvaluationEngine,
+    EvaluationWeights,
+)
 from ..prompt.commercial_writer import CommercialWriter
 
 
@@ -22,6 +31,7 @@ class GenerateProposalUseCase:
         commercial_writer: Optional[CommercialWriter] = None,
         llm_model: str = "llama3.2",
         llm_temperature: float = 0.3,
+        negative_keywords: List[str] = None,
     ) -> None:
         self.intent_analyzer = intent_analyzer
         self.vector_store = vector_store
@@ -30,10 +40,19 @@ class GenerateProposalUseCase:
         self._llm_model = llm_model
         self._llm_temperature = llm_temperature
         self.budget_optimizer = BudgetOptimizer()
-        self.product_selector = ProductSelector()
+        self.product_selector = ProductSelector(
+            occasion_matcher=OccasionMatcher(),
+            commercial_scorer=CommercialScorer(),
+            negative_filter=NegativeFilter(negative_keywords or []),
+        )
         self.pricing_engine = PricingEngine()
         self.proposal_builder = ProposalBuilder()
-        self.proposal_ranker = ProposalRanker()
+        self.proposal_ranker = ProposalRanker(
+            evaluation_engine=ProposalEvaluationEngine(
+                weights=EvaluationWeights(settings.evaluation_weights),
+                debug=settings.evaluation_debug,
+            )
+        )
 
     def execute(self, text: str) -> List[CommercialProposal]:
         intent = self.intent_analyzer.analyze(text)

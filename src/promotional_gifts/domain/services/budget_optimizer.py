@@ -27,4 +27,5 @@ class BudgetOptimizer:
             per_unit_ceiling=per_unit_ceiling,
             margin_reserve=margin_reserve,
             quantity=quantity,
+            eco_requested=intent.eco,
         )

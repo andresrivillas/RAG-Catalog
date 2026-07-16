@@ -13,9 +13,25 @@ class ProductKnowledge:
     description: str = ""
     price_description: str = ""
     additional_prices: str = ""
+    url: str = ""
+    benefits: str = ""
+    materials: str = ""
+    dimensions: str = ""
+    capacity: str = ""
+    colors: str = ""
+    images: List[str] = field(default_factory=list)
+    category: str = ""
+    subcategory: str = ""
+    recommendations: str = ""
+    customization: str = ""
+    keywords: List[str] = field(default_factory=list)
+    occasion_tags: List[str] = field(default_factory=list)
+    audience_tags: List[str] = field(default_factory=list)
+    commercial_tags: List[str] = field(default_factory=list)
     embedding_text: str = ""
     embedding: list = field(default_factory=list)
     perceived_value_level: str = "medio"
+    enriched: bool = False
 
     def to_embedding_text(self) -> str:
         parts = [

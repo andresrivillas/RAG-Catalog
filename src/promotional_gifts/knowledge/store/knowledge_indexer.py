@@ -34,3 +34,43 @@ class KnowledgeIndexer:
     ) -> None:
         for product, vector in zip(products, embeddings):
             product.embedding = vector
+
+    def load_from_dicts(
+        self, data: list
+    ) -> List[ProductKnowledge]:
+        from ...domain.value_objects.money import Money
+
+        products: List[ProductKnowledge] = []
+        for d in data:
+            products.append(
+                ProductKnowledge(
+                    reference=d.get("reference", ""),
+                    name=d.get("name", ""),
+                    price=Money(
+                        amount=float(d.get("price", 0.0)),
+                        currency=d.get("currency", "COP"),
+                    ),
+                    characteristics=d.get("characteristics", ""),
+                    description=d.get("description", ""),
+                    price_description=d.get("price_description", ""),
+                    additional_prices=d.get("additional_prices", ""),
+                    url=d.get("url", ""),
+                    benefits=d.get("benefits", ""),
+                    materials=d.get("materials", ""),
+                    dimensions=d.get("dimensions", ""),
+                    capacity=d.get("capacity", ""),
+                    colors=d.get("colors", ""),
+                    images=d.get("images", []),
+                    category=d.get("category", ""),
+                    subcategory=d.get("subcategory", ""),
+                    recommendations=d.get("recommendations", ""),
+                    customization=d.get("customization", ""),
+                    keywords=d.get("keywords", []),
+                    occasion_tags=d.get("occasion_tags", []),
+                    audience_tags=d.get("audience_tags", []),
+                    commercial_tags=d.get("commercial_tags", []),
+                    perceived_value_level=d.get("perceived_value_level", "medio"),
+                    enriched=d.get("enriched", False),
+                )
+            )
+        return products

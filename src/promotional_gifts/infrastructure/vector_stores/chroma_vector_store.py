@@ -31,6 +31,14 @@ class ChromaVectorStore(VectorStorePort):
                 "price": p.price.amount,
                 "currency": p.price.currency,
                 "description": p.description,
+                "category": p.category,
+                "materials": p.materials,
+                "colors": p.colors,
+                "commercial_tags": ",".join(p.commercial_tags),
+                "occasion_tags": ",".join(p.occasion_tags),
+                "audience_tags": ",".join(p.audience_tags),
+                "perceived_value_level": p.perceived_value_level,
+                "benefits": p.benefits,
             }
             for p in products
         ]
@@ -67,6 +75,28 @@ class ChromaVectorStore(VectorStorePort):
                     currency=metadata.get("currency", "COP"),
                 ),
                 description=metadata.get("description", ""),
+                category=metadata.get("category", ""),
+                materials=metadata.get("materials", ""),
+                colors=metadata.get("colors", ""),
+                commercial_tags=(
+                    metadata.get("commercial_tags", "").split(",")
+                    if metadata.get("commercial_tags")
+                    else []
+                ),
+                occasion_tags=(
+                    metadata.get("occasion_tags", "").split(",")
+                    if metadata.get("occasion_tags")
+                    else []
+                ),
+                audience_tags=(
+                    metadata.get("audience_tags", "").split(",")
+                    if metadata.get("audience_tags")
+                    else []
+                ),
+                perceived_value_level=metadata.get(
+                    "perceived_value_level", "medio"
+                ),
+                benefits=metadata.get("benefits", ""),
             )
             product.embedding_text = document
             score = 1.0 - float(distance)

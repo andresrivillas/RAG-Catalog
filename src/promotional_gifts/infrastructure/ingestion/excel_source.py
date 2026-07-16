@@ -37,6 +37,9 @@ class ExcelIngestionSource(IngestionSourcePort):
             price_description = str(row.get("descripcion_precio", "")).strip()
             additional_prices = str(row.get("precios_adicionales", "")).strip()
 
+            url_raw = str(row.get("url", "")).strip()
+            url = self._build_url(reference, name, url_raw)
+
             products.append(
                 ProductKnowledge(
                     reference=reference,
@@ -46,7 +49,25 @@ class ExcelIngestionSource(IngestionSourcePort):
                     description=description,
                     price_description=price_description,
                     additional_prices=additional_prices,
+                    url=url,
                 )
             )
 
         return products
+
+    def _build_url(self, reference: str, name: str, url_raw: str) -> str:
+        if url_raw and url_raw.lower() != "nan" and url_raw.startswith("http"):
+            return url_raw
+        slug = self._slugify(name)
+        return f"https://catalogospromocionales.com/producto-cataprom/{reference}/{slug}"
+
+    def _slugify(self, text: str) -> str:
+        import re
+        import unicodedata
+
+        text = unicodedata.normalize("NFKD", text or "").encode(
+            "ascii", "ignore"
+        ).decode("ascii")
+        text = text.lower()
+        text = re.sub(r"[^a-z0-9]+", "-", text).strip("-")
+        return text or "producto"

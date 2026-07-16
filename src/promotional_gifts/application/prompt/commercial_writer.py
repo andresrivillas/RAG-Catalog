@@ -21,8 +21,17 @@ class CommercialWriter:
         self.system_prompt = system_prompt
         self.proposal_prompt = proposal_prompt
 
-    def write(self, proposal: CommercialProposal, model: str, temperature: float) -> str:
-        context = self.context_builder.build(proposal)
+    def write(
+        self,
+        proposal: CommercialProposal,
+        model: str,
+        temperature: float,
+        refinement_context: str = None,
+    ) -> str:
+        if refinement_context is not None:
+            context = refinement_context
+        else:
+            context = self.context_builder.build(proposal)
         template = self.prompt_loader.load(self.proposal_prompt)
         system_rules = self.prompt_loader.load(self.system_prompt)
 

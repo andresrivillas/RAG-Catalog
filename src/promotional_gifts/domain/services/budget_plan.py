@@ -8,3 +8,4 @@ class BudgetPlan:
     per_unit_ceiling: float
     margin_reserve: float
     quantity: int
+    eco_requested: bool = False
