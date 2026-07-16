@@ -43,11 +43,11 @@ class IntentAnalyzer(IntentAnalyzerPort):
             normalized, ATTRIBUTE_KEYWORDS["personalizable"]
         )
         intent.quantity = self._extract_quantity(normalized)
-        intent.budget_total = self._extract_budget(
-            normalized, total=True
-        )
-        intent.budget_per_unit = self._extract_budget(
-            normalized, total=False
+        intent.budget_total = self._extract_budget_total(normalized)
+        # Si ya se detectó un presupuesto total explícito, no se asume ningún
+        # presupuesto por unidad para evitar interpretar el total como unitario.
+        intent.budget_per_unit = self._extract_budget_per_unit(
+            normalized, intent.quantity, intent.budget_total
         )
 
         if intent.eco:
@@ -74,19 +74,73 @@ class IntentAnalyzer(IntentAnalyzerPort):
         value = float(match.group(1).replace(".", ""))
         return int(value)
 
-    def _extract_budget(
-        self, text: str, total: bool
-    ) -> Optional[float]:
-        if total:
-            pattern = r"(\d[\d\.\s]*)\s*(?:cop)?\s*(?:de\s+)?presupuesto\s+(?:total|maximo|máximo)"
-        else:
-            pattern = r"(\d[\d\.\s]*)\s*(?:cop)?\s*por\s+unidad"
-
-        match = re.search(pattern, text)
-        if not match:
-            return None
-        raw = match.group(1).replace(".", "").replace(" ", "")
+    def _parse_number(self, raw: str) -> Optional[float]:
+        cleaned = raw.replace(".", "").replace(" ", "")
         try:
-            return float(raw)
+            return float(cleaned)
         except ValueError:
             return None
+
+    def _extract_budget_total(self, text: str) -> Optional[float]:
+        # Prioridad 2: presupuesto total explícito.
+        patterns = [
+            r"presupuesto\s+(?:total|global|completo)\s+(?:de\s+)?(\d[\d\.\s]*)",
+            r"presupuesto\s+(?:total|global|completo)\s*:\s*(\d[\d\.\s]*)",
+            r"total\s+de\s+(?:presupuesto\s+)?(\d[\d\.\s]*)",
+            r"presupuesto\s+para\s+las\s+\d[\d\.]*\s+unidades\s+(?:de\s+)?(\d[\d\.\s]*)",
+            r"(?:presupuesto|para)\s+(?:de\s+)?(?:las\s+\d[\d\.]*\s+unidades)\s+(\d[\d\.\s]*)",
+        ]
+        for pattern in patterns:
+            match = re.search(pattern, text)
+            if match:
+                return self._parse_number(match.group(1))
+        return None
+
+    def _extract_budget_per_unit(
+        self, text: str, quantity: Optional[int], total: Optional[float] = None
+    ) -> Optional[float]:
+        if total is not None:
+            return None
+        # Prioridad 1: "por unidad" es la forma inequívoca de presupuesto por unidad.
+        per_unit_patterns = [
+            r"(\d[\d\.\s]*)\s*(?:cop|pesos?)?\s*por\s+unidad",
+            r"por\s+unidad\s+(?:de\s+)?(\d[\d\.\s]*)\s*(?:cop|pesos?)?",
+            r"presupuesto\s+por\s+unidad\s+(?:de\s+)?(\d[\d\.\s]*)",
+        ]
+        for pattern in per_unit_patterns:
+            match = re.search(pattern, text)
+            if match:
+                return self._parse_number(match.group(1))
+
+        # Prioridad 3: presupuesto unitario implícito.
+        # "presupuesto de 25000", "presupuesto 25000", "presupuesto máximo de 25000".
+        # El asistente asume presupuesto por unidad cuando hay una cantidad de
+        # unidades en la solicitud (comportamiento esperado del comercial).
+        implicit_patterns = [
+            r"presupuesto\s+(?:maximo|máximo)\s+de\s+(\d[\d\.\s]*)",
+            r"presupuesto\s+de\s+(\d[\d\.\s]*)",
+            r"presupuesto\s+(\d[\d\.\s]*)",
+        ]
+        for pattern in implicit_patterns:
+            match = re.search(pattern, text)
+            if match and quantity:
+                return self._parse_number(match.group(1))
+
+        # "máximo 25000", "hasta 25000", "25000 COP", "25000 pesos", "25.000".
+        # Solo se aplican si ya hay una cantidad de unidades; de lo contrario
+        # sería ambiguo respecto al presupuesto total y se deja sin interpretar.
+        if quantity:
+            generic_patterns = [
+                r"(?:maximo|máximo|hasta)\s+(\d[\d\.\s]*)\s*(?:cop|pesos?)?",
+                r"(\d[\d\.\s]*)\s*(?:cop|pesos?)",
+            ]
+            for pattern in generic_patterns:
+                match = re.search(pattern, text)
+                if match:
+                    return self._parse_number(match.group(1))
+
+        # Prioridad 4 (ambigüedad): si no hay cantidad de unidades y solo aparece
+        # un número suelto junto a "presupuesto", no se asume nada para evitar
+        # interpretar un total como unitario. Se documenta la decisión:
+        # sin cantidad de unidades el número es ambiguo y se omite.
+        return None
