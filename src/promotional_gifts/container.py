@@ -94,7 +94,7 @@ def build_commercial_writer() -> CommercialWriter:
 
 
 def build_generate_proposal_use_case(
-    top_k: int = None, llm_model: str = None
+    top_k: int = None, llm_model: str = None, mode=None
 ) -> GenerateProposalUseCase:
     return GenerateProposalUseCase(
         intent_analyzer=IntentAnalyzer(),
@@ -105,6 +105,7 @@ def build_generate_proposal_use_case(
         llm_temperature=settings.ollama_temperature,
         negative_keywords=settings.negative_categories,
         workspace=build_proposal_workspace(),
+        mode=mode,
     )
 
 

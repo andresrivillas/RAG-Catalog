@@ -9,11 +9,12 @@ from ...domain.ports.intent_analyzer_port import IntentAnalyzerPort
 from ...domain.ports.vector_store_port import VectorStorePort
 from ...domain.services.budget_optimizer import BudgetOptimizer
 from ...domain.services.commercial_scorer import CommercialScorer
+from ...domain.services.generation_mode import GenerationMode, build_evaluation_weights
 from ...domain.services.negative_filter import NegativeFilter
 from ...domain.services.occasion_matcher import OccasionMatcher
 from ...domain.services.product_selector import ProductSelector
 from ...domain.services.pricing_engine import PricingEngine
-from ...domain.services.proposal_builder import ProposalBuilder
+from ...domain.services.proposal_builder import ProposalBuilder, BuildConfig
 from ...domain.services.proposal_ranker import ProposalRanker
 from ...domain.services.evaluation.proposal_evaluation_engine import (
     ProposalEvaluationEngine,
@@ -34,6 +35,7 @@ class GenerateProposalUseCase:
         llm_temperature: float = 0.3,
         negative_keywords: List[str] = None,
         workspace: ProposalWorkspace = None,
+        mode: GenerationMode = None,
     ) -> None:
         self.intent_analyzer = intent_analyzer
         self.vector_store = vector_store
@@ -42,6 +44,7 @@ class GenerateProposalUseCase:
         self._llm_model = llm_model
         self._llm_temperature = llm_temperature
         self.workspace = workspace
+        self.mode = mode
         self.budget_optimizer = BudgetOptimizer()
         self.product_selector = ProductSelector(
             occasion_matcher=OccasionMatcher(),
@@ -49,10 +52,12 @@ class GenerateProposalUseCase:
             negative_filter=NegativeFilter(negative_keywords or []),
         )
         self.pricing_engine = PricingEngine()
-        self.proposal_builder = ProposalBuilder()
+        self.proposal_builder = ProposalBuilder(
+            BuildConfig(mode=mode)
+        )
         self.proposal_ranker = ProposalRanker(
             evaluation_engine=ProposalEvaluationEngine(
-                weights=EvaluationWeights(settings.evaluation_weights),
+                weights=build_evaluation_weights(mode),
                 debug=settings.evaluation_debug,
             )
         )
@@ -60,14 +65,16 @@ class GenerateProposalUseCase:
     def execute(self, text: str) -> List[CommercialProposal]:
         intent = self.intent_analyzer.analyze(text)
         candidates = self._retrieve(intent)
-        plan = self.budget_optimizer.optimize(intent)
-        scored = self.product_selector.select(candidates, intent, plan)
+        plan = self.budget_optimizer.optimize(intent, self.mode)
+        scored = self.product_selector.select(candidates, intent, plan, self.mode)
 
         raw_proposals = self.proposal_builder.build(scored, intent, plan)
         priced: List[CommercialProposal] = []
+        mode_value = self.mode.value if self.mode else "balanced"
         for proposal in raw_proposals:
             proposal.occasion = intent.occasion or ""
             proposal.target_audience = intent.target_audience or ""
+            proposal.generation_mode = mode_value
             priced.append(self.pricing_engine.price(proposal, plan))
 
         ranked = self.proposal_ranker.rank(priced, intent, plan)

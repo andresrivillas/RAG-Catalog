@@ -1,11 +1,12 @@
 from dataclasses import dataclass
 from statistics import median
-from typing import List
+from typing import List, Optional
 
 from ..entities.commercial_intent import CommercialIntent
 from ..entities.commercial_proposal import CommercialProposal, ProposalItem
 from ..entities.product_knowledge import ProductKnowledge
 from ..services.budget_plan import BudgetPlan
+from ..services.generation_mode import GenerationMode
 from ..services.kit_builder import KitBuilder, KitBuildConfig
 from ..services.product_selector import ScoredProduct
 
@@ -16,6 +17,7 @@ class BuildConfig:
     min_lines: int = 2
     max_lines: int = 5
     min_units_per_item: int = 1
+    mode: Optional[GenerationMode] = None
 
 
 class ProposalBuilder:
@@ -40,6 +42,7 @@ class ProposalBuilder:
                 min_lines=self.config.min_lines,
                 max_lines=self.config.max_lines,
                 price_median=price_median,
+                mode=self.config.mode,
             )
         )
 
@@ -61,6 +64,16 @@ class ProposalBuilder:
                         role=line.role,
                         selection_reason=line.reason,
                         decision_trace=line.trace,
+                        thumbnail_url=line.product.thumbnail_url or line.product.image_url,
+                        detail_url=line.product.detail_url or line.product.url,
+                        category=line.product.category,
+                        materials=line.product.materials,
+                        colors=line.product.colors,
+                        capacity=line.product.capacity,
+                        customization=line.product.customization,
+                        eco="eco" in (line.product.commercial_tags or []),
+                        personalizable="personalizable" in (line.product.commercial_tags or []),
+                        perceived_value_level=line.product.perceived_value_level,
                     )
                 )
             if proposal.items:

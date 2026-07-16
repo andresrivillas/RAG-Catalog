@@ -1,4 +1,5 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
+from typing import Tuple
 
 
 @dataclass
@@ -9,3 +10,4 @@ class BudgetPlan:
     margin_reserve: float
     quantity: int
     eco_requested: bool = False
+    utilization_target: Tuple[float, float] = field(default=(0.80, 0.90))
