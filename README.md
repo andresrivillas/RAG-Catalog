@@ -18,8 +18,13 @@ futuro) solo redacta.
   `BudgetOptimizer`, `ProductSelector`, `PricingEngine`, `ProposalBuilder`,
   `ProposalRanker` y `CommercialProposal`. Generación de propuestas
   estructuradas por consola.
+- **Slice 3**: integración de Ollama (solo redacción). `LLMPort` + `OllamaLLM`,
+  `PromptLoader`, `PromptContextBuilder`, `CommercialWriter` y el prompt
+  `prompts/commercial/proposal_writer.txt`. El LLM solo redacta la
+  `commercial_description`; el Business Engine sigue decidiendo todo.
 
-No se usan aún: Ollama, Streamlit, Prompt Engineering, scraping ni multi-proveedor.
+No se usan aún: Streamlit, scraping ni multi-proveedor. Requiere Ollama
+corriendo localmente con el modelo configurado (por defecto `llama3.2`).
 
 ## Requisitos
 
@@ -35,6 +40,13 @@ python3 -m pip install pandas openpyxl chromadb sentence-transformers pydantic-s
 
 ## Uso
 
+### 0. Servidor Ollama (Slice 3)
+
+```bash
+ollama pull llama3.2
+ollama serve   # si no está activo
+```
+
 ### 1. Indexar el catálogo
 
 Coloca el Excel en `data/catalog/catalog.xlsx` y ejecuta:
@@ -49,7 +61,7 @@ PYTHONPATH=src:. python3 scripts/index_catalog.py
 PYTHONPATH=src:. python3 scripts/query_catalog.py
 ```
 
-### 3. Generar propuestas (Slice 2)
+### 3. Generar propuestas (Slices 2 y 3)
 
 ```bash
 PYTHONPATH=src:. python3 scripts/generate_proposal.py

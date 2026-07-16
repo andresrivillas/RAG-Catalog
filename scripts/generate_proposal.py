@@ -33,6 +33,10 @@ def main() -> None:
                       f"(ref {item.reference}, {item.quantity} uds)")
             for warning in proposal.warnings:
                 print(f"! {warning}")
+            if proposal.commercial_description:
+                print()
+                print("Descripción comercial")
+                print(proposal.commercial_description)
             print()
 
         print()

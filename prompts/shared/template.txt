@@ -1,0 +1,20 @@
+=== OBJETIVO ===
+{contenido del prompt específico}
+
+=== CONTEXTO ===
+{contexto del sistema}
+
+=== REGLAS ===
+{reglas globales y específicas}
+
+=== INFORMACIÓN RECIBIDA ===
+{datos del objeto de negocio, ya curados}
+
+=== FORMATO ESPERADO ===
+{estructura de salida}
+
+=== RESTRICCIONES ===
+{qué nunca hacer}
+
+=== NO INVENTAR ===
+{si falta información, decirlo explícitamente}

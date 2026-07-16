@@ -11,6 +11,13 @@ class Settings(BaseSettings):
     collection_name: str = "promotional_gifts"
     top_k: int = 5
 
+    ollama_host: str = "http://localhost:11434"
+    ollama_model: str = "llama3.2"
+    ollama_temperature: float = 0.3
+    top_p: float = 0.9
+    max_tokens: int = 400
+    prompts_path: Path = BASE_DIR / "prompts"
+
     class Config:
         env_file = ".env"
 

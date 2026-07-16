@@ -27,6 +27,9 @@ class CommercialProposal:
     total_cost: Money = field(default_factory=lambda: Money(0.0))
     per_unit_cost: Money = field(default_factory=lambda: Money(0.0))
     warnings: List[str] = field(default_factory=list)
+    occasion: str = ""
+    target_audience: str = ""
+    commercial_description: str = ""
 
     @property
     def units(self) -> int:
