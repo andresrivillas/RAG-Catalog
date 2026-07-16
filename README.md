@@ -171,17 +171,43 @@ Pesos en `config/settings.py` (`evaluation_weights`) y modo debug
 `logging`. El diseño deja una interfaz limpia para un futuro `AIJudge` (no
 implementado en el MVP; solo reglas).
 
+### 8. Proposal Workspace (Slice 10)
+
+Las propuestas dejan de vivir solo en memoria y se persisten como documentos
+JSON en `data/proposals/`. Cada propuesta generada se guarda automáticamente.
+
+- `ProposalRepositoryPort` / `FileProposalRepository`: persistencia JSON.
+- `ProposalDocument`: agregado serializable con `proposal_id`, `version`,
+  `created_at`, `updated_at`, `original_query`, `client`, `intent`,
+  `proposal`, `score_card`, `refinement_history`.
+- `ProposalWorkspace`: guardar, abrir, actualizar, eliminar, duplicar, listar,
+  y buscar por texto / cliente / ocasión / productos / fecha (búsqueda
+  estructurada, sin embeddings).
+- `VersionComparator`: compara versiones (productos agregados/eliminados,
+  cambio de presupuesto, score y descripción); sin LLM.
+
+En Streamlit, la barra lateral "Propuestas guardadas" lista las propuestas,
+permite abrirlas (solo carga el JSON, sin Chroma ni Business Engine), navegar
+entre versiones y compararlas. Al refinar, se guarda una nueva versión
+(`v1 → v2 → v3`) sin sobrescribir.
+
+El modelo `ProposalDocument` está diseñado para exportarse luego a PDF / Word /
+Excel sin acoplarse a la lógica comercial.
+
 ## Estructura
 
 ```
-config/            # settings (rutas, modelo, top_k)
-data/              # catalog.xlsx y persistencia ChromaDB
+config/            # settings (rutas, modelo, top_k, evaluation_weights, proposals_dir)
+data/              # catalog.xlsx, persistencia ChromaDB y proposals/ (JSON)
 src/promotional_gifts/
   domain/          # entities, value_objects, ports, services (sin frameworks)
     services/evaluation/  # proposal_evaluation_engine, criteria, proposal_score_card
+    services/workspace/   # proposal_workspace, version_comparator, serializer
+    entities/proposal_document.py  # ProposalDocument + RefinementRecord
+    ports/proposal_repository_port.py
   application/     # intent_analyzer, use_cases
   knowledge/       # transform (cleaner, metadata, embedding) y store (indexer)
-  infrastructure/  # adapters: excel, embeddings, chroma
+  infrastructure/  # adapters: excel, embeddings, chroma, persistence
   container.py     # Composition Root
- scripts/           # index_catalog.py, query_catalog.py, generate_proposal.py
+ scripts/           # index_catalog.py, query_catalog.py, generate_proposal.py, run_app.py, evaluate.py
 ```

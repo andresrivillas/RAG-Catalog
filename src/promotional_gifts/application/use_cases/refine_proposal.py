@@ -16,6 +16,8 @@ from ..refinement.proposal_refinement_engine import (
     ProposalRefinementEngine,
     RefinementLogEntry,
 )
+from ...domain.services.workspace.proposal_workspace import ProposalWorkspace
+from ...domain.entities.proposal_document import RefinementRecord
 
 
 class RefineProposalUseCase:
@@ -28,6 +30,7 @@ class RefineProposalUseCase:
         llm_model: str = "llama3.2",
         llm_temperature: float = 0.3,
         negative_keywords: List[str] = None,
+        workspace: ProposalWorkspace = None,
     ) -> None:
         self.intent_analyzer = intent_analyzer
         self.refinement_analyzer = RefinementAnalyzer()
@@ -35,6 +38,7 @@ class RefineProposalUseCase:
         self.commercial_writer = commercial_writer
         self._llm_model = llm_model
         self._llm_temperature = llm_temperature
+        self.workspace = workspace
         self.budget_optimizer = BudgetOptimizer()
         self.engine = ProposalRefinementEngine(
             vector_store=vector_store,
@@ -52,6 +56,7 @@ class RefineProposalUseCase:
         instruction: str,
         original_intent: Optional[CommercialIntent] = None,
         original_plan=None,
+        parent_document=None,
     ) -> Tuple[CommercialProposal, List[RefinementLogEntry], str]:
         request = self.refinement_analyzer.analyze(instruction)
         intent = original_intent or (
@@ -76,4 +81,23 @@ class RefineProposalUseCase:
                 temperature=self._llm_temperature,
                 refinement_context=refinement_context,
             )
+
+        if self.workspace:
+            record = RefinementRecord(
+                version=new_proposal.version,
+                instruction=instruction,
+                action=request.action,
+                affected_product=log[0].affected_product if log else "",
+                new_product=log[0].new_product if log else "",
+                result=log[0].result if log else "",
+            )
+            doc = self.workspace.save_version(
+                proposal=new_proposal,
+                intent=intent or (parent_document.intent if parent_document else None),
+                original_query=parent_document.original_query if parent_document else "",
+                score_card=new_proposal.score_card,
+                parent_doc=parent_document,
+                refinement=record,
+            )
+            new_proposal.proposal_id = doc.proposal_id
         return new_proposal, log, request.action

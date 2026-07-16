@@ -20,6 +20,7 @@ class Settings(BaseSettings):
     max_tokens: int = 400
     prompts_path: Path = BASE_DIR / "prompts"
     enriched_path: Path = BASE_DIR / "data" / "enriched" / "enriched_catalog.json"
+    proposals_dir: Path = BASE_DIR / "data" / "proposals"
     negative_categories: List[str] = [
         "medico", "medicina", "insumo medico", "hospitalario",
         "industrial", "industria", "materia prima", "produccion",

@@ -19,6 +19,7 @@ from ...domain.services.evaluation.proposal_evaluation_engine import (
     ProposalEvaluationEngine,
     EvaluationWeights,
 )
+from ...domain.services.workspace.proposal_workspace import ProposalWorkspace
 from ..prompt.commercial_writer import CommercialWriter
 
 
@@ -32,6 +33,7 @@ class GenerateProposalUseCase:
         llm_model: str = "llama3.2",
         llm_temperature: float = 0.3,
         negative_keywords: List[str] = None,
+        workspace: ProposalWorkspace = None,
     ) -> None:
         self.intent_analyzer = intent_analyzer
         self.vector_store = vector_store
@@ -39,6 +41,7 @@ class GenerateProposalUseCase:
         self.commercial_writer = commercial_writer
         self._llm_model = llm_model
         self._llm_temperature = llm_temperature
+        self.workspace = workspace
         self.budget_optimizer = BudgetOptimizer()
         self.product_selector = ProductSelector(
             occasion_matcher=OccasionMatcher(),
@@ -76,6 +79,16 @@ class GenerateProposalUseCase:
                     model=self._llm_model,
                     temperature=self._llm_temperature,
                 )
+
+        if self.workspace:
+            for proposal in ranked:
+                doc = self.workspace.create_document(
+                    proposal=proposal,
+                    intent=intent,
+                    original_query=text,
+                    score_card=proposal.score_card,
+                )
+                proposal.proposal_id = doc.proposal_id
         return ranked
 
     def _retrieve(

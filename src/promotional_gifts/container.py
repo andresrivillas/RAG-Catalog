@@ -15,6 +15,10 @@ from .domain.services.evaluation.proposal_evaluation_engine import (
     ProposalEvaluationEngine,
     EvaluationWeights,
 )
+from .domain.services.workspace.proposal_workspace import ProposalWorkspace
+from .infrastructure.persistence.file_proposal_repository import (
+    FileProposalRepository,
+)
 from .domain.ports.llm_port import LLMPort
 from .infrastructure.embeddings.sentence_transformer_embedding import (
     SentenceTransformerEmbedding,
@@ -100,6 +104,7 @@ def build_generate_proposal_use_case(
         llm_model=llm_model or settings.ollama_model,
         llm_temperature=settings.ollama_temperature,
         negative_keywords=settings.negative_categories,
+        workspace=build_proposal_workspace(),
     )
 
 
@@ -114,7 +119,16 @@ def build_refine_proposal_use_case(
         llm_model=llm_model or settings.ollama_model,
         llm_temperature=settings.ollama_temperature,
         negative_keywords=settings.negative_categories,
+        workspace=build_proposal_workspace(),
     )
+
+
+def build_proposal_repository():
+    return FileProposalRepository(settings.proposals_dir)
+
+
+def build_proposal_workspace() -> ProposalWorkspace:
+    return ProposalWorkspace(build_proposal_repository())
 
 
 def is_catalog_indexed() -> bool:
