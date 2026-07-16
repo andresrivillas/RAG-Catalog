@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# Entorno
+.venv/
+venv/
+.env
+
+# Datos generados (no versionar la base de conocimiento local)
+data/vector_stores/
+data/processed/
+data/enriched/
+promotional_gifts.db
+
+# Modelos de ML en caché (Chromadb / sentence-transformers)
+.cache/
+
+# Editor / SO
+.DS_Store
+.idea/
+.vscode/
