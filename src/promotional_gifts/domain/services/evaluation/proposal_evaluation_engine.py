@@ -25,6 +25,8 @@ class EvaluationWeights:
         "occasion": 0.15,
         "audience": 0.10,
         "balance": 0.05,
+        "industry": 0.20,
+        "complementarity": 0.10,
     }
 
     def __init__(self, mapping: Optional[Dict[str, float]] = None) -> None:
@@ -93,6 +95,8 @@ class ProposalEvaluationEngine:
             "occasion": "occasion_score",
             "audience": "audience_score",
             "balance": "balance_score",
+            "industry": "industry_score",
+            "complementarity": "complementarity_score",
         }
         attr = mapping.get(key)
         if attr:
@@ -111,15 +115,45 @@ class ProposalEvaluationEngine:
             obs.append(
                 f"Fortaleza: {top[0].name} ({top[0].score:.0f}/100)."
             )
-        if low:
+        if low and low[0].score < 70:
             obs.append(
                 f"Debilidad: {low[0].name} ({low[0].score:.0f}/100) debe mejorar."
             )
-        if card.budget_score < 60:
-            obs.append("La propuesta no aprovecha bien el presupuesto.")
+        if intent and intent.eco and any(it.eco for it in proposal.items):
+            eco_items = [it.name for it in proposal.items if it.eco][:3]
+            obs.append(
+                f"Se priorizaron productos eco/sostenibles: {', '.join(eco_items)}."
+            )
+        if intent and intent.personalizable and any(
+            it.personalizable for it in proposal.items
+        ):
+            obs.append("Se priorizaron articulos personalizables.")
+        if intent and intent.industry:
+            obs.append(
+                f"Se seleccionaron productos alineados con la industria '{intent.industry}'."
+            )
+        if card.budget_score < 70:
+            obs.append(
+                "La propuesta subutiliza el presupuesto; conviene anadir o "
+                "mejorar productos para acercarse al objetivo."
+            )
+        # Explicar puntos perdidos por falta de relacion con la industria.
+        if intent and intent.industry and card.industry_score < 70:
+            lost = round((70 - card.industry_score) * (self.weights.get("industry") or 0.2))
+            obs.append(
+                f"La propuesta perdio ~{lost} puntos porque incluye productos "
+                f"poco relacionados con el sector {intent.industry}."
+            )
         if card.diversity_score < 60:
             obs.append("El kit tiene poca variedad de productos.")
-        if card.eco_score == 0 and intent and intent.eco:
+        if card.coherence_score < 50:
+            obs.append("El kit presenta poca coherencia entre sus productos.")
+        if card.complementarity_score is not None and card.complementarity_score < 60:
+            obs.append(
+                "Varios productos del kit compiten entre si; conviene "
+                "diversificar categorias para que se complementen."
+            )
+        if intent and intent.eco and card.eco_score == 0:
             obs.append("Se solicito eco pero ningun producto es sostenible.")
         card.observations = obs
 

@@ -109,6 +109,16 @@ class KitBuilder:
                     )
         return products
 
+    ROLE_FILL_ORDER = ["CORE", "UTILITY", "PROMOTIONAL", "ACCESSORY", "PACKAGING"]
+
+    ROLE_MAX = {
+        "CORE": 1,
+        "UTILITY": 2,
+        "PROMOTIONAL": 1,
+        "ACCESSORY": 1,
+        "PACKAGING": 1,
+    }
+
     def _build_kit(
         self,
         anchor: ScoredProduct,
@@ -122,6 +132,12 @@ class KitBuilder:
 
         if anchor.product.price.amount <= 0:
             return []
+
+        # Si el ancla original absorbe casi todo el presupuesto, se busca un
+        # ancla alternativo que deje espacio para completar el kit (CORE +
+        # UTILITY + PROMOTIONAL + ACCESSORY + PACKAGING) sin reducir mucho el
+        # puntaje. Solo se cambia cuando el ancla original impide un kit completo.
+        anchor = self._fit_anchor(anchor, pool, plan)
 
         anchor_role = self.role_classifier.classify(
             anchor.product, self.config.price_median
@@ -137,9 +153,10 @@ class KitBuilder:
         roles_used[anchor_role] = roles_used.get(anchor_role, 0) + 1
         remaining -= anchor.product.price.amount * plan.quantity
 
-        for candidate in pool:
-            if len(lines) >= self.config.max_lines:
-                break
+        # Rellenar el kit en el orden recomendado de roles para lograr
+        # kits completos (CORE -> UTILITY -> PROMOTIONAL -> ACCESSORY -> PACKAGING).
+        ordered_pool = self._order_by_role_and_score(pool, anchor)
+        for candidate in ordered_pool:
             if candidate.product.reference == anchor.product.reference:
                 continue
             if any(
@@ -161,16 +178,11 @@ class KitBuilder:
             role = self.role_classifier.classify(
                 candidate.product, self.config.price_median
             )
-            if role == "CORE" and roles_used.get("CORE", 0) >= 1:
+            if role == "PREMIUM":
+                role = "CORE"
+            if role == "CORE" and roles_used.get("CORE", 0) >= self.ROLE_MAX["CORE"]:
                 role = "UTILITY"
-            if role == "UTILITY" and roles_used.get("UTILITY", 0) >= 2:
-                continue
-            if role == "ACCESSORY" and roles_used.get("ACCESSORY", 0) >= 1:
-                continue
-            if (
-                role in ("PACKAGING", "PROMOTIONAL")
-                and roles_used.get(role, 0) >= 1
-            ):
+            if roles_used.get(role, 0) >= self.ROLE_MAX.get(role, 1):
                 continue
 
             reason = candidate.trace.reason if candidate.trace else self._reason(role, candidate.product, plan)
@@ -183,7 +195,94 @@ class KitBuilder:
             if len(lines) >= self.config.min_lines and remaining <= 0:
                 break
 
+        # Si aun faltan lineas para el minimo y queda presupuesto, anadir
+        # productos utiles aunque no cubran un rol nuevo.
+        if len(lines) < self.config.min_lines:
+            for candidate in ordered_pool:
+                if len(lines) >= self.config.max_lines:
+                    break
+                if candidate.product.reference == anchor.product.reference:
+                    continue
+                if any(
+                    l.product.reference == candidate.product.reference for l in lines
+                ):
+                    continue
+                if candidate.product.price.amount <= 0:
+                    continue
+                if not self._budget_allows(candidate.product, remaining, plan):
+                    continue
+                if any(
+                    not self.compatibility.can_coexist(l.product, candidate.product)
+                    for l in lines
+                ):
+                    continue
+                role = self.role_classifier.classify(
+                    candidate.product, self.config.price_median
+                )
+                if role == "PREMIUM":
+                    role = "CORE"
+                reason = candidate.trace.reason if candidate.trace else self._reason(role, candidate.product, plan)
+                lines.append(
+                    KitLine(candidate.product, role, reason, candidate.trace)
+                )
+                remaining -= candidate.product.price.amount * plan.quantity
+
         return lines
+
+    def _order_by_role_and_score(
+        self, pool: List[ScoredProduct], anchor: ScoredProduct
+    ) -> List[ScoredProduct]:
+        def role_rank(sp: ScoredProduct) -> int:
+            role = self.role_classifier.classify(
+                sp.product, self.config.price_median
+            )
+            role = "CORE" if role == "PREMIUM" else role
+            try:
+                return self.ROLE_FILL_ORDER.index(role)
+            except ValueError:
+                return len(self.ROLE_FILL_ORDER)
+
+        # Prioriza roles en el orden recomendado y, dentro de cada rol,
+        # productos mas economicos para completar el kit con mas lineas y
+        # aprovechar mejor el presupuesto.
+        return sorted(
+            pool,
+            key=lambda sp: (role_rank(sp), sp.product.price.amount, -sp.score),
+        )
+
+    def _cheapest_price(self, pool: List[ScoredProduct]) -> float:
+        valid = [sp.product.price.amount for sp in pool if sp.product.price.amount > 0]
+        return min(valid) if valid else 0.0
+
+    def _fit_anchor(
+        self,
+        anchor: ScoredProduct,
+        pool: List[ScoredProduct],
+        plan: BudgetPlan,
+    ) -> ScoredProduct:
+        if plan.quantity <= 0:
+            return anchor
+        if plan.per_unit_ceiling <= 0:
+            return anchor
+        unit_remaining = plan.per_unit_ceiling
+        cheapest = self._cheapest_price(pool)
+        # Costo por unidad que deberia dejar libre el ancla para completar el kit.
+        room_needed = (self.config.min_lines - 1) * cheapest
+        anchor_unit = anchor.product.price.amount
+        if anchor_unit + room_needed <= unit_remaining * 1.02:
+            return anchor
+        # El ancla original deja muy poco espacio: buscar un ancla que permita
+        # un kit completo sin sacrificar demasiado puntaje (>= 70% del ancla).
+        candidates = [
+            sp for sp in pool
+            if sp.product.price.amount > 0
+            and sp.product.price.amount + room_needed <= unit_remaining * 1.02
+            and sp.score >= anchor.score * 0.7
+        ]
+        if not candidates:
+            return anchor
+        candidates.sort(key=lambda sp: sp.score, reverse=True)
+        return candidates[0]
 
     def _budget_allows(
         self, product: ProductKnowledge, remaining: float, plan: BudgetPlan
@@ -207,9 +306,10 @@ class KitBuilder:
     ) -> List[KitLine]:
         profile = get_profile(self.config.mode)
         target_min = profile.utilization_target_min
-        target = profile.utilization_target_mid
+        target_max = profile.utilization_target_max
+        target = (target_min + target_max) / 2.0
 
-        max_rounds = 6
+        max_rounds = 12
         for _ in range(max_rounds):
             util = self._utilization(kit, plan)
             if util >= target_min:
@@ -243,13 +343,15 @@ class KitBuilder:
                     ):
                         continue
                     new_util = util + (cand.price.amount - line.product.price.amount) / plan.spendable_budget
-                    if new_util > target + 0.10:
+                    if new_util > target_max:
                         continue
                     extra = cand.price.amount - line.product.price.amount
                     if best_swap is None or extra > best_swap[0]:
                         new_role = self.role_classifier.classify(
                             cand, self.config.price_median
                         )
+                        if new_role == "PREMIUM":
+                            new_role = "CORE"
                         best_swap = (
                             extra,
                             line,
@@ -284,8 +386,19 @@ class KitBuilder:
             "PROMOTIONAL": "Refuerza la marca del cliente.",
         }
         base = reasons.get(role, "Producto seleccionado para la propuesta.")
+        attrs = []
+        if product.materials:
+            attrs.append(f"material {product.materials}")
+        if product.colors:
+            attrs.append(f"color {product.colors}")
+        if product.capacity:
+            attrs.append(f"capacidad {product.capacity}")
+        if product.customization:
+            attrs.append("personalizable")
+        if attrs:
+            base += " Atributos: " + ", ".join(attrs) + "."
         if product.perceived_value_level == "alto":
             base += " Alto valor percibido."
         if getattr(plan, "eco_requested", False):
-            base += " Cumple la restricción ecológica."
+            base += " Cumple la restriccion ecologica."
         return base

@@ -1,67 +1,108 @@
 # Promotional Gifts AI
 
-Asistente de inteligencia comercial para regalos empresariales. Construye
-propuestas de regalos promocionales a partir de un catálogo, usando RAG
-semántico (ChromaDB + embeddings locales) y un Business Engine determinístico.
+Asistente de inteligencia comercial para regalos empresariales. Recibe la
+necesidad de un cliente, analiza intención, presupuesto, industria y ocasión,
+y genera varias propuestas de regalos promocionales a partir de un catálogo
+local.
+
+El sistema usa RAG semántico (ChromaDB + embeddings locales) para recuperar
+productos, pero **las decisiones comerciales son 100% deterministas**: un
+Business Engine basado en reglas selecciona, evalúa, diversifica y ajusta
+propuestas. Ollama (u otro LLM compatible) solo se invoca **una vez por
+generación** para redactar la descripción comercial de cada propuesta.
+
+## Propósito
+
+Automatizar el primer borrador de propuestas de regalos corporativos sin
+depender de la experiencia individual del vendedor. El objetivo es reducir el
+tiempo de preparación de una propuesta, mejorar el aprovechamiento del
+presupuesto del cliente y aumentar la coherencia entre el mensaje de marca,
+la industria y los productos recomendados.
+
+## Funcionalidades principales
+
+- **Análisis de intención comercial**: extrae cantidad, presupuesto (total o
+  por unidad), ocasión, público objetivo, industria, preferencias de materiales,
+  categorías y restricciones (eco, personalizable, sin plástico, etc.).
+- **RAG semántico local**: recupera productos relevantes del catálogo usando
+  ChromaDB y el modelo de embeddings `all-MiniLM-L6-v2`.
+- **Motor comercial determinista**: evalúa afinidad por industria, ocasión,
+  público, presupuesto, utilidad, coherencia de kit y valor percibido; no usa
+  LLM para decidir.
+- **Set global de propuestas**: cada solicitud genera un `ProposalSet` con
+  varias propuestas deliberadamente diferentes (por ejemplo, tecnología,
+  ejecutiva, eco). El LLM recibe todo el set en una sola llamada.
+- **Persistencia de un solo JSON**: cada generación se guarda como un único
+  documento JSON con la consulta original, el intent y el `ProposalSet`
+  completo.
+- **Refinamiento de propuestas**: permite modificar una propuesta existente
+  (reemplazar, agregar, eliminar productos, cambiar presupuesto, hacerla más
+  premium, eco, etc.) sin regenerar desde cero, guardando versiones.
+- **Evaluación multicriterio**: cada propuesta recibe una `ProposalScoreCard`
+  con múltiples criterios (presupuesto, coherencia, diversidad, valor comercial,
+  ajuste a industria, ocasión, público, etc.) y observaciones explicativas.
+- **Interfaz web con Streamlit**: generación, comparación, refinamiento,
+  historial de propuestas guardadas y versionado desde el navegador.
+- **Batería de aceptación**: casos representativos (software, arquitectura,
+  clínica, eco, VIP, presupuesto bajo) que se ejecutan y se guardan en
+  `tests/results/` para análisis de calidad.
 
 ## Arquitectura
 
-Clean Architecture (domain / application / infrastructure / interfaces).
-El RAG recupera conocimiento; el Business Engine decide; el lenguaje (Ollama,
-futuro) solo redacta.
+Clean Architecture con cuatro capas:
 
-## Estado actual (Vertical Slices 1 a 9)
+- **domain**: entidades, value objects, puertos y servicios del Business Engine.
+- **application**: casos de uso, análisis de intención, refinamiento, prompts y
+  orquestación.
+- **knowledge**: limpieza, enriquecimiento, metadata, embeddings e indexación.
+- **infrastructure**: adapters concretos (Excel, ChromaDB, Ollama, archivos).
+- **interfaces**: aplicación Streamlit y scripts de consola.
 
-- **Slice 1**: lectura de Excel, limpieza, embeddings (`all-MiniLM-L6-v2`),
-  indexación en ChromaDB y búsqueda semántica por consola.
-- **Slice 2**: `CommercialIntent` + `IntentAnalyzer` (reglas/diccionarios),
-  `BudgetOptimizer`, `ProductSelector`, `PricingEngine`, `ProposalBuilder`,
-  `ProposalRanker` y `CommercialProposal`. Generación de propuestas
-  estructuradas por consola.
-- **Slice 3**: integración de Ollama (solo redacción). `LLMPort` + `OllamaLLM`,
-  `PromptLoader`, `PromptContextBuilder`, `CommercialWriter` y el prompt
-  `prompts/commercial/proposal_writer.txt`. El LLM solo redacta la
-  `commercial_description`; el Business Engine sigue decidiendo todo.
-- **Slice 4**: interfaz Streamlit (`interfaces/web/streamlit_app.py`) con
-  manejo de errores (catálogo no indexado / Ollama caído).
-- **Slice 5**: `KitBuilder`, `RoleClassifier`, `CompatibilityChecker`,
-  `PerceivedValueEstimator` y `selection_reason`/`role` por producto.
-- **Slice 6**: Knowledge Enrichment Pipeline (scraping + merge) y
-  `MetadataBuilder` con `occasion`/`audience`/`commercial` tags.
-- **Slice 7**: retrieval híbrido (`OccasionMatcher`, `CommercialScorer`,
-  `NegativeFilter`), robustez de precios, `DecisionTrace` y módulo de
-  evaluación objetiva (`scripts/evaluate.py`).
-- **Slice 8**: refinamiento de propuestas (`RefinementAnalyzer`,
-  `ProposalRefinementEngine`, `RefineProposalUseCase`) con versionado
-  (`proposal_id`/`version`/`parent_version`) y bitácora.
-- **Slice 9**: `ProposalEvaluationEngine` + `ProposalScoreCard` con 13
-  criterios multicriterio ponderados y modo debug.
+El Composition Root está en `src/promotional_gifts/container.py`.
 
-Requiere Ollama corriendo localmente con el modelo configurado
-(por defecto `llama3.2`).
+## Flujo de generación
+
+1. **Intención**: `IntentAnalyzer` interpreta la consulta en lenguaje natural.
+2. **Recuperación**: ChromaDB busca productos candidatos usando el embedding
+   generado a partir de campos comercialmente útiles (nombre, categoría,
+   beneficios, materiales, tags, etc.).
+3. **Selección**: `ProductSelector` puntúa cada candidato con afinidad de
+   industria, ajuste a ocasión, valor comercial y aprovechamiento de
+   presupuesto.
+4. **Construcción del set**: `ProposalBuilder` crea propuestas con estrategias
+   temáticas distintas, usando un pool de productos compartido y una blacklist
+   dinámica.
+5. **Diversidad**: `DiversityEngine` mide la similitud entre propuestas y, si
+   es necesario, reconstruye la peor propuesta para garantizar variedad real.
+6. **Evaluación**: `ProposalEvaluationEngine` califica cada propuesta y el set
+   completo.
+7. **Redacción**: `CommercialWriter` llama una sola vez al LLM con todo el set
+   y distribuye la descripción comercial de cada propuesta.
+8. **Persistencia**: el `ProposalSet` se guarda como un único JSON.
 
 ## Requisitos
 
 - Python 3.9+
 - Dependencias: `pandas`, `openpyxl`, `chromadb`, `sentence-transformers`,
-  `pydantic-settings`
+  `pydantic-settings`, `streamlit`, `requests`, `beautifulsoup4`
 
 ## Instalación
 
 ```bash
-python3 -m pip install pandas openpyxl chromadb sentence-transformers pydantic-settings
+python3 -m pip install pandas openpyxl chromadb sentence-transformers \
+  pydantic-settings streamlit requests beautifulsoup4
 ```
 
 ## Uso
 
-### 0. Servidor Ollama (Slice 3)
+### 1. Servidor Ollama
 
 ```bash
 ollama pull llama3.2
 ollama serve   # si no está activo
 ```
 
-### 1. Indexar el catálogo
+### 2. Indexar el catálogo
 
 Coloca el Excel en `data/catalog/catalog.xlsx` y ejecuta:
 
@@ -69,19 +110,24 @@ Coloca el Excel en `data/catalog/catalog.xlsx` y ejecuta:
 PYTHONPATH=src:. python3 scripts/index_catalog.py
 ```
 
-El flujo es: Excel → limpieza → enriquecimiento web (scraping de la URL de
-cada producto, con fallback al Excel si la página falla) → metadata derivada →
+El flujo es: Excel → limpieza → enriquecimiento web (scraping de cada URL de
+producto, con fallback al Excel si la página falla) → metadata derivada →
 embeddings → ChromaDB. El resultado enriquecido se guarda en
-`data/enriched/enriched_catalog.json`. En ejecuciones siguientes, si ese archivo
-existe, se carga directamente para evitar re-scraping.
+`data/enriched/enriched_catalog.json`. En ejecuciones siguientes, si ese
+archivo existe, se carga directamente para evitar re-scraping.
 
-### 2. Buscar productos (Slice 1)
+### 3. Interfaz web Streamlit
 
 ```bash
-PYTHONPATH=src:. python3 scripts/query_catalog.py
+python3 scripts/run_app.py
 ```
 
-### 3. Generar propuestas por consola (Slices 2 y 3)
+Abre la URL que muestra Streamlit (por defecto http://localhost:8501).
+La barra lateral permite ajustar modelo Ollama, Top K y modo de generación.
+Si el catálogo no está indexado u Ollama no está disponible, la app muestra
+un mensaje claro con instrucciones (sin traceback).
+
+### 4. Generar propuestas por consola
 
 ```bash
 PYTHONPATH=src:. python3 scripts/generate_proposal.py
@@ -93,41 +139,13 @@ Ejemplo de solicitud:
 Necesito 3800 regalos de cumpleaños con un presupuesto máximo de 25000 COP por unidad
 ```
 
-### 4. Interfaz gráfica Streamlit (Slice 4)
+### 5. Refinar propuestas
 
-```bash
-python3 scripts/run_app.py
-```
+En la app de Streamlit, bajo cada propuesta aparece un cuadro de texto
+"Refinar propuesta" con un botón "Aplicar refinamiento". Cada refinamiento
+guarda una nueva versión (`v1 → v2 → v3`) sin sobrescribir la anterior.
 
-Abre la URL que muestra Streamlit (por defecto http://localhost:8501).
-La barra lateral permite ajustar modelo Ollama, Top K y modo de generación.
-Si el catálogo no está indexado u Ollama no está disponible, la app muestra
-un mensaje claro con instrucciones (sin traceback).
-
-### 5. Evaluación de calidad (Slice 7)
-
-```bash
-PYTHONPATH=src:. python3 scripts/evaluate.py
-```
-
-Ejecuta casos de prueba definidos en
-`src/promotional_gifts/application/evaluation/proposal_evaluator.py` y mide
-objetivamente la calidad de las propuestas (categorías esperadas, prohibidas,
-presupuesto). No requiere Ollama. Requiere el catálogo indexado completo para
-cubrir todas las categorías.
-
-### 6. Refinamiento de propuestas (Slice 8)
-
-El asistente actúa como asesor comercial: el usuario refina una propuesta
-existente sin volver a generarla desde cero. En la app de Streamlit, bajo cada
-propuesta aparece un cuadro de texto "Refinar propuesta" con un botón
-"Aplicar refinamiento".
-
-```bash
-python3 scripts/run_app.py
-```
-
-Instrucciones soportadas (reglas determinísticas, sin LLM):
+Instrucciones soportadas (reglas deterministas, sin LLM):
 
 - `Cambia el mug por un termo` → reemplaza un producto.
 - `Cambia el mug` → reemplaza por la mejor alternativa.
@@ -141,73 +159,61 @@ Instrucciones soportadas (reglas determinísticas, sin LLM):
 - `Cambia el presupuesto a 18000` → ajusta el tope por unidad.
 - `Renueva el empaque` → añade presentación/empaque.
 
-Cada propuesta lleva `proposal_id`, `version` y `parent_version`. El motor
-modifica solo lo necesario (recalcula costos, score y `decision_trace`) y Ollama
-solo redacta la descripción explicando los cambios.
+### 6. Evaluar calidad objetiva
 
-### 7. Proposal Evaluation Engine (Slice 9)
-
-`ProposalRanker` ya no usa una fórmula única. Solicita un `ProposalScoreCard`
-al `ProposalEvaluationEngine`, que evalúa cada propuesta en 13 dimensiones
-independientes y combina sus aportes con pesos configurables.
-
-```python
-from promotional_gifts.domain.services.evaluation.proposal_evaluation_engine import (
-    ProposalEvaluationEngine, EvaluationWeights,
-)
-engine = ProposalEvaluationEngine(weights=EvaluationWeights(settings.evaluation_weights))
-card = engine.evaluate(proposal, intent, plan)
-print(card.overall_score, card.observations)
+```bash
+PYTHONPATH=src:. python3 scripts/evaluate.py
 ```
 
-Criterios (cada uno con puntuación y razonamiento determinista): Budget
-Efficiency, Commercial Value, Kit Coherence, Product Diversity, Category
-Diversity, Practical Utility, Brand Visibility, Premium Perception,
-Sustainability, Personalization Potential, Occasion Fit, Audience Fit y
-Proposal Balance.
+No requiere Ollama. Requiere el catálogo indexado completo.
 
-Pesos en `config/settings.py` (`evaluation_weights`) y modo debug
-(`evaluation_debug: true`) que registra el `ProposalScoreCard` completo vía
-`logging`. El diseño deja una interfaz limpia para un futuro `AIJudge` (no
-implementado en el MVP; solo reglas).
+### 7. Ejecutar la batería de aceptación
 
-### 8. Proposal Workspace (Slice 10)
+```bash
+PYTHONPATH=src:. python3 tests/run_acceptance_battery.py
+```
 
-Las propuestas dejan de vivir solo en memoria y se persisten como documentos
-JSON en `data/proposals/`. Cada propuesta generada se guarda automáticamente.
+Genera un JSON por caso en `tests/results/` con la consulta original, la fecha
+y el `ProposalSet` completo. Si un caso falla, guarda el error y el diagnóstico
+en el mismo archivo.
 
-- `ProposalRepositoryPort` / `FileProposalRepository`: persistencia JSON.
-- `ProposalDocument`: agregado serializable con `proposal_id`, `version`,
-  `created_at`, `updated_at`, `original_query`, `client`, `intent`,
-  `proposal`, `score_card`, `refinement_history`.
-- `ProposalWorkspace`: guardar, abrir, actualizar, eliminar, duplicar, listar,
-  y buscar por texto / cliente / ocasión / productos / fecha (búsqueda
-  estructurada, sin embeddings).
-- `VersionComparator`: compara versiones (productos agregados/eliminados,
-  cambio de presupuesto, score y descripción); sin LLM.
+### 8. Ejecutar tests unitarios
 
-En Streamlit, la barra lateral "Propuestas guardadas" lista las propuestas,
-permite abrirlas (solo carga el JSON, sin Chroma ni Business Engine), navegar
-entre versiones y compararlas. Al refinar, se guarda una nueva versión
-(`v1 → v2 → v3`) sin sobrescribir.
+```bash
+python3 tests/test_intent_analyzer.py
+python3 tests/test_engine_improvements.py
+python3 tests/test_industry_reasoning.py
+python3 tests/test_global_generation.py
+python3 tests/test_scraper_cleaning.py
+```
 
-El modelo `ProposalDocument` está diseñado para exportarse luego a PDF / Word /
-Excel sin acoplarse a la lógica comercial.
-
-## Estructura
+## Estructura del proyecto
 
 ```
 config/            # settings (rutas, modelo, top_k, evaluation_weights, proposals_dir)
 data/              # catalog.xlsx, persistencia ChromaDB y proposals/ (JSON)
+scripts/           # index_catalog.py, query_catalog.py, generate_proposal.py,
+                   # run_app.py, evaluate.py
+tests/             # tests unitarios y batería de aceptación (results/)
 src/promotional_gifts/
-  domain/          # entities, value_objects, ports, services (sin frameworks)
-    services/evaluation/  # proposal_evaluation_engine, criteria, proposal_score_card
-    services/workspace/   # proposal_workspace, version_comparator, serializer
-    entities/proposal_document.py  # ProposalDocument + RefinementRecord
-    ports/proposal_repository_port.py
-  application/     # intent_analyzer, use_cases
+  domain/          # entities, value_objects, ports, services (Business Engine)
+  application/     # casos de uso, análisis de intención, refinamiento, prompts
   knowledge/       # transform (cleaner, metadata, embedding) y store (indexer)
-  infrastructure/  # adapters: excel, embeddings, chroma, persistence
+  infrastructure/  # adapters: excel, embeddings, chroma, ollama, persistence
   container.py     # Composition Root
- scripts/           # index_catalog.py, query_catalog.py, generate_proposal.py, run_app.py, evaluate.py
+  interfaces/      # Streamlit y scripts de consola
 ```
+
+## Principios del diseño
+
+- **El LLM nunca decide**: solo redacta descripciones y explicaciones.
+- **Inteligencia comercial en reglas**: industria, ocasión, público, presupuesto,
+  utilidad y coherencia se puntúan de forma determinista.
+- **Una sola llamada al LLM por generación**: todo el `ProposalSet` se envía en
+  un único contexto y se devuelve un solo documento JSON.
+- **Datos limpios**: el scraper descarta texto de UI, inventario, logística y
+  HTML antes de llegar al motor.
+- **Configurable por industria**: afinidad, categorías preferidas, materiales y
+  blacklist comercial se definen en perfiles de industria.
+- **Compatible y versionado**: refinamientos, workspace y Streamlit mantienen
+  versiones sin romper el modelo de dominio.

@@ -5,11 +5,15 @@ from .budget_plan import BudgetPlan
 
 class BudgetOptimizer:
     MARGIN_RESERVE_PCT = 0.05
+    # Valores por defecto para solicitudes genericas (sin cantidad ni
+    # presupuesto) de modo que el sistema siempre devuelva propuestas.
+    DEFAULT_QUANTITY = 100
+    DEFAULT_PER_UNIT_CEILING = 15000.0
 
     def optimize(
         self, intent: CommercialIntent, mode: GenerationMode = None
     ) -> BudgetPlan:
-        quantity = intent.quantity or 1
+        quantity = intent.quantity or self.DEFAULT_QUANTITY
         margin_reserve = 0.0
         total_budget = 0.0
         per_unit_ceiling = 0.0
@@ -20,6 +24,12 @@ class BudgetOptimizer:
             per_unit_ceiling = (total_budget - margin_reserve) / quantity
         elif intent.budget_per_unit is not None:
             per_unit_ceiling = intent.budget_per_unit
+            total_budget = per_unit_ceiling * quantity
+            margin_reserve = total_budget * self.MARGIN_RESERVE_PCT
+        else:
+            # Sin presupuesto declarado: se asume un techo por unidad razonable
+            # para poder construir un kit (fallback inteligente).
+            per_unit_ceiling = self.DEFAULT_PER_UNIT_CEILING
             total_budget = per_unit_ceiling * quantity
             margin_reserve = total_budget * self.MARGIN_RESERVE_PCT
 

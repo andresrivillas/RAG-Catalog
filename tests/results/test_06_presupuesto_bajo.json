@@ -1,0 +1,180 @@
+{
+  "request": {
+    "id": "test_06_presupuesto_bajo",
+    "name": "Presupuesto Bajo",
+    "query": "Necesito 3.800 regalos de cumpleaños. Presupuesto máximo de 25.000 COP por unidad.",
+    "mode": "budget",
+    "parsed_intent": {
+      "quantity": 3800,
+      "budget_per_unit": 25000.0,
+      "budget_total": null,
+      "occasion": "cumpleanos",
+      "target_audience": null,
+      "industry": null,
+      "eco": false,
+      "personalizable": false,
+      "preferred_categories": [],
+      "preferred_materials": [],
+      "generation_mode": "balanced"
+    }
+  },
+  "generated_at": "2026-07-16T17:21:45",
+  "finished_at": "2026-07-16T17:21:53",
+  "proposal_set": {
+    "intent": {
+      "occasion": "cumpleanos",
+      "quantity": 3800,
+      "budget_per_unit": 25000.0,
+      "budget_total": null,
+      "target_audience": null,
+      "eco": false,
+      "personalizable": false,
+      "industry": null
+    },
+    "budget_plan": {
+      "total_budget": 95000000.0,
+      "spendable_budget": 90250000.0,
+      "per_unit_ceiling": 25000.0,
+      "quantity": 3800
+    },
+    "proposal_count": 3,
+    "generation_strategy": "global_diversity",
+    "global_observations": [
+      "Set global de 3 propuestas con 1 categorias distintas cubiertas.",
+      "Similitud maxima entre propuestas: 44%."
+    ],
+    "reused_products": [],
+    "statistics": {
+      "total_proposals": 3,
+      "total_products_considered": 6,
+      "unique_products_used": 6,
+      "reused_products": 0,
+      "reuse_ratio": 0.0,
+      "shared_product_count": 0,
+      "shared_product_ratio": 0.0,
+      "category_coverage": 1,
+      "max_similarity": 0.44,
+      "avg_similarity": 0.383,
+      "budget_utilization_min": 92.2,
+      "budget_utilization_max": 97.9,
+      "budget_utilization_avg": 94.8,
+      "reused_references": [],
+      "shared_references": [],
+      "category_list": [
+        "artículos promocionales categorias antiestrés antimicrobiano artículos escritura artículos reflectivos bar & vino bicicleta ecopromo herramientas marcas urban travel urban business chili boompods newsletter obtén nuestras últimas ofertas en tu correo artículos promocionales categorias antiestrés antimicrobiano artículos escritura artículos reflectivos bar & vino bicicleta ecopromo herramientas marcas urban travel urban business chili boompods newsletter obtén nuestras últimas ofertas en tu correo categorias antiestrés antimicrobiano artículos escritura artículos reflectivos bar & vino bicicleta ecopromo herramientas categorias"
+      ],
+      "warnings": [
+        "PROPUESTA 1: kit con pocos productos (2).",
+        "PROPUESTA 2: kit con pocos productos (2).",
+        "PROPUESTA 3: kit con pocos productos (2)."
+      ]
+    },
+    "proposals": [
+      {
+        "name": "PROPUESTA 1",
+        "score": 88.9,
+        "generation_mode": "eco",
+        "total_cost": 83220000.0,
+        "per_unit_cost": 21900.0,
+        "warnings": [],
+        "occasion": "",
+        "target_audience": "",
+        "commercial_description": "",
+        "items": [
+          {
+            "reference": "VA-946",
+            "name": "MANIJA SHOPPING",
+            "unit_price": 8000.0,
+            "quantity": 3800,
+            "role": "PACKAGING",
+            "category": "Artículos Promocionales Categorias Antiestrés Antimicrobiano Artículos Escritura Artículos Reflectivos Bar & Vino Bicicleta Ecopromo Herramientas MARCAS URBAN TRAVEL URBAN BUSINESS CHILI BOOMPODS Newsletter Obtén nuestras últimas ofertas en tu correo Artículos Promocionales Categorias Antiestrés Antimicrobiano Artículos Escritura Artículos Reflectivos Bar & Vino Bicicleta Ecopromo Herramientas MARCAS URBAN TRAVEL URBAN BUSINESS CHILI BOOMPODS Newsletter Obtén nuestras últimas ofertas en tu correo Categorias Antiestrés Antimicrobiano Artículos Escritura Artículos Reflectivos Bar & Vino Bicicleta Ecopromo Herramientas Categorias",
+            "materials": "",
+            "selection_reason": "Seleccionado por relacionado con cumpleanos; personalizable; color: Descargar carrusel *Colores y fotos de referencia. Se recomienda solicitar una muestra física para su verificación.* Compartir MANIJA SHOPPING VA-946 Manija en plástico ABS para cargar fácilmente varias bolsas. Resistencia 20 kilos. Medidas: 16.5 cm x 13.5 cm x 3 cm Marca: 3 cm / Tampografía Complejo PRECIO BOMBA Ficha Técnica Precio actualizado: 25/06/25 * actualizado el 2026-07-16 15:22:12 TOTAL DISPONIBLE: 4.276 Unidades por caja 100 caja máster empaque alto (cm) ancho (cm) largo (cm) peso (kg) CAJA 57 29 36 9.6 EXISTENCIAS VA-946 - MANIJA SHOPPING COLOR BODEGA LOCAL BODEGA ZONA FRANCA TOTAL LLEGADA A BODEGA LOCAL CANTIDAD EN TRÁNSITO ESTADO DEL PEDIDO Blanco-gris 1.276 3.000 4.276 0 PRODUCTOS RELACIONADOS REF: VA-258 AG AGARRADERA PARA BOLSO COMPACTO CON CARABINERO Existencias 745 Próximas llegadas 0 OFERTA REF: VA-846 COLGADOR DE BOTELLAS CON CARABINERO - OFERTA Existencias 12.818 Próximas llegadas 0 REF: VA-967 CARRITO SHOPPING BAG ZIPPER Existencias 1.154 Próximas llegadas 2.000; cumple el presupuesto por unidad.",
+            "detail_url": "https://catalogospromocionales.com/producto-cataprom/VA-946/manija-shopping"
+          },
+          {
+            "reference": "VA-1191",
+            "name": "MALETIN EN CAMBREL Nuevo",
+            "unit_price": 13900.0,
+            "quantity": 3800,
+            "role": "CORE",
+            "category": "Artículos Promocionales Categorias Antiestrés Antimicrobiano Artículos Escritura Artículos Reflectivos Bar & Vino Bicicleta Ecopromo Herramientas MARCAS URBAN TRAVEL URBAN BUSINESS CHILI BOOMPODS Newsletter Obtén nuestras últimas ofertas en tu correo Artículos Promocionales Categorias Antiestrés Antimicrobiano Artículos Escritura Artículos Reflectivos Bar & Vino Bicicleta Ecopromo Herramientas MARCAS URBAN TRAVEL URBAN BUSINESS CHILI BOOMPODS Newsletter Obtén nuestras últimas ofertas en tu correo Categorias Antiestrés Antimicrobiano Artículos Escritura Artículos Reflectivos Bar & Vino Bicicleta Ecopromo Herramientas Categorias",
+            "materials": "",
+            "selection_reason": "Seleccionado por relacionado con cumpleanos; personalizable; color: Descargar carrusel *Colores y fotos de referencia. Se recomienda solicitar una muestra física para su verificación.* Compartir MALETIN EN CAMBREL VA-1191 Maletín en cambrel 80 gr. Con banda posterior para enganchar en trolley. Medidas: 35 cm x 33 cm x 9 cm fuelle. Marca: 15 cm / Serigrafía Screen NUEVO Ficha Técnica Precio actualizado: 03-02-2026 * actualizado el 2026-07-16 15:20:44 TOTAL DISPONIBLE: 4.792 Unidades por caja 100 caja máster empaque alto (cm) ancho (cm) largo (cm) peso (kg) CAJA 75 38 49 11.5 EXISTENCIAS VA-1191 - MALETIN EN CAMBREL COLOR BODEGA LOCAL BODEGA ZONA FRANCA TOTAL LLEGADA A BODEGA LOCAL CANTIDAD EN TRÁNSITO ESTADO DEL PEDIDO Azul 1.404 0 1.404 0 Natural 1.453 0 1.453 0 Negro 1.935 0 1.935 0 PRODUCTOS RELACIONADOS REF: VA-1219 BOLSA EN CAMBREL CLENTO Existencias 77.534 Próximas llegadas 91.000 NUEVO REF: VA-1220 BOLSA EN CAMBREL VEST Existencias 109.027 Próximas llegadas 0 REF: VA-404 BOLSA EN CAMBREL BAXTER Existencias 145.084 Próximas llegadas 193.000 REF: V; cumple el presupuesto por unidad.",
+            "detail_url": "https://catalogospromocionales.com/producto-cataprom/VA-1191/maletin-en-cambrel-nuevo"
+          }
+        ]
+      },
+      {
+        "name": "PROPUESTA 2",
+        "score": 87.3,
+        "generation_mode": "premium",
+        "total_cost": 88369000.0,
+        "per_unit_cost": 23255.0,
+        "warnings": [],
+        "occasion": "",
+        "target_audience": "",
+        "commercial_description": "",
+        "items": [
+          {
+            "reference": "CP-344",
+            "name": "SET DE BAÑO VANITY NUEVO",
+            "unit_price": 20365.0,
+            "quantity": 3800,
+            "role": "PACKAGING",
+            "category": "Artículos Promocionales Categorias Antiestrés Antimicrobiano Artículos Escritura Artículos Reflectivos Bar & Vino Bicicleta Ecopromo Herramientas MARCAS URBAN TRAVEL URBAN BUSINESS CHILI BOOMPODS Newsletter Obtén nuestras últimas ofertas en tu correo Artículos Promocionales Categorias Antiestrés Antimicrobiano Artículos Escritura Artículos Reflectivos Bar & Vino Bicicleta Ecopromo Herramientas MARCAS URBAN TRAVEL URBAN BUSINESS CHILI BOOMPODS Newsletter Obtén nuestras últimas ofertas en tu correo Categorias Antiestrés Antimicrobiano Artículos Escritura Artículos Reflectivos Bar & Vino Bicicleta Ecopromo Herramientas Categorias",
+            "materials": "",
+            "selection_reason": "Seleccionado por relacionado con cumpleanos; personalizable; color: Descargar carrusel *Colores y fotos de referencia. Se recomienda solicitar una muestra física para su verificación.* Compartir SET DE BAÑO VANITY NUEVO CP-344 Set de baño y cuidado personal en bolsa de algodón que incluye: cepillo para el cabello, esponja suave, esponja exfoliante, piedra pomez y espejo de bambú. Artículo para uso personal: no se admiten cambios/devoluciones. Medidas bolsa: 15 cm x 19 cm Marca bolsa: 8 cm / Screen Complejo Marca espejo: 5 cm / Tampografía Compleja y Láser Marca cepillo: 4 cm X 2.2 cm / Tampografía Compleja y Láser Ficha Técnica Precio actualizado: 03/06/26 * actualizado el 2026-07-16 15:16:44 TOTAL DISPONIBLE: 2.266 Unidades por caja 100 caja máster empaque alto (cm) ancho (cm) largo (cm) peso (kg) CAJA 46.5 39.5 64.5 15 EXISTENCIAS CP-344 - SET DE BAÑO VANITY NUEVO COLOR BODEGA LOCAL BODEGA ZONA FRANCA TOTAL LLEGADA A BODEGA LOCAL CANTIDAD EN TRÁNSITO ESTADO DEL PEDIDO Natural 1.266 1.000 2.266 0 PRODUCTOS RELACIONADOS REF: CP-294 SET MIRROR ECO Exist; aprovecha bien el presupuesto por unidad.",
+            "detail_url": "https://catalogospromocionales.com/producto-cataprom/CP-344/set-de-bano-vanity-nuevo"
+          },
+          {
+            "reference": "HE-216",
+            "name": "METRO LLAVERO CAR",
+            "unit_price": 2890.0,
+            "quantity": 3800,
+            "role": "PACKAGING",
+            "category": "Artículos Promocionales Categorias Antiestrés Antimicrobiano Artículos Escritura Artículos Reflectivos Bar & Vino Bicicleta Ecopromo Herramientas MARCAS URBAN TRAVEL URBAN BUSINESS CHILI BOOMPODS Newsletter Obtén nuestras últimas ofertas en tu correo Artículos Promocionales Categorias Antiestrés Antimicrobiano Artículos Escritura Artículos Reflectivos Bar & Vino Bicicleta Ecopromo Herramientas MARCAS URBAN TRAVEL URBAN BUSINESS CHILI BOOMPODS Newsletter Obtén nuestras últimas ofertas en tu correo Categorias Antiestrés Antimicrobiano Artículos Escritura Artículos Reflectivos Bar & Vino Bicicleta Ecopromo Herramientas Categorias",
+            "materials": "",
+            "selection_reason": "Seleccionado por relacionado con cumpleanos; personalizable; color: Descargar carrusel *Colores y fotos de referencia. Se recomienda solicitar una muestra física para su verificación.* Compartir METRO LLAVERO CAR HE-216 Llavero metro plástico de 1 metro. Medidas: 6.5 cm x 3.7 cm x 1.1 cm Marca: 3 cm / Tampografía Complejo Venta mínima y en múltiplos de caja de 50 unidades Ficha Técnica Precio actualizado: 27-01-2025* * actualizado el 2026-07-16 15:16:56 TOTAL DISPONIBLE: 17.238 Unidades por caja 500 caja máster empaque alto (cm) ancho (cm) largo (cm) peso (kg) CAJA 34 34 27.5 12 EXISTENCIAS HE-216 - METRO LLAVERO CAR COLOR BODEGA LOCAL BODEGA ZONA FRANCA TOTAL LLEGADA A BODEGA LOCAL CANTIDAD EN TRÁNSITO ESTADO DEL PEDIDO Azul 5.092 0 5.092 0 Blanco 4.854 0 4.854 miércoles, 19 de agosto de 2026 5.000 Orden en tránsito (EMBARCADO). Fecha estimada de llegada a puerto Agosto 9. Negro 1.514 0 1.514 miércoles, 19 de agosto de 2026 5.000 Orden en tránsito (EMBARCADO). Fecha estimada de llegada a puerto Agosto 9. Rojo 5.778 0 5.778 0 PRODUCTOS RELACIONADOS REF; cumple el presupuesto por unidad.",
+            "detail_url": "https://catalogospromocionales.com/producto-cataprom/HE-216/metro-llavero-car"
+          }
+        ]
+      },
+      {
+        "name": "PROPUESTA 3",
+        "score": 87.1,
+        "generation_mode": "eco",
+        "total_cost": 85006000.0,
+        "per_unit_cost": 22370.0,
+        "warnings": [],
+        "occasion": "",
+        "target_audience": "",
+        "commercial_description": "",
+        "items": [
+          {
+            "reference": "HE-301",
+            "name": "MARTILLO CON NAVAJA ECO",
+            "unit_price": 21900.0,
+            "quantity": 3800,
+            "role": "PREMIUM",
+            "category": "Artículos Promocionales Categorias Antiestrés Antimicrobiano Artículos Escritura Artículos Reflectivos Bar & Vino Bicicleta Ecopromo Herramientas MARCAS URBAN TRAVEL URBAN BUSINESS CHILI BOOMPODS Newsletter Obtén nuestras últimas ofertas en tu correo Artículos Promocionales Categorias Antiestrés Antimicrobiano Artículos Escritura Artículos Reflectivos Bar & Vino Bicicleta Ecopromo Herramientas MARCAS URBAN TRAVEL URBAN BUSINESS CHILI BOOMPODS Newsletter Obtén nuestras últimas ofertas en tu correo Categorias Antiestrés Antimicrobiano Artículos Escritura Artículos Reflectivos Bar & Vino Bicicleta Ecopromo Herramientas Categorias",
+            "materials": "",
+            "selection_reason": "Seleccionado por relacionado con cumpleanos; personalizable; color: Descargar carrusel *Colores y fotos de referencia. Se recomienda solicitar una muestra física para su verificación.* Compartir MARTILLO CON NAVAJA ECO HE-301 Mini llavero con martillo. Mango de bambú y navaja. Medidas: 7 cm x 3.5 cm. Marca: 1.5 cm / láser. Ficha Técnica Precio actualizado: 09-09-2024 * actualizado el 2026-07-16 15:17:03 TOTAL DISPONIBLE: 642 Unidades por caja 100 caja máster empaque alto (cm) ancho (cm) largo (cm) peso (kg) CAJA 20.5 15.5 20 4.1 EXISTENCIAS HE-301 - MARTILLO CON NAVAJA ECO COLOR BODEGA LOCAL BODEGA ZONA FRANCA TOTAL LLEGADA A BODEGA LOCAL CANTIDAD EN TRÁNSITO ESTADO DEL PEDIDO Natural 642 0 642 0 PRODUCTOS RELACIONADOS REF: HE-252 MINI SET DE HERRAMIENTAS AVANTE Existencias 101 Próximas llegadas 3.000 REF: HE-266 SET DE HERRAMIENTAS EN MADERA Existencias 1.010 Próximas llegadas 0 REF: HE-271 HERRAMIENTERO BAMBOO BOX Existencias 928 Próximas llegadas 0 REF: HE-275 SET DE HERRAMIENTAS MAXTON Existencias 818 Próximas llegadas 0 REF: HE-295 SET DE HERRAMIE; aprovecha bien el presupuesto por unidad.",
+            "detail_url": "https://catalogospromocionales.com/producto-cataprom/HE-301/martillo-con-navaja-eco"
+          },
+          {
+            "reference": "OF-657",
+            "name": "BORRADOR SCHOOL",
+            "unit_price": 470.0,
+            "quantity": 3800,
+            "role": "PROMOTIONAL",
+            "category": "Artículos Promocionales Categorias Antiestrés Antimicrobiano Artículos Escritura Artículos Reflectivos Bar & Vino Bicicleta Ecopromo Herramientas MARCAS URBAN TRAVEL URBAN BUSINESS CHILI BOOMPODS Newsletter Obtén nuestras últimas ofertas en tu correo Artículos Promocionales Categorias Antiestrés Antimicrobiano Artículos Escritura Artículos Reflectivos Bar & Vino Bicicleta Ecopromo Herramientas MARCAS URBAN TRAVEL URBAN BUSINESS CHILI BOOMPODS Newsletter Obtén nuestras últimas ofertas en tu correo Categorias Antiestrés Antimicrobiano Artículos Escritura Artículos Reflectivos Bar & Vino Bicicleta Ecopromo Herramientas Categorias",
+            "materials": "",
+            "selection_reason": "Seleccionado por relacionado con cumpleanos; personalizable; color: Descargar carrusel *Colores y fotos de referencia. Se recomienda solicitar una muestra física para su verificación.* Compartir BORRADOR SCHOOL OF-657 Borrador blanco. Medidas: 3 cm x 2 cm x 1 cm. Marca: 1.5 cm / Tampografía. Ficha Técnica Precio actualizado: 06-05-2025 * actualizado el 2026-07-16 15:18:44 TOTAL DISPONIBLE: 1.231 Unidades por caja 1.000 caja máster empaque alto (cm) ancho (cm) largo (cm) peso (kg) CAJA 23 18 24.5 11.2 EXISTENCIAS OF-657 - BORRADOR SCHOOL COLOR BODEGA LOCAL BODEGA ZONA FRANCA TOTAL LLEGADA A BODEGA LOCAL CANTIDAD EN TRÁNSITO ESTADO DEL PEDIDO Blanco 1.231 0 1.231 0 PRODUCTOS RELACIONADOS REF: LAP-INF LAPIZ INFINITY CON BORRADOR Existencias 9.695 Próximas llegadas 0 REF: Marcador MARCADOR BORRABLE Existencias 30.814 Próximas llegadas 0 REF: OF-554 MINI TABLERO BORRABLE Existencias 8.606 Próximas llegadas 4.000 REF: OF-578 SET DE TRIGO ECO Existencias 8.895 Próximas llegadas 0 REF: OF-580 SET JERSEY ANTIBACTERIANO Existencias 153 Próximas llegadas 0 REF: O; cumple el presupuesto por unidad.",
+            "detail_url": "https://catalogospromocionales.com/producto-cataprom/OF-657/borrador-school"
+          }
+        ]
+      }
+    ]
+  }
+}

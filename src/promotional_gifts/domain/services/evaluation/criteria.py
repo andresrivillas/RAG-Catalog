@@ -73,10 +73,20 @@ class BudgetEfficiencyCriterion(BaseCriterion):
                 )
             else:
                 ratio = used / ceiling
-                score = 40.0 + ratio * 60.0
+                target_min, target_max = plan.utilization_target
+                if ratio >= target_min:
+                    # Dentro o cerca del objetivo: puntuacion alta.
+                    score = 80.0 + min(ratio, 1.0) * 20.0
+                elif ratio >= 0.70:
+                    # Cercano pero por debajo del objetivo: penalizacion moderada.
+                    score = 55.0 + (ratio - 0.70) / (target_min - 0.70) * 25.0
+                else:
+                    # Subutilizacion grave (30-50%): penalizacion fuerte.
+                    score = max(0.0, ratio / 0.70 * 55.0)
                 reason = (
                     f"Utiliza {ratio*100:.0f}% del presupuesto "
-                    f"({used:,.0f} de {ceiling:,.0f} COP)."
+                    f"({used:,.0f} de {ceiling:,.0f} COP); "
+                    f"objetivo {target_min*100:.0f}-{target_max*100:.0f}%."
                 )
         return CriterionResult(self.name, score, reason)
 
@@ -113,20 +123,24 @@ class KitCoherenceCriterion(BaseCriterion):
         items = proposal.items
         if len(items) < 2:
             return CriterionResult(
-                self.name, 50.0, "Kit de un solo producto; coherencia neutral."
+                self.name, 20.0, "Kit de un solo producto; coherencia muy baja."
             )
         cats = [self._category(it) for it in items]
         distinct = set(cats)
         repeated = len(cats) - len(distinct)
-        base = 100.0 - repeated * 25.0
+        base = 100.0 - repeated * 30.0
         roles = {it.role for it in items if it.role}
         has_core = "CORE" in roles
+        has_util = "UTILITY" in roles
         if not has_core:
-            base -= 15.0
+            base -= 20.0
+        if not has_util:
+            base -= 10.0
         reason = (
             f"{len(items)} productos en {len(distinct)} categorias; "
             f"{repeated} categoria(s) repetida(s); "
             + ("incluye producto central (CORE)." if has_core else "falta producto central (CORE).")
+            + (" Incluye utilidad (UTILITY)." if has_util else " Falta utilidad (UTILITY).")
         )
         return CriterionResult(self.name, max(0.0, min(100.0, base)), reason)
 
@@ -278,14 +292,23 @@ class AudienceFitCriterion(BaseCriterion):
             return CriterionResult(
                 self.name, 50.0, "Sin publico especificado; ajuste neutral."
             )
+        segments = set(intent.segment_tags or [intent.target_audience])
         hits = 0
+        matched_names = []
         for item in proposal.items:
-            if intent.target_audience in (item.selection_reason or "").lower():
+            signals = (
+                [t.lower() for t in (item.audience_tags or [])]
+                + [t.lower() for t in (item.commercial_tags or [])]
+                + (item.selection_reason or "").lower().split()
+            )
+            if any(seg.lower() in signals for seg in segments):
                 hits += 1
+                matched_names.append(item.name)
         score = hits / len(proposal.items) * 100.0
         reason = (
             f"Ajuste a publico '{intent.target_audience}': "
-            f"{hits} de {len(proposal.items)} productos mencionan el segmento."
+            f"{hits} de {len(proposal.items)} productos alineados"
+            + (f" ({', '.join(matched_names[:3])})." if matched_names else ".")
         )
         return CriterionResult(self.name, score, reason)
 
@@ -313,6 +336,84 @@ class ProposalBalanceCriterion(BaseCriterion):
         return CriterionResult(self.name, score, reason)
 
 
+class IndustryFitCriterion(BaseCriterion):
+    name = "Industry Fit"
+    weight_key = "industry"
+
+    def evaluate(self, proposal, intent, plan):
+        if intent is None or not intent.industry:
+            return CriterionResult(
+                self.name, 50.0, "Sin industria especificada; ajuste neutral."
+            )
+        if not proposal.items:
+            return CriterionResult(self.name, 0.0, "Sin productos.")
+        from ..industry_knowledge import IndustryKnowledge
+
+        ik = IndustryKnowledge()
+        profile = ik.get(intent.industry)
+        if profile is None:
+            return CriterionResult(
+                self.name, 50.0, "Industria no mapeada; ajuste neutral."
+            )
+        aligned = 0
+        avoided = 0
+        aligned_names = []
+        for item in proposal.items:
+            signals = (
+                f"{item.name} {item.category} {item.materials}".lower()
+            )
+            if any(a in signals for a in profile.avoid):
+                avoided += 1
+            elif any(p in signals for p in profile.prefer):
+                aligned += 1
+                aligned_names.append(item.name)
+        if avoided > 0 and aligned == 0:
+            score = 10.0
+        elif avoided > 0:
+            score = 40.0
+        elif aligned > 0:
+            score = min(100.0, 60.0 + aligned / len(proposal.items) * 40.0)
+        else:
+            score = 50.0
+        reason = (
+            f"Ajuste a industria '{intent.industry}': "
+            f"{aligned} productos alineados"
+            + (f" ({', '.join(aligned_names[:3])})" if aligned_names else "")
+            + (f"; {avoided} productos incompatibles." if avoided else ".")
+        )
+        return CriterionResult(self.name, score, reason)
+
+
+class ComplementarityCriterion(BaseCriterion):
+    name = "Complementarity"
+    weight_key = "complementarity"
+
+    def evaluate(self, proposal, intent, plan):
+        if not proposal.items:
+            return CriterionResult(self.name, 0.0, "Sin productos.")
+        from ..complementarity import kit_complementarity
+
+        products = []
+        for item in proposal.items:
+            from ...entities.product_knowledge import ProductKnowledge
+
+            products.append(
+                ProductKnowledge(
+                    reference=item.reference,
+                    name=item.name,
+                    price=item.unit_price,
+                    category=item.category,
+                    description=item.name,
+                )
+            )
+        score = kit_complementarity(products) * 100.0
+        reason = (
+            f"Complementariedad del kit: {score:.0f}/100 "
+            f"(productos que se complementan en lugar de competir)."
+        )
+        return CriterionResult(self.name, score, reason)
+
+
 ALL_CRITERIA = [
     BudgetEfficiencyCriterion,
     CommercialValueCriterion,
@@ -327,4 +428,6 @@ ALL_CRITERIA = [
     OccasionFitCriterion,
     AudienceFitCriterion,
     ProposalBalanceCriterion,
+    IndustryFitCriterion,
+    ComplementarityCriterion,
 ]

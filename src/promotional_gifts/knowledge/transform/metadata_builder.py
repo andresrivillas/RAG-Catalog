@@ -60,19 +60,26 @@ class MetadataBuilder:
         return prices[n // 2]
 
     def _build_keywords(self, product: ProductKnowledge) -> None:
-        text = f"{product.name} {product.description} {product.characteristics}".lower()
+        # Se construyen a partir de campos ya limpios y comercialmente útiles.
+        text = (
+            f"{product.name} {product.category} {product.subcategory} "
+            f"{product.benefits} {product.materials} "
+            f"{' '.join(product.commercial_tags)} {' '.join(product.audience_tags)}"
+        ).lower()
         tokens = re.findall(r"[a-z0-9áéíóúñ]+", text)
         stop = {
             "de", "la", "el", "en", "con", "para", "y", "por", "un", "una",
             "con", "del", "los", "las", "su", "se", "es", "al", "que",
+            "con", "sin", "sobre", "entre", "desde", "hasta", "cada",
         }
         keywords = [t for t in tokens if len(t) > 2 and t not in stop]
         product.keywords = list(dict.fromkeys(keywords))[:15]
 
     def _match(self, rules: dict, product: ProductKnowledge) -> List[str]:
         text = (
-            f"{product.name} {product.description} {product.characteristics} "
-            f"{product.category} {product.benefits} {product.customization}"
+            f"{product.name} {product.category} {product.subcategory} "
+            f"{product.benefits} {product.materials} {product.customization} "
+            f"{' '.join(product.commercial_tags)}"
         ).lower()
         return [tag for tag, kws in rules.items() if any(kw in text for kw in kws)]
 
@@ -84,7 +91,7 @@ class MetadataBuilder:
             score += 2
         elif median_price > 0 and product.price.amount >= median_price:
             score += 1
-        text = f"{product.name} {product.description} {product.materials}".lower()
+        text = f"{product.name} {product.materials} {product.benefits}".lower()
         if any(m in text for m in ["cuero", "acero", "madera", "aluminio", "vidrio", "cristal"]):
             score += 2
         if any(u in text for u in ["reusable", "plegable", "multiusos", "termo", "portatil", "portátil"]):
@@ -98,17 +105,20 @@ class MetadataBuilder:
         return "bajo"
 
     def _build_searchable_text(self, product: ProductKnowledge) -> str:
+        # Embedding text con información comercial útil exclusivamente.
+        # No URLs, precios, inventario, fechas, logística, HTML ni imágenes.
         parts = [
             f"Nombre: {product.name}",
-            f"Categoría: {product.category or product.price_description}",
-            f"Descripción: {product.description}",
+            f"Categoría: {product.category}",
+            f"Subcategoría: {product.subcategory}",
             f"Beneficios: {product.benefits}",
             f"Materiales: {product.materials}",
-            f"Colores: {product.colors}",
-            f"Etiquetas: {' '.join(product.commercial_tags)}",
-            f"Características: {product.characteristics}",
             f"Keywords: {' '.join(product.keywords)}",
-            f"Occasiones: {' '.join(product.occasion_tags)}",
+            f"Etiquetas comerciales: {' '.join(product.commercial_tags)}",
+            f"Ocasiones: {' '.join(product.occasion_tags)}",
             f"Público: {' '.join(product.audience_tags)}",
         ]
-        return "\n".join(p for p in parts if p.split(": ", 1)[1].strip())
+        return "\n".join(
+            p for p in parts
+            if len(p.split(": ", 1)) > 1 and p.split(": ", 1)[1].strip()
+        )

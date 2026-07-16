@@ -36,6 +36,8 @@ class ProposalScoreCard:
     occasion_score: float = 0.0
     audience_score: float = 0.0
     balance_score: float = 0.0
+    industry_score: float = 0.0
+    complementarity_score: float = 0.0
     criteria: List[CriterionResult] = field(default_factory=list)
     observations: List[str] = field(default_factory=list)
 

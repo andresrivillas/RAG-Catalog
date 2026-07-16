@@ -1,4 +1,5 @@
 from ...domain.entities.commercial_proposal import CommercialProposal
+from ...domain.entities.proposal_set import ProposalSet
 from ..refinement.proposal_refinement_engine import RefinementLogEntry
 
 
@@ -26,6 +27,66 @@ class PromptContextBuilder:
             lines.append("Advertencias:")
             for warning in proposal.warnings:
                 lines.append(f"- {warning}")
+
+        return "\n".join(lines)
+
+    def build_set(self, proposal_set: ProposalSet) -> str:
+        """Construye UN unico contexto con las N propuestas del set en orden,
+        de modo que el LLM reciba toda la informacion en una sola llamada.
+        """
+        intent = proposal_set.intent
+        plan = proposal_set.budget_plan
+        lines = []
+        lines.append("CONTEXTO GLOBAL DE LA SOLICITUD")
+        if intent.occasion:
+            lines.append(f"- Ocasión: {intent.occasion}")
+        if intent.target_audience:
+            lines.append(f"- Público objetivo: {intent.target_audience}")
+        if intent.industry:
+            lines.append(f"- Industria: {intent.industry}")
+        lines.append(f"- Cantidad: {plan.quantity}")
+        lines.append(
+            f"- Presupuesto máximo por unidad: {plan.per_unit_ceiling:,.0f} COP"
+        )
+        lines.append(
+            f"- Presupuesto usable total: {plan.spendable_budget:,.0f} COP"
+        )
+        if intent.eco:
+            lines.append("- Restricción: ECO")
+        if intent.personalizable:
+            lines.append("- Restricción: PERSONALIZABLE")
+
+        if proposal_set.global_observations:
+            lines.append("Observaciones globales del Business Engine:")
+            for obs in proposal_set.global_observations:
+                lines.append(f"- {obs}")
+
+        lines.append("")
+        lines.append(
+            f"PROPUESTAS A REDACTAR ({proposal_set.proposal_count}). "
+            "Redacta UNA sección por propuesta usando exactamente el marcador "
+            "===PROPUESTA N=== al inicio de cada una (N = 1, 2, 3...). "
+            "En cada sección incluye: Resumen, Ventajas y Ideal para."
+        )
+
+        for index, proposal in enumerate(proposal_set.proposals, start=1):
+            lines.append("")
+            lines.append(f"===PROPUESTA {index}===")
+            lines.append(f"Nombre sugerido: {proposal.name}")
+            lines.append(f"Modo: {proposal.generation_mode or 'balanced'}")
+            lines.append(f"Costo total: {proposal.total_cost}")
+            lines.append(f"Costo por unidad: {proposal.per_unit_cost}")
+            lines.append("Productos incluidos:")
+            for item in proposal.items:
+                lines.append(
+                    f"- Referencia {item.reference}: {item.name} "
+                    f"({item.quantity} unidades, {item.unit_price} por unidad). "
+                    f"Rol: {item.role or '—'}. Categoría: {item.category or '—'}."
+                )
+            if proposal.warnings:
+                lines.append("Advertencias:")
+                for warning in proposal.warnings:
+                    lines.append(f"- {warning}")
 
         return "\n".join(lines)
 

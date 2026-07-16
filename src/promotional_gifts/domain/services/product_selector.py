@@ -5,8 +5,11 @@ from ..entities.commercial_intent import CommercialIntent
 from ..entities.product_knowledge import ProductKnowledge
 from ..services.budget_plan import BudgetPlan
 from ..services.commercial_scorer import CommercialScorer
+from ..services.complementarity import products_complement
 from ..services.decision_trace import DecisionTrace
 from ..services.generation_mode import GenerationMode, ModeProfile, get_profile
+from ..services.industry_knowledge import IndustryKnowledge
+from ..services.material_reasoner import material_families
 from ..services.negative_filter import NegativeFilter
 from ..services.occasion_matcher import OccasionMatcher
 
@@ -34,10 +37,12 @@ class ProductSelector:
         occasion_matcher: OccasionMatcher,
         commercial_scorer: CommercialScorer,
         negative_filter: NegativeFilter,
+        industry_knowledge: IndustryKnowledge = None,
     ) -> None:
         self.occasion_matcher = occasion_matcher
         self.commercial_scorer = commercial_scorer
         self.negative_filter = negative_filter
+        self.industry_knowledge = industry_knowledge or IndustryKnowledge()
 
     def select(
         self,
@@ -45,8 +50,10 @@ class ProductSelector:
         intent: CommercialIntent,
         plan: BudgetPlan,
         mode: GenerationMode = None,
+        drop_restrictions: List[str] = None,
     ) -> List[ScoredProduct]:
         profile = get_profile(mode)
+        drop = set(drop_restrictions or [])
         eligible: List[ScoredProduct] = []
 
         for product, similarity in candidates:
@@ -58,18 +65,59 @@ class ProductSelector:
             if self.negative_filter.is_excluded(product):
                 trace.reason = "Categoría incompatible (filtro negativo)."
                 continue
-            if not self._passes_intent_filters(product, intent, plan, trace):
+            if not self._passes_intent_filters(product, intent, plan, trace, drop):
                 continue
 
             trace.occasion_score = self.occasion_matcher.score(intent, product)
             trace.commercial_score = self.commercial_scorer.score(intent, product)
             trace.budget_score = self._budget_utilization_score(product, plan, profile)
-            trace.final_score = self._combine(trace, profile, product, plan)
+            trace.context_score = self._context_match_score(intent, product)
+            trace.industry_score = self._industry_score(intent, product)
+            trace.final_score = self._combine(trace, profile, product, plan, intent)
             trace.reason = self._reason(intent, product, trace)
             eligible.append(ScoredProduct(product, similarity, trace.final_score, trace))
 
         eligible.sort(key=lambda sp: sp.score, reverse=True)
         return eligible
+
+    def _product_signals(self, product: ProductKnowledge) -> str:
+        return (
+            f"{product.name} {product.description} {product.materials} "
+            f"{product.category} {(product.subcategory or '')} "
+            f"{' '.join(product.commercial_tags)} {' '.join(product.audience_tags)} "
+            f"{' '.join(product.occasion_tags)} {product.benefits}".lower()
+        )
+
+    def _industry_score(
+        self, intent: CommercialIntent, product: ProductKnowledge
+    ) -> float:
+        if not intent.industry:
+            return 0.5
+        return self.industry_knowledge.industry_score(
+            intent.industry, self._product_signals(product)
+        )
+
+    def _context_match_score(
+        self, intent: CommercialIntent, product: ProductKnowledge
+    ) -> float:
+        if not intent.commercial_context_tags:
+            return 0.5
+        product_signals = (
+            [t.lower() for t in product.audience_tags]
+            + [t.lower() for t in product.commercial_tags]
+            + [t.lower() for t in product.occasion_tags]
+            + [product.category.lower(), (product.subcategory or "").lower()]
+        )
+        text = " ".join(product_signals)
+        if not text.strip():
+            text = f"{product.name} {product.description} {product.materials}".lower()
+        hits = 0
+        for tag in intent.commercial_context_tags:
+            if tag.lower() in text:
+                hits += 1
+        if not hits:
+            return 0.3
+        return min(1.0, 0.5 + hits * 0.25)
 
     def _valid_price(self, product: ProductKnowledge) -> bool:
         return product.price.amount > 0
@@ -80,14 +128,33 @@ class ProductSelector:
         intent: CommercialIntent,
         plan: BudgetPlan,
         trace: DecisionTrace,
+        drop: set = None,
     ) -> bool:
-        if product.price.amount > plan.per_unit_ceiling:
+        drop = drop or set()
+        # Sin techo de presupuesto (solicitud generica sin presupuesto): no
+        # se excluye por precio; el kit se arma con lo disponible.
+        if plan.per_unit_ceiling > 0 and product.price.amount > plan.per_unit_ceiling:
             trace.reason = "Supera el presupuesto por unidad."
             return False
-        if intent.eco and not self._is_eco(product):
+        # Restriccion critica: industria. Si el producto pertenece a una
+        # categoria explicitamente rechazada por la industria, se excluye
+        # salvo que se haya relajado la restriccion (fallback inteligente).
+        if intent.industry and "industry" not in drop:
+            if self.industry_knowledge.is_avoided(
+                intent.industry, self._product_signals(product)
+            ):
+                trace.reason = (
+                    f"Categoria incompatible con la industria {intent.industry}."
+                )
+                return False
+        if intent.eco and "eco" not in drop and not self._is_eco(product):
             trace.reason = "No cumple restricción ecológica."
             return False
-        if intent.personalizable and not self._is_personalizable(product):
+        if (
+            intent.personalizable
+            and "personalizable" not in drop
+            and not self._is_personalizable(product)
+        ):
             trace.reason = "No es personalizable."
             return False
         return True
@@ -109,18 +176,23 @@ class ProductSelector:
         profile: ModeProfile,
         product: ProductKnowledge,
         plan: BudgetPlan,
+        intent: CommercialIntent,
     ) -> float:
         base = (
             trace.semantic_score * profile.weight_semantic
             + trace.occasion_score * profile.weight_occasion
             + trace.commercial_score / 100 * profile.weight_commercial
             + trace.budget_score * profile.weight_budget_util
+            + trace.context_score * profile.weight_commercial * 0.5
+            + trace.industry_score * profile.weight_industry
         )
         adjustment = 0.0
-        text = (
-            f"{product.name} {product.description} {product.materials} "
-            f"{' '.join(product.commercial_tags)}".lower()
-        )
+        text = self._product_signals(product)
+        # Penalizacion comercial fuerte por categoria incompatible con industria.
+        if intent.industry and self.industry_knowledge.is_avoided(
+            intent.industry, text
+        ):
+            adjustment -= 60
         if profile.prefer_premium:
             if product.perceived_value_level == "alto":
                 adjustment += 12
@@ -137,29 +209,56 @@ class ProductSelector:
         self, intent: CommercialIntent, product: ProductKnowledge, trace: DecisionTrace
     ) -> str:
         parts = []
+        # Justificacion concreta basada en atributos y contexto.
+        if intent.industry:
+            if trace.industry_score >= 0.9:
+                parts.append(
+                    f"se alinea con el sector {intent.industry} "
+                    f"(materiales/uso acordes a esa industria)"
+                )
+            elif trace.industry_score <= 0.1:
+                parts.append(f"poco relacionado con el sector {intent.industry}")
         if intent.occasion:
             parts.append(
-                f"adecuado para {intent.occasion}"
+                f"adecuado para campanas de {intent.occasion}"
                 if trace.occasion_score >= 0.7
                 else f"relacionado con {intent.occasion}"
             )
+        if intent.segment_tags:
+            parts.append(f"para {', '.join(intent.segment_tags)}")
         if product.perceived_value_level == "alto":
             parts.append("alto valor percibido")
-        if "personalizable" in product.commercial_tags:
+        if "personalizable" in product.commercial_tags or product.customization:
             parts.append("personalizable")
-        parts.append("cumple el presupuesto")
+        if trace.context_score >= 0.75:
+            parts.append("coincide con el contexto comercial del cliente")
+        attrs = []
+        if product.materials:
+            attrs.append(f"material: {product.materials}")
+        if product.colors:
+            attrs.append(f"color: {product.colors}")
+        if product.capacity:
+            attrs.append(f"capacidad: {product.capacity}")
+        if product.customization:
+            attrs.append(f"personalizacion: {product.customization}")
+        if attrs:
+            parts.append("; ".join(attrs))
+        if trace.budget_score >= 0.7:
+            parts.append("aprovecha bien el presupuesto por unidad")
+        else:
+            parts.append("cumple el presupuesto por unidad")
         return "Seleccionado por " + "; ".join(parts) + "."
 
     def _is_eco(self, product: ProductKnowledge) -> bool:
-        text = (
-            f"{product.name} {product.description} {product.materials} "
-            f"{' '.join(product.commercial_tags)}".lower()
-        )
+        text = self._product_signals(product)
         return any(kw in text for kw in ECO_KEYWORDS)
 
     def _is_personalizable(self, product: ProductKnowledge) -> bool:
-        text = (
-            f"{product.name} {product.description} {product.materials} "
-            f"{' '.join(product.commercial_tags)}".lower()
-        )
+        text = self._product_signals(product)
         return any(kw in text for kw in PERSONALIZABLE_KEYWORDS)
+
+    def complementarity_with(self, product: ProductKnowledge, others: List[ProductKnowledge]) -> float:
+        if not others:
+            return 1.0
+        return sum(products_complement(product, o) for o in others) / len(others)
+

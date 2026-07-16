@@ -17,3 +17,6 @@ class CommercialIntent:
     personalizable: bool = False
     packaging_required: bool = False
     generation_mode: str = "balanced"
+    industry: Optional[str] = None
+    commercial_context_tags: List[str] = field(default_factory=list)
+    segment_tags: List[str] = field(default_factory=list)

@@ -23,8 +23,69 @@ from promotional_gifts.domain.entities.commercial_intent import CommercialIntent
 
 MODES = ["balanced", "premium", "budget", "eco"]
 
+GREEN = "#1f9254"
+ORANGE = "#c97a16"
+RED = "#c0392b"
+BLUE = "#1a3e72"
+GREY = "#6b7280"
+
+
+def inject_styles():
+    st.markdown(
+        """
+        <style>
+        html, body, [data-testid="stAppViewContainer"] {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+        .pg-card {
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 14px 16px;
+            background: #ffffff;
+            margin-bottom: 12px;
+        }
+        .pg-card:hover { box-shadow: 0 2px 10px rgba(0,0,0,0.06); }
+        .pg-product {
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 14px;
+            background: #ffffff;
+            margin-bottom: 12px;
+            height: 100%;
+        }
+        .pg-name { font-weight: 700; font-size: 15px; color: #111827; line-height: 1.2; }
+        .pg-meta { color: #6b7280; font-size: 12px; margin-top: 2px; }
+        .pg-price { font-weight: 700; font-size: 14px; color: #111827; }
+        .pg-badge {
+            display: inline-block; font-size: 11px; font-weight: 600;
+            padding: 2px 8px; border-radius: 999px; margin: 2px 4px 2px 0;
+        }
+        .pg-b-eco { background: #e7f6ee; color: #1f9254; }
+        .pg-b-premium { background: #fef3e2; color: #c97a16; }
+        .pg-b-pers { background: #eef2ff; color: #3b5bdb; }
+        .pg-b-pack { background: #f1f5f9; color: #475569; }
+        .pg-b-corp { background: #f1f5f9; color: #475569; }
+        .pg-reason { font-size: 12px; color: #374151; margin-top: 8px; }
+        .pg-score-pill {
+            display: inline-flex; align-items: center; gap: 6px;
+            font-weight: 700; font-size: 15px;
+        }
+        .pg-section-title {
+            font-size: 13px; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.04em; color: #6b7280; margin: 4px 0 8px 0;
+        }
+        .pg-link { color: #1a3e72; text-decoration: none; font-weight: 600; font-size: 12px; }
+        .pg-util-good { color: #1f9254; font-weight: 700; }
+        .pg-util-warn { color: #c97a16; font-weight: 700; }
+        .pg-util-bad { color: #c0392b; font-weight: 700; }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
+
 
 st.set_page_config(page_title="Promotional Gifts AI", layout="wide")
+inject_styles()
 st.title("Promotional Gifts AI")
 st.caption("Copiloto comercial para propuestas de regalos promocionales")
 
@@ -59,14 +120,32 @@ def load_image_map():
 
 def score_band(score: float):
     if score >= 90:
-        return "Excelente", "#1b7f3b"
+        return "Excelente", GREEN
     if score >= 80:
         return "Muy buena", "#2e8b57"
     if score >= 70:
-        return "Buena", "#b8860b"
+        return "Buena", ORANGE
     if score >= 60:
-        return "Aceptable", "#c97a16"
-    return "Baja", "#b22222"
+        return "Aceptable", ORANGE
+    return "Baja", RED
+
+
+def util_color(pct):
+    if pct is None:
+        return GREY
+    if pct >= 80:
+        return GREEN
+    if pct >= 60:
+        return ORANGE
+    return RED
+
+
+def compact_number(value: float) -> str:
+    if value >= 1_000_000:
+        return f"{value/1_000_000:.1f} M"
+    if value >= 1_000:
+        return f"{value/1_000:.0f} K"
+    return f"{value:.0f}"
 
 
 def get_intent_for(proposal, doc):
@@ -149,82 +228,82 @@ def render_summary_facts(proposal, intent, util_pct):
 
 
 def render_product_card(item, image_map):
-    img_col, info_col = st.columns([1, 3])
     thumb = item.thumbnail_url or image_map.get(item.reference)
-    with img_col:
-        try:
-            if thumb:
-                st.image(thumb, width=130, caption=None, use_container_width=False)
-            else:
+    detail = item.detail_url or image_map.get("__url__" + item.reference)
+
+    with st.container(border=True):
+        cols = st.columns([1, 3])
+        with cols[0]:
+            try:
+                if thumb:
+                    st.image(thumb, width=120, caption=None, use_container_width=False)
+                else:
+                    st.markdown(
+                        "<div style='width:120px;height:120px;border:1px solid #e5e7eb;"
+                        "display:flex;align-items:center;justify-content:center;"
+                        "color:#9ca3af;font-size:11px;border-radius:8px;'>Sin imagen</div>",
+                        unsafe_allow_html=True,
+                    )
+            except Exception:
                 st.markdown(
-                    "<div style='width:130px;height:130px;border:1px solid #ddd;"
+                    "<div style='width:120px;height:120px;border:1px solid #e5e7eb;"
                     "display:flex;align-items:center;justify-content:center;"
-                    "color:#999;font-size:11px;border-radius:8px;'>Sin imagen</div>",
+                    "color:#9ca3af;font-size:11px;border-radius:8px;'>Sin imagen</div>",
                     unsafe_allow_html=True,
                 )
-        except Exception:
+        with cols[1]:
+            if detail:
+                st.markdown(
+                    f"<a href='{detail}' target='_blank' class='pg-name'>{item.name}</a>",
+                    unsafe_allow_html=True,
+                )
+            else:
+                st.markdown(f"<span class='pg-name'>{item.name}</span>", unsafe_allow_html=True)
+
+            meta = []
+            if item.reference:
+                meta.append(f"Ref: {item.reference}")
+            if item.role:
+                meta.append(item.role)
             st.markdown(
-                "<div style='width:130px;height:130px;border:1px solid #ddd;"
-                "display:flex;align-items:center;justify-content:center;"
-                "color:#999;font-size:11px;border-radius:8px;'>Sin imagen</div>",
-                unsafe_allow_html=True,
+                f"<div class='pg-meta'>{' · '.join(meta)}</div>", unsafe_allow_html=True
             )
-    with info_col:
-        detail = item.detail_url or image_map.get("__url__" + item.reference)
-        if detail:
-            st.markdown(
-                f"<a href='{detail}' target='_blank' style='font-weight:700;"
-                f"font-size:15px;color:#1a3e72;text-decoration:none;'>{item.name}</a>",
-                unsafe_allow_html=True,
-            )
-        else:
-            st.markdown(f"**{item.name}**")
 
-        meta_bits = []
-        if item.reference:
-            meta_bits.append(f"Ref: {item.reference}")
-        if item.role:
-            meta_bits.append(f"Rol: {item.role}")
-        if item.category and len(item.category) <= 40:
-            meta_bits.append(f"Categoría: {item.category}")
-        st.caption(" · ".join(meta_bits))
+            price_line = ""
+            if item.unit_price:
+                price_line += f"Precio {item.unit_price}"
+            if item.quantity:
+                price_line += f" · Cant {item.quantity}"
+            if item.subtotal:
+                price_line += f" · Subtotal {item.subtotal}"
+            if price_line:
+                st.markdown(f"<div class='pg-meta'>{price_line}</div>", unsafe_allow_html=True)
 
-        price_bits = []
-        if item.unit_price:
-            price_bits.append(f"Precio: {item.unit_price}")
-        if item.quantity:
-            price_bits.append(f"Cant: {item.quantity}")
-        if item.subtotal:
-            price_bits.append(f"Subtotal: {item.subtotal}")
-        if price_bits:
-            st.caption(" · ".join(price_bits))
+            badges = []
+            if item.eco:
+                badges.append("<span class='pg-badge pg-b-eco'>🟢 Eco</span>")
+            if item.perceived_value_level == "alto":
+                badges.append("<span class='pg-badge pg-b-premium'>⭐ Premium</span>")
+            if item.personalizable:
+                badges.append("<span class='pg-badge pg-b-pers'>🎨 Personalizable</span>")
+            if item.role == "PACKAGING":
+                badges.append("<span class='pg-badge pg-b-pack'>📦 Packaging</span>")
+            if item.role in ("CORE", "PROMOTIONAL"):
+                badges.append("<span class='pg-badge pg-b-corp'>💼 Corporativo</span>")
+            if badges:
+                st.markdown(" ".join(badges), unsafe_allow_html=True)
 
-        attr_bits = []
-        if item.materials:
-            attr_bits.append(f"Material: {item.materials}")
-        if item.colors:
-            attr_bits.append(f"Color: {item.colors}")
-        if item.capacity:
-            attr_bits.append(f"Capacidad: {item.capacity}")
-        if item.customization:
-            attr_bits.append(f"Personalización: {item.customization}")
-        badges = []
-        if item.eco:
-            badges.append("🌱 Eco")
-        if item.personalizable:
-            badges.append("🎨 Personalizable")
-        if item.perceived_value_level == "alto":
-            badges.append("⭐ Alto valor")
-        if attr_bits:
-            st.caption(" · ".join(attr_bits))
-        if badges:
-            st.markdown(" ".join(badges))
+            reason = (item.selection_reason or "").strip()
+            if reason:
+                if len(reason) > 120:
+                    reason = reason[:117] + "..."
+                st.markdown(f"<div class='pg-reason'>💡 {reason}</div>", unsafe_allow_html=True)
 
-        reason = (item.selection_reason or "").strip()
-        if reason:
-            if len(reason) > 200:
-                reason = reason[:197] + "..."
-            st.caption(f"Por qué: {reason}")
+            if detail:
+                st.markdown(
+                    f"<a href='{detail}' target='_blank' class='pg-link'>Ver ficha →</a>",
+                    unsafe_allow_html=True,
+                )
 
 
 def render_executive_summary(text: str):
@@ -280,60 +359,100 @@ def render_proposal(proposal, key_prefix, parent_document=None):
         if (max_total and max_total > 0)
         else None
     )
-    header = f"{proposal.name} · v{proposal.version}"
-    header += f" · Score {proposal.score:.1f}"
-    header += f" · {proposal.total_cost}"
-    if util_pct is not None:
-        header += f" · {util_pct:.0f}%"
-    header += f" · {len(proposal.items)} productos"
-    header += f" · {(proposal.generation_mode or 'balanced').capitalize()}"
 
-    with st.expander(header, expanded=True):
-        band, color = score_band(proposal.score)
-        col_s, col_u, col_t, col_p = st.columns(4)
-        col_s.markdown(
-            f"**Score:** <span style='color:{color};font-weight:700'>{proposal.score:.1f}</span> "
-            f"({band})",
+    # ---- BLOCK 1: Header metrics row ----
+    band, color = score_band(proposal.score)
+    util_col = util_color(util_pct)
+    h_cols = st.columns([2, 1, 1, 1, 1, 1, 1])
+    with h_cols[0]:
+        st.markdown(
+            f"<div style='font-weight:700;font-size:18px;color:#111827'>"
+            f"{proposal.name} <span style='color:#6b7280;font-size:13px;font-weight:500'>"
+            f"v{proposal.version}</span></div>",
             unsafe_allow_html=True,
         )
-        col_u.metric("Costo por unidad", str(proposal.per_unit_cost))
-        col_t.metric("Costo total", str(proposal.total_cost))
-        if util_pct is not None:
-            col_p.metric("Utilización", f"{util_pct:.0f} %")
-        else:
-            col_p.metric("Utilización", "—")
+    with h_cols[1]:
+        st.markdown(
+            f"<div class='pg-score-pill'><span style='color:{color}'>🟠 {proposal.score:.0f}</span>"
+            f"<span style='color:#6b7280;font-size:12px;font-weight:500'>{band}</span></div>",
+            unsafe_allow_html=True,
+        )
+    with h_cols[2]:
+        st.markdown(
+            f"<div class='pg-meta'>Modo</div>"
+            f"<div style='font-weight:700'>{ (proposal.generation_mode or 'balanced').capitalize() }</div>",
+            unsafe_allow_html=True,
+        )
+    with h_cols[3]:
+        st.markdown(
+            f"<div class='pg-meta'>Costo total</div>"
+            f"<div style='font-weight:700'>{proposal.total_cost}</div>",
+            unsafe_allow_html=True,
+        )
+    with h_cols[4]:
+        st.markdown(
+            f"<div class='pg-meta'>Por unidad</div>"
+            f"<div style='font-weight:700'>{proposal.per_unit_cost}</div>",
+            unsafe_allow_html=True,
+        )
+    with h_cols[5]:
+        util_disp = f"{util_pct:.0f} %" if util_pct is not None else "—"
+        st.markdown(
+            f"<div class='pg-meta'>Utilización</div>"
+            f"<div class='pg-util-{'good' if util_col==GREEN else 'warn' if util_col==ORANGE else 'bad'}'>"
+            f"{util_disp}</div>",
+            unsafe_allow_html=True,
+        )
+    with h_cols[6]:
+        st.markdown(
+            f"<div class='pg-meta'>Productos</div>"
+            f"<div style='font-weight:700'>{len(proposal.items)}</div>",
+            unsafe_allow_html=True,
+        )
 
-        st.divider()
-        render_summary_facts(proposal, intent, util_pct)
+    st.divider()
 
-        st.divider()
-        st.markdown("**¿Por qué recomendamos esta propuesta?**")
-        for bullet in build_recommendation_bullets(proposal, intent, util_pct):
-            st.markdown(f"• {bullet}")
+    # ---- BLOCK 2: Body 70/30 ----
+    left, right = st.columns([7, 3])
 
-        st.divider()
-        render_budget(intent, proposal)
-
-        st.divider()
-        st.subheader("Productos")
+    with left:
+        st.markdown("<div class='pg-section-title'>Propuesta de productos</div>", unsafe_allow_html=True)
         for item in proposal.items:
             render_product_card(item, image_map)
-            st.divider()
 
-        st.divider()
-        st.subheader("Resumen ejecutivo")
-        render_executive_summary(proposal.commercial_description)
+    with right:
+        with st.container(border=True):
+            st.markdown("<div class='pg-section-title'>Resumen ejecutivo</div>", unsafe_allow_html=True)
+            render_executive_summary(proposal.commercial_description)
 
-        if proposal.warnings:
-            st.divider()
-            st.warning("Advertencias: " + " | ".join(proposal.warnings))
+            if proposal.warnings:
+                st.markdown(
+                    f"<div class='pg-badge' style='background:#fdecea;color:{RED}'>"
+                    f"⚠ {len(proposal.warnings)} advertencia(s)</div>",
+                    unsafe_allow_html=True,
+                )
+                for w in proposal.warnings:
+                    st.caption(w)
 
-        with st.expander("Ver análisis detallado", expanded=False):
-            if proposal.score_card:
-                for c in proposal.score_card.criteria:
-                    st.caption(f"{c.name}: {c.score:.0f}/100 — {c.reason}")
+        with st.container(border=True):
+            st.markdown("<div class='pg-section-title'>¿Por qué esta propuesta?</div>", unsafe_allow_html=True)
+            for bullet in build_recommendation_bullets(proposal, intent, util_pct):
+                st.markdown(f"• {bullet}")
 
-        st.markdown("**Refinar propuesta**")
+        with st.container(border=True):
+            render_summary_facts(proposal, intent, util_pct)
+
+    st.divider()
+
+    # ---- BLOCK 3: Budget overview ----
+    render_budget(intent, proposal)
+
+    st.divider()
+
+    # ---- BLOCK 4: Footer — refine + analysis ----
+    c1, c2 = st.columns([2, 1])
+    with c1:
+        st.markdown("<div class='pg-section-title'>Refinar propuesta</div>", unsafe_allow_html=True)
         instruction = st.text_input(
             "Escribe una instrucción (ej. 'Cambia el mug por un termo', "
             "'Hazla más premium', 'No quiero plástico')",
@@ -361,6 +480,12 @@ def render_proposal(proposal, key_prefix, parent_document=None):
                         st.rerun()
                     except Exception as exc:
                         st.error(f"No se pudo refinar la propuesta: {exc}")
+
+    with c2:
+        with st.expander("Análisis detallado", expanded=False):
+            if proposal.score_card:
+                for c in proposal.score_card.criteria:
+                    st.caption(f"{c.name}: {c.score:.0f}/100 — {c.reason}")
 
 
 def render_saved_sidebar(workspace):
@@ -444,16 +569,28 @@ def choose_top_k(intent: CommercialIntent, manual: bool, manual_k: int) -> int:
 
 with st.sidebar:
     st.header("Configuración")
-    model = st.text_input("Modelo Ollama utilizado", value=settings.ollama_model)
-    search_mode = st.radio("Modo de búsqueda", ["Automático", "Manual"], index=0)
-    manual_k = st.number_input(
-        "Top K", min_value=10, max_value=200, value=settings.top_k * 10, step=10,
-        disabled=(search_mode == "Automático"),
-    )
-    mode = st.selectbox("Modo de generación", MODES, index=0)
-    generate = st.button("Generar propuesta")
-    st.session_state.setdefault("model", model)
-    st.session_state.model = model
+
+    with st.container(border=True):
+        st.markdown("<div class='pg-section-title'>Motor</div>", unsafe_allow_html=True)
+        model = st.text_input("Modelo Ollama", value=settings.ollama_model, key="model_input")
+        st.session_state.setdefault("model", model)
+        st.session_state.model = model
+
+    with st.container(border=True):
+        st.markdown("<div class='pg-section-title'>Modo</div>", unsafe_allow_html=True)
+        mode = st.selectbox("Generación", MODES, index=0)
+
+    with st.container(border=True):
+        st.markdown("<div class='pg-section-title'>Búsqueda</div>", unsafe_allow_html=True)
+        search_mode = st.radio("Recuperación", ["Automático", "Manual"], index=0, horizontal=True)
+        manual_k = st.number_input(
+            "Top K", min_value=10, max_value=200, value=settings.top_k * 10, step=10,
+            disabled=(search_mode == "Manual"),
+        )
+
+    with st.container(border=True):
+        st.markdown("<div class='pg-section-title'>Opciones</div>", unsafe_allow_html=True)
+        generate = st.button("Generar propuesta", type="primary", use_container_width=True)
 
 workspace = build_proposal_workspace()
 
@@ -485,6 +622,24 @@ if "log" not in st.session_state:
 
 render_saved_sidebar(workspace)
 
+
+def render_comparison_table(proposals):
+    if len(proposals) < 2:
+        return
+    st.markdown("<div class='pg-section-title'>Comparación de propuestas</div>", unsafe_allow_html=True)
+    rows = []
+    for p in proposals:
+        util = None
+        rows.append({
+            "Propuesta": p.name,
+            "Score": f"{p.score:.0f}",
+            "Modo": (p.generation_mode or "balanced").capitalize(),
+            "Total": str(p.total_cost),
+            "Unidad": str(p.per_unit_cost),
+            "Productos": len(p.items),
+        })
+    st.dataframe(rows, use_container_width=True, hide_index=True)
+
 st.subheader("Describe la necesidad del cliente")
 text = st.text_area(
     "Necesidad",
@@ -512,7 +667,8 @@ if generate and text.strip():
             use_case = build_generate_proposal_use_case(
                 top_k=top_k, llm_model=model, mode=gen_mode
             )
-            proposals = use_case.execute(text)
+            proposal_set = use_case.execute(text)
+            proposals = proposal_set.proposals
         except Exception as exc:
             st.error(f"No se pudo generar la propuesta: {exc}")
             st.stop()
@@ -528,6 +684,11 @@ if generate and text.strip():
         st.session_state.proposals = {p.proposal_id: p for p in proposals}
         st.session_state.documents = {p.proposal_id: None for p in proposals}
         st.session_state.log = []
+        if proposal_set and proposal_set.global_observations:
+            with st.expander("Análisis global del set", expanded=False):
+                for obs in proposal_set.global_observations:
+                    st.caption(obs)
+        render_comparison_table(proposals)
         for proposal in proposals:
             render_proposal(proposal, proposal.proposal_id)
         st.success("Propuestas guardadas automáticamente.")
@@ -535,6 +696,8 @@ if generate and text.strip():
 elif generate:
     st.info("Escribe la necesidad del cliente antes de generar.")
 else:
+    proposals = list(st.session_state.proposals.values())
+    render_comparison_table(proposals)
     for pid, proposal in st.session_state.proposals.items():
         parent_doc = st.session_state.documents.get(pid)
         render_proposal(proposal, pid, parent_doc)

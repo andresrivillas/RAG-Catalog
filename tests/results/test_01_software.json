@@ -1,0 +1,231 @@
+{
+  "request": {
+    "id": "test_01_software",
+    "name": "Empresa de Software",
+    "query": "Necesito 500 regalos para una empresa de software. Quiero transmitir innovación. Presupuesto máximo de 60.000 COP por unidad.",
+    "mode": "balanced",
+    "parsed_intent": {
+      "quantity": 500,
+      "budget_per_unit": 60000.0,
+      "budget_total": null,
+      "occasion": null,
+      "target_audience": null,
+      "industry": "tecnologia",
+      "eco": false,
+      "personalizable": false,
+      "preferred_categories": [],
+      "preferred_materials": [],
+      "generation_mode": "balanced"
+    }
+  },
+  "generated_at": "2026-07-16T17:20:58",
+  "finished_at": "2026-07-16T17:21:10",
+  "proposal_set": {
+    "intent": {
+      "occasion": null,
+      "quantity": 500,
+      "budget_per_unit": 60000.0,
+      "budget_total": null,
+      "target_audience": null,
+      "eco": false,
+      "personalizable": false,
+      "industry": "tecnologia"
+    },
+    "budget_plan": {
+      "total_budget": 30000000.0,
+      "spendable_budget": 28500000.0,
+      "per_unit_ceiling": 60000.0,
+      "quantity": 500
+    },
+    "proposal_count": 3,
+    "generation_strategy": "global_diversity",
+    "global_observations": [
+      "Set global de 3 propuestas con 1 categorias distintas cubiertas.",
+      "Similitud maxima entre propuestas: 53%."
+    ],
+    "reused_products": [],
+    "statistics": {
+      "total_proposals": 3,
+      "total_products_considered": 11,
+      "unique_products_used": 11,
+      "reused_products": 0,
+      "reuse_ratio": 0.0,
+      "shared_product_count": 0,
+      "shared_product_ratio": 0.0,
+      "category_coverage": 1,
+      "max_similarity": 0.53,
+      "avg_similarity": 0.467,
+      "budget_utilization_min": 75.6,
+      "budget_utilization_max": 91.8,
+      "budget_utilization_avg": 85.8,
+      "reused_references": [],
+      "shared_references": [],
+      "category_list": [
+        "artículos promocionales categorias antiestrés antimicrobiano artículos escritura artículos reflectivos bar & vino bicicleta ecopromo herramientas marcas urban travel urban business chili boompods newsletter obtén nuestras últimas ofertas en tu correo artículos promocionales categorias antiestrés antimicrobiano artículos escritura artículos reflectivos bar & vino bicicleta ecopromo herramientas marcas urban travel urban business chili boompods newsletter obtén nuestras últimas ofertas en tu correo categorias antiestrés antimicrobiano artículos escritura artículos reflectivos bar & vino bicicleta ecopromo herramientas categorias"
+      ],
+      "warnings": []
+    },
+    "proposals": [
+      {
+        "name": "PROPUESTA 1",
+        "score": 105.2,
+        "generation_mode": "premium",
+        "total_cost": 26170000.0,
+        "per_unit_cost": 52340.0,
+        "warnings": [],
+        "occasion": "",
+        "target_audience": "",
+        "commercial_description": "",
+        "items": [
+          {
+            "reference": "TE-606",
+            "name": "PUERTO USB JULIUS",
+            "unit_price": 20450.0,
+            "quantity": 500,
+            "role": "PROMOTIONAL",
+            "category": "Artículos Promocionales Categorias Antiestrés Antimicrobiano Artículos Escritura Artículos Reflectivos Bar & Vino Bicicleta Ecopromo Herramientas MARCAS URBAN TRAVEL URBAN BUSINESS CHILI BOOMPODS Newsletter Obtén nuestras últimas ofertas en tu correo Artículos Promocionales Categorias Antiestrés Antimicrobiano Artículos Escritura Artículos Reflectivos Bar & Vino Bicicleta Ecopromo Herramientas MARCAS URBAN TRAVEL URBAN BUSINESS CHILI BOOMPODS Newsletter Obtén nuestras últimas ofertas en tu correo Categorias Antiestrés Antimicrobiano Artículos Escritura Artículos Reflectivos Bar & Vino Bicicleta Ecopromo Herramientas Categorias",
+            "materials": "",
+            "selection_reason": "Seleccionado por se alinea con el sector tecnologia (materiales/uso acordes a esa industria); personalizable; color: Descargar carrusel *Colores y fotos de referencia. Se recomienda solicitar una muestra física para su verificación.* Compartir PUERTO USB JULIUS TE-606 Puerto USB en aluminio con doble conexión Tipo C y USB. Tres puertos USB y uno Tipo C. Medidas: 9.7 cm x 1.2 cm x 0.7 cm. Marca: 2.5 cm / Láser / Tampografía Tratamiento Ficha Técnica Precio actualizado: 11-02-2026 * actualizado el 2026-07-16 15:19:33 TOTAL DISPONIBLE: 343 Unidades por caja 300 caja máster empaque alto (cm) ancho (cm) largo (cm) peso (kg) CAJA 38 28 18 7.6 EXISTENCIAS TE-606 - PUERTO USB JULIUS COLOR BODEGA LOCAL BODEGA ZONA FRANCA TOTAL LLEGADA A BODEGA LOCAL CANTIDAD EN TRÁNSITO ESTADO DEL PEDIDO Gris Oscuro 343 0 343 0 PRODUCTOS RELACIONADOS REF: TE-31 PUERTO USB EDON Existencias 2.854 Próximas llegadas 0 REF: TE-516 PUERTO USB BAMBOO SPIRIT Existencias 409 Próximas llegadas 0 REF: TE-544 PUERTO USB RPET Existencias 294 Próximas llegadas 0 REF: TE-565 PUERTO USB 6-1 Existencias 8 Próximas llegadas 1.000 REF: TE-592 P; cumple el presupuesto por unidad.",
+            "detail_url": "https://catalogospromocionales.com/producto-cataprom/TE-606/puerto-usb-julius"
+          },
+          {
+            "reference": "TE-485",
+            "name": "CABLE MULTICARGADOR TYLER",
+            "unit_price": 22900.0,
+            "quantity": 500,
+            "role": "PACKAGING",
+            "category": "Artículos Promocionales Categorias Antiestrés Antimicrobiano Artículos Escritura Artículos Reflectivos Bar & Vino Bicicleta Ecopromo Herramientas MARCAS URBAN TRAVEL URBAN BUSINESS CHILI BOOMPODS Newsletter Obtén nuestras últimas ofertas en tu correo Artículos Promocionales Categorias Antiestrés Antimicrobiano Artículos Escritura Artículos Reflectivos Bar & Vino Bicicleta Ecopromo Herramientas MARCAS URBAN TRAVEL URBAN BUSINESS CHILI BOOMPODS Newsletter Obtén nuestras últimas ofertas en tu correo Categorias Antiestrés Antimicrobiano Artículos Escritura Artículos Reflectivos Bar & Vino Bicicleta Ecopromo Herramientas Categorias",
+            "materials": "",
+            "selection_reason": "Seleccionado por se alinea con el sector tecnologia (materiales/uso acordes a esa industria); personalizable; color: Descargar carrusel *Colores y fotos de referencia. Se recomienda solicitar una muestra física para su verificación.* Compartir CABLE MULTICARGADOR TYLER TE-485 Cable multicargador. Entrada iPhone, Micro USB y Tipo C. En estuche retráctil metálico. Empaque caja individual. Medidas: 10.5 cm x 2.2 cm x 1 cm Marca: 4 cm / Láser / Tampografía Tratamiento Ficha Técnica Precio actualizado: 28-03-2025 * actualizado el 2026-07-16 15:19:22 TOTAL DISPONIBLE: 0 Unidades por caja 100 caja máster empaque alto (cm) ancho (cm) largo (cm) peso (kg) CAJA 32 27 14 4.8 EXISTENCIAS TE-485 - CABLE MULTICARGADOR TYLER COLOR BODEGA LOCAL BODEGA ZONA FRANCA TOTAL LLEGADA A BODEGA LOCAL CANTIDAD EN TRÁNSITO ESTADO DEL PEDIDO Gris oscuro 0 0 0 jueves, 17 de septiembre de 2026 1.500 Orden en producción (PENDIENTE CONFIRMACIÓN), fecha estimada salida de puerto origen Agosto 1. Notificar PRODUCTOS RELACIONADOS REF: TE-362 SET DE CABLES DE CARGA MINI KIT Existencias 49 Próximas llegadas 3.100 REF: TE-419 CABLE MULTI; cumple el presupuesto por unidad.",
+            "detail_url": "https://catalogospromocionales.com/producto-cataprom/TE-485/cable-multicargador-tyler"
+          },
+          {
+            "reference": "HE-273",
+            "name": "METRO LLAVERO NITTO",
+            "unit_price": 8990.0,
+            "quantity": 500,
+            "role": "PROMOTIONAL",
+            "category": "Artículos Promocionales Categorias Antiestrés Antimicrobiano Artículos Escritura Artículos Reflectivos Bar & Vino Bicicleta Ecopromo Herramientas MARCAS URBAN TRAVEL URBAN BUSINESS CHILI BOOMPODS Newsletter Obtén nuestras últimas ofertas en tu correo Artículos Promocionales Categorias Antiestrés Antimicrobiano Artículos Escritura Artículos Reflectivos Bar & Vino Bicicleta Ecopromo Herramientas MARCAS URBAN TRAVEL URBAN BUSINESS CHILI BOOMPODS Newsletter Obtén nuestras últimas ofertas en tu correo Categorias Antiestrés Antimicrobiano Artículos Escritura Artículos Reflectivos Bar & Vino Bicicleta Ecopromo Herramientas Categorias",
+            "materials": "",
+            "selection_reason": "Seleccionado por personalizable; color: Descargar carrusel *Colores y fotos de referencia. Se recomienda solicitar una muestra física para su verificación.* Compartir METRO LLAVERO NITTO HE-273 Llavero de metro plástico de 1 m, con dos puntas de destornillador y luz de 1 LED, con argolla tipo llavero. Medidas: 1.6 cm x 5.8 cm diámetro Marca: 2.5 cm / Tampografía Compleja Ficha Técnica Precio actualizado: 27-01-2025* * actualizado el 2026-07-16 15:17:00 TOTAL DISPONIBLE: 4.189 Unidades por caja 250 caja máster empaque alto (cm) ancho (cm) largo (cm) peso (kg) CAJA 32 22 42 11.5 EXISTENCIAS HE-273 - METRO LLAVERO NITTO COLOR BODEGA LOCAL BODEGA ZONA FRANCA TOTAL LLEGADA A BODEGA LOCAL CANTIDAD EN TRÁNSITO ESTADO DEL PEDIDO Azul 2.642 0 2.642 0 Negro 1.547 0 1.547 0 PRODUCTOS RELACIONADOS REF: HE-171 METRO CARABINERO STANLEY Existencias 2.976 Próximas llegadas 0 REF: HE-174 METRO NEUMATIC Existencias 1.138 Próximas llegadas 5.000 REF: HE-216 METRO LLAVERO CAR Existencias 17.238 Próximas llegadas 10.000 REF: HE-241 METRO LLAVERO; cumple el presupuesto por unidad.",
+            "detail_url": "https://catalogospromocionales.com/producto-cataprom/HE-273/metro-llavero-nitto"
+          }
+        ]
+      },
+      {
+        "name": "PROPUESTA 2",
+        "score": 97.9,
+        "generation_mode": "eco",
+        "total_cost": 25670000.0,
+        "per_unit_cost": 51340.0,
+        "warnings": [],
+        "occasion": "",
+        "target_audience": "",
+        "commercial_description": "",
+        "items": [
+          {
+            "reference": "TE-661",
+            "name": "CABLE MULTICARGADOR ECO FAST 65W Nuevo",
+            "unit_price": 27900.0,
+            "quantity": 500,
+            "role": "PROMOTIONAL",
+            "category": "Artículos Promocionales Categorias Antiestrés Antimicrobiano Artículos Escritura Artículos Reflectivos Bar & Vino Bicicleta Ecopromo Herramientas MARCAS URBAN TRAVEL URBAN BUSINESS CHILI BOOMPODS Newsletter Obtén nuestras últimas ofertas en tu correo Artículos Promocionales Categorias Antiestrés Antimicrobiano Artículos Escritura Artículos Reflectivos Bar & Vino Bicicleta Ecopromo Herramientas MARCAS URBAN TRAVEL URBAN BUSINESS CHILI BOOMPODS Newsletter Obtén nuestras últimas ofertas en tu correo Categorias Antiestrés Antimicrobiano Artículos Escritura Artículos Reflectivos Bar & Vino Bicicleta Ecopromo Herramientas Categorias",
+            "materials": "",
+            "selection_reason": "Seleccionado por se alinea con el sector tecnologia (materiales/uso acordes a esa industria); personalizable; color: Descargar carrusel *Colores y fotos de referencia. Se recomienda solicitar una muestra física para su verificación.* Compartir CABLE MULTICARGADOR ECO FAST 65W TE-661 Cable multicargador en bambú con carga rápida de 65 W. Con conexión USB y Tipo Lightning. Cables con conectores Tipo C. Cable de 3.4 mts. Medidas: 3.4 mts. Marca: 2 cm / Láser / Tampografía Tratamiento NUEVO Ficha Técnica Precio actualizado: 08-09-2025 * actualizado el 2026-07-16 15:19:42 TOTAL DISPONIBLE: 556 Unidades por caja 250 caja máster empaque alto (cm) ancho (cm) largo (cm) peso (kg) CAJA 57 26 22 10 EXISTENCIAS TE-661 - CABLE MULTICARGADOR ECO FAST 65W COLOR BODEGA LOCAL BODEGA ZONA FRANCA TOTAL LLEGADA A BODEGA LOCAL CANTIDAD EN TRÁNSITO ESTADO DEL PEDIDO Gris 556 0 556 0 PRODUCTOS RELACIONADOS REF: TE-419 CABLE MULTICARGADOR BAMBOO Existencias 1.200 Próximas llegadas 0 REF: TE-535 CABLE MULTICARGADOR COTTON Existencias -10 Próximas llegadas 2.000 REF: TE-565 PUERTO USB 6-1 Existencias 8 Próximas llegadas 1.000; cumple el presupuesto por unidad.",
+            "detail_url": "https://catalogospromocionales.com/producto-cataprom/TE-661/cable-multicargador-eco-fast-65w-nuevo"
+          },
+          {
+            "reference": "HE-216",
+            "name": "METRO LLAVERO CAR",
+            "unit_price": 2890.0,
+            "quantity": 500,
+            "role": "PACKAGING",
+            "category": "Artículos Promocionales Categorias Antiestrés Antimicrobiano Artículos Escritura Artículos Reflectivos Bar & Vino Bicicleta Ecopromo Herramientas MARCAS URBAN TRAVEL URBAN BUSINESS CHILI BOOMPODS Newsletter Obtén nuestras últimas ofertas en tu correo Artículos Promocionales Categorias Antiestrés Antimicrobiano Artículos Escritura Artículos Reflectivos Bar & Vino Bicicleta Ecopromo Herramientas MARCAS URBAN TRAVEL URBAN BUSINESS CHILI BOOMPODS Newsletter Obtén nuestras últimas ofertas en tu correo Categorias Antiestrés Antimicrobiano Artículos Escritura Artículos Reflectivos Bar & Vino Bicicleta Ecopromo Herramientas Categorias",
+            "materials": "",
+            "selection_reason": "Seleccionado por personalizable; color: Descargar carrusel *Colores y fotos de referencia. Se recomienda solicitar una muestra física para su verificación.* Compartir METRO LLAVERO CAR HE-216 Llavero metro plástico de 1 metro. Medidas: 6.5 cm x 3.7 cm x 1.1 cm Marca: 3 cm / Tampografía Complejo Venta mínima y en múltiplos de caja de 50 unidades Ficha Técnica Precio actualizado: 27-01-2025* * actualizado el 2026-07-16 15:16:56 TOTAL DISPONIBLE: 17.238 Unidades por caja 500 caja máster empaque alto (cm) ancho (cm) largo (cm) peso (kg) CAJA 34 34 27.5 12 EXISTENCIAS HE-216 - METRO LLAVERO CAR COLOR BODEGA LOCAL BODEGA ZONA FRANCA TOTAL LLEGADA A BODEGA LOCAL CANTIDAD EN TRÁNSITO ESTADO DEL PEDIDO Azul 5.092 0 5.092 0 Blanco 4.854 0 4.854 miércoles, 19 de agosto de 2026 5.000 Orden en tránsito (EMBARCADO). Fecha estimada de llegada a puerto Agosto 9. Negro 1.514 0 1.514 miércoles, 19 de agosto de 2026 5.000 Orden en tránsito (EMBARCADO). Fecha estimada de llegada a puerto Agosto 9. Rojo 5.778 0 5.778 0 PRODUCTOS RELACIONADOS REF; cumple el presupuesto por unidad.",
+            "detail_url": "https://catalogospromocionales.com/producto-cataprom/HE-216/metro-llavero-car"
+          },
+          {
+            "reference": "HE-324",
+            "name": "LLAVERO METRO TOOLS Nuevo",
+            "unit_price": 4900.0,
+            "quantity": 500,
+            "role": "PROMOTIONAL",
+            "category": "Artículos Promocionales Categorias Antiestrés Antimicrobiano Artículos Escritura Artículos Reflectivos Bar & Vino Bicicleta Ecopromo Herramientas MARCAS URBAN TRAVEL URBAN BUSINESS CHILI BOOMPODS Newsletter Obtén nuestras últimas ofertas en tu correo Artículos Promocionales Categorias Antiestrés Antimicrobiano Artículos Escritura Artículos Reflectivos Bar & Vino Bicicleta Ecopromo Herramientas MARCAS URBAN TRAVEL URBAN BUSINESS CHILI BOOMPODS Newsletter Obtén nuestras últimas ofertas en tu correo Categorias Antiestrés Antimicrobiano Artículos Escritura Artículos Reflectivos Bar & Vino Bicicleta Ecopromo Herramientas Categorias",
+            "materials": "",
+            "selection_reason": "Seleccionado por personalizable; color: Descargar carrusel *Colores y fotos de referencia. Se recomienda solicitar una muestra física para su verificación.* Compartir LLAVERO METRO TOOLS HE-324 Llavero plástico con metro de 2 mts. Medidas: 4 cm diámetro x 1.5 cm. Marca:3 cm / Tampografía Complejo NUEVO Ficha Técnica Precio actualizado: 08-09-2025 * actualizado el 2026-07-16 15:17:07 TOTAL DISPONIBLE: 1.954 Unidades por caja 500 caja máster empaque alto (cm) ancho (cm) largo (cm) peso (kg) CAJA 32 29 25 17 EXISTENCIAS HE-324 - LLAVERO METRO TOOLS COLOR BODEGA LOCAL BODEGA ZONA FRANCA TOTAL LLEGADA A BODEGA LOCAL CANTIDAD EN TRÁNSITO ESTADO DEL PEDIDO Azul 0 0 0 miércoles, 19 de agosto de 2026 4.000 Orden en tránsito (EMBARCADO). Fecha estimada de llegada a puerto Agosto 9. Notificar Blanco 2 0 2 miércoles, 19 de agosto de 2026 4.000 Orden en tránsito (EMBARCADO). Fecha estimada de llegada a puerto Agosto 9. Negro 1.952 0 1.952 miércoles, 19 de agosto de 2026 3.000 Orden en tránsito (EMBARCADO). Fecha estimada de llegada a pue; cumple el presupuesto por unidad.",
+            "detail_url": "https://catalogospromocionales.com/producto-cataprom/HE-324/llavero-metro-tools-nuevo"
+          },
+          {
+            "reference": "TE-644",
+            "name": "SOPORTE PARA CELULAR POP IT Nuevo",
+            "unit_price": 7800.0,
+            "quantity": 500,
+            "role": "PROMOTIONAL",
+            "category": "Artículos Promocionales Categorias Antiestrés Antimicrobiano Artículos Escritura Artículos Reflectivos Bar & Vino Bicicleta Ecopromo Herramientas MARCAS URBAN TRAVEL URBAN BUSINESS CHILI BOOMPODS Newsletter Obtén nuestras últimas ofertas en tu correo Artículos Promocionales Categorias Antiestrés Antimicrobiano Artículos Escritura Artículos Reflectivos Bar & Vino Bicicleta Ecopromo Herramientas MARCAS URBAN TRAVEL URBAN BUSINESS CHILI BOOMPODS Newsletter Obtén nuestras últimas ofertas en tu correo Categorias Antiestrés Antimicrobiano Artículos Escritura Artículos Reflectivos Bar & Vino Bicicleta Ecopromo Herramientas Categorias",
+            "materials": "",
+            "selection_reason": "Seleccionado por personalizable; color: Descargar carrusel *Colores y fotos de referencia. Se recomienda solicitar una muestra física para su verificación.* Compartir SOPORTE PARA CELULAR POP IT TE-644 Bola antiestrés en silicona con chupa. Funciona como soporte para celular. Medidas: 6.5 cm. Marca: 2 cm / Tampografía en silicona a una tinta. NUEVO Ficha Técnica Precio actualizado: 08-09-2025 * actualizado el 2026-07-16 15:19:39 TOTAL DISPONIBLE: -1.055 Unidades por caja 200 caja máster empaque alto (cm) ancho (cm) largo (cm) peso (kg) CAJA 60 40 30 7 EXISTENCIAS TE-644 - SOPORTE PARA CELULAR POP IT COLOR BODEGA LOCAL BODEGA ZONA FRANCA TOTAL LLEGADA A BODEGA LOCAL CANTIDAD EN TRÁNSITO ESTADO DEL PEDIDO Azul -1.061 0 -1.061 jueves, 24 de septiembre de 2026 7.000 Orden en producción (PENDIENTE CONFIRMACIÓN), fecha estimada salida de puerto origen Agosto 8. Notificar Gris 6 0 6 jueves, 24 de septiembre de 2026 5.000 Orden en producción (PENDIENTE CONFIRMACIÓN), fecha estimada salida de puerto origen Agosto 8. Negro 0 0 0 jueve; cumple el presupuesto por unidad.",
+            "detail_url": "https://catalogospromocionales.com/producto-cataprom/TE-644/soporte-para-celular-pop-it-nuevo"
+          },
+          {
+            "reference": "CP-370",
+            "name": "MANILLA POCKET Nuevo",
+            "unit_price": 7850.0,
+            "quantity": 500,
+            "role": "PROMOTIONAL",
+            "category": "Artículos Promocionales Categorias Antiestrés Antimicrobiano Artículos Escritura Artículos Reflectivos Bar & Vino Bicicleta Ecopromo Herramientas MARCAS URBAN TRAVEL URBAN BUSINESS CHILI BOOMPODS Newsletter Obtén nuestras últimas ofertas en tu correo Artículos Promocionales Categorias Antiestrés Antimicrobiano Artículos Escritura Artículos Reflectivos Bar & Vino Bicicleta Ecopromo Herramientas MARCAS URBAN TRAVEL URBAN BUSINESS CHILI BOOMPODS Newsletter Obtén nuestras últimas ofertas en tu correo Categorias Antiestrés Antimicrobiano Artículos Escritura Artículos Reflectivos Bar & Vino Bicicleta Ecopromo Herramientas Categorias",
+            "materials": "",
+            "selection_reason": "Seleccionado por personalizable; color: Descargar carrusel *Colores y fotos de referencia. Se recomienda solicitar una muestra física para su verificación.* Compartir MANILLA POCKET CP-370 Muñequera deportiva para el sudor en poliéster. Incluye un bolsillo con cremallera y parche para el logo. Medias: 8 cm x 6.5 cm. Marca: 3 cm / Screen Complejo a una tinta / DTF (Parche para logo). NUEVO Ficha Técnica Precio actualizado: 25/06/26 * actualizado el 2026-07-16 15:16:47 TOTAL DISPONIBLE: 38 Unidades por caja 500 caja máster empaque alto (cm) ancho (cm) largo (cm) peso (kg) CAJA 50 30 30 16.5 EXISTENCIAS CP-370 - MANILLA POCKET COLOR BODEGA LOCAL BODEGA ZONA FRANCA TOTAL LLEGADA A BODEGA LOCAL CANTIDAD EN TRÁNSITO ESTADO DEL PEDIDO Azul Royal 2 0 2 lunes, 10 de agosto de 2026 4.000 Orden en tránsito (EMBARCADO). Fecha estimada de llegada a puerto Julio 31. Blanco 33 0 33 lunes, 10 de agosto de 2026 4.000 Orden en tránsito (EMBARCADO). Fecha estimada de llegada a puerto Julio 31. Negro 3 0 3 lunes, 10 de agosto de 2026 4.000 Orde; cumple el presupuesto por unidad.",
+            "detail_url": "https://catalogospromocionales.com/producto-cataprom/CP-370/manilla-pocket-nuevo"
+          }
+        ]
+      },
+      {
+        "name": "PROPUESTA 3",
+        "score": 94.2,
+        "generation_mode": "eco",
+        "total_cost": 21545000.0,
+        "per_unit_cost": 43090.0,
+        "warnings": [],
+        "occasion": "",
+        "target_audience": "",
+        "commercial_description": "",
+        "items": [
+          {
+            "reference": "TE-631",
+            "name": "PUERTO USB SYNTRA Nuevo",
+            "unit_price": 26900.0,
+            "quantity": 500,
+            "role": "PACKAGING",
+            "category": "Artículos Promocionales Categorias Antiestrés Antimicrobiano Artículos Escritura Artículos Reflectivos Bar & Vino Bicicleta Ecopromo Herramientas MARCAS URBAN TRAVEL URBAN BUSINESS CHILI BOOMPODS Newsletter Obtén nuestras últimas ofertas en tu correo Artículos Promocionales Categorias Antiestrés Antimicrobiano Artículos Escritura Artículos Reflectivos Bar & Vino Bicicleta Ecopromo Herramientas MARCAS URBAN TRAVEL URBAN BUSINESS CHILI BOOMPODS Newsletter Obtén nuestras últimas ofertas en tu correo Categorias Antiestrés Antimicrobiano Artículos Escritura Artículos Reflectivos Bar & Vino Bicicleta Ecopromo Herramientas Categorias",
+            "materials": "",
+            "selection_reason": "Seleccionado por se alinea con el sector tecnologia (materiales/uso acordes a esa industria); personalizable; color: Descargar carrusel *Colores y fotos de referencia. Se recomienda solicitar una muestra física para su verificación.* Compartir PUERTO USB SYNTRA TE-631 Puerto USB en aluminio con doble conexión Tipo C y USB. Dos puertos USB y un puerto Tipo C. Empaque caja individual. Medidas: 8 cm x 3.5 cm x 1 cm. Marca: 3 cm / Láser / Tampografía Tratamiento NUEVO Ficha Técnica Precio actualizado: 08-09-2025 * actualizado el 2026-07-16 15:19:37 TOTAL DISPONIBLE: 1.474 Unidades por caja 200 caja máster empaque alto (cm) ancho (cm) largo (cm) peso (kg) CAJA 40.5 24.5 20.5 9 EXISTENCIAS TE-631 - PUERTO USB SYNTRA COLOR BODEGA LOCAL BODEGA ZONA FRANCA TOTAL LLEGADA A BODEGA LOCAL CANTIDAD EN TRÁNSITO ESTADO DEL PEDIDO Silver 1.474 0 1.474 0 PRODUCTOS RELACIONADOS REF: TE-31 PUERTO USB EDON Existencias 2.854 Próximas llegadas 0 REF: TE-544 PUERTO USB RPET Existencias 294 Próximas llegadas 0 REF: TE-565 PUERTO USB 6-1 Existencias 8 Próximas llegadas 1.000 REF: TE-589 PUERTO USB DANTE ECO Existencias 926 Pr; cumple el presupuesto por unidad.",
+            "detail_url": "https://catalogospromocionales.com/producto-cataprom/TE-631/puerto-usb-syntra-nuevo"
+          },
+          {
+            "reference": "HE-254",
+            "name": "METRO LLAVERO SALOON",
+            "unit_price": 4500.0,
+            "quantity": 500,
+            "role": "PROMOTIONAL",
+            "category": "Artículos Promocionales Categorias Antiestrés Antimicrobiano Artículos Escritura Artículos Reflectivos Bar & Vino Bicicleta Ecopromo Herramientas MARCAS URBAN TRAVEL URBAN BUSINESS CHILI BOOMPODS Newsletter Obtén nuestras últimas ofertas en tu correo Artículos Promocionales Categorias Antiestrés Antimicrobiano Artículos Escritura Artículos Reflectivos Bar & Vino Bicicleta Ecopromo Herramientas MARCAS URBAN TRAVEL URBAN BUSINESS CHILI BOOMPODS Newsletter Obtén nuestras últimas ofertas en tu correo Categorias Antiestrés Antimicrobiano Artículos Escritura Artículos Reflectivos Bar & Vino Bicicleta Ecopromo Herramientas Categorias",
+            "materials": "",
+            "selection_reason": "Seleccionado por personalizable; color: Descargar carrusel *Colores y fotos de referencia. Se recomienda solicitar una muestra física para su verificación.* Compartir METRO LLAVERO SALOON HE-254 Cinta métrica de 1 metro. Incluye mini bolígrafo y minipad de notas adhesivas. Medidas: 5.1 cm x 4.9 cm x 1.3 cm Marca: 2.5 cm / Tampografía Compleja Ficha Técnica Precio actualizado: 03-07-2025* * actualizado el 2026-07-16 15:16:59 TOTAL DISPONIBLE: 4.978 Unidades por caja 500 caja máster empaque alto (cm) ancho (cm) largo (cm) peso (kg) CAJA 37 32 29 15 EXISTENCIAS HE-254 - METRO LLAVERO SALOON COLOR BODEGA LOCAL BODEGA ZONA FRANCA TOTAL LLEGADA A BODEGA LOCAL CANTIDAD EN TRÁNSITO ESTADO DEL PEDIDO Blanco 15 0 15 miércoles, 19 de agosto de 2026 8.000 Orden en tránsito (EMBARCADO). Fecha estimada de llegada a puerto Agosto 9. Negro 4.963 0 4.963 0 PRODUCTOS RELACIONADOS REF: HE-22 METRO ARKITECT Existencias 3.204 Próximas llegadas 0 REF: HE-224 LLAVERO METRO CON NIVELADOR Existencias 4.014 Próximas llegadas 28.000 REF: HE-286 METRO; cumple el presupuesto por unidad.",
+            "detail_url": "https://catalogospromocionales.com/producto-cataprom/HE-254/metro-llavero-saloon"
+          },
+          {
+            "reference": "OF-529",
+            "name": "SET DE ESCRITORIO OFFICE",
+            "unit_price": 11690.0,
+            "quantity": 500,
+            "role": "PROMOTIONAL",
+            "category": "Artículos Promocionales Categorias Antiestrés Antimicrobiano Artículos Escritura Artículos Reflectivos Bar & Vino Bicicleta Ecopromo Herramientas MARCAS URBAN TRAVEL URBAN BUSINESS CHILI BOOMPODS Newsletter Obtén nuestras últimas ofertas en tu correo Artículos Promocionales Categorias Antiestrés Antimicrobiano Artículos Escritura Artículos Reflectivos Bar & Vino Bicicleta Ecopromo Herramientas MARCAS URBAN TRAVEL URBAN BUSINESS CHILI BOOMPODS Newsletter Obtén nuestras últimas ofertas en tu correo Categorias Antiestrés Antimicrobiano Artículos Escritura Artículos Reflectivos Bar & Vino Bicicleta Ecopromo Herramientas Categorias",
+            "materials": "",
+            "selection_reason": "Seleccionado por personalizable; color: Descargar carrusel *Colores y fotos de referencia. Se recomienda solicitar una muestra física para su verificación.* Compartir SET DE ESCRITORIO OFFICE OF-529 Mini set de escritorio con cosedora, ganchos, clips, banderas de colores, mini taco de papel, bandas elásticas y cinta dispensadora. Medidas: 11.7 cm x 7.5 cm x 2 cm Marca: 5 cm / Tampografía Complejo Ficha Técnica Precio actualizado: 04/06/26 * actualizado el 2026-07-16 15:18:33 TOTAL DISPONIBLE: 3.060 Unidades por caja 144 caja máster empaque alto (cm) ancho (cm) largo (cm) peso (kg) CAJA 30 28.5 51.5 15.5 EXISTENCIAS OF-529 - SET DE ESCRITORIO OFFICE COLOR BODEGA LOCAL BODEGA ZONA FRANCA TOTAL LLEGADA A BODEGA LOCAL CANTIDAD EN TRÁNSITO ESTADO DEL PEDIDO Blanco Transparente 1.620 1.440 3.060 0 PRODUCTOS RELACIONADOS REF: OF-420 SET DE ESCRITORIO MAGNUM Existencias 4.419 Próximas llegadas 0 REF: OF-473 SET DE ESCRITORIO OCTAGON Existencias -334 Próximas llegadas 6.000 REF: OF-660 SET DE ESCRITORIO LYNX ECO Existencias 1.176 Pró; cumple el presupuesto por unidad.",
+            "detail_url": "https://catalogospromocionales.com/producto-cataprom/OF-529/set-de-escritorio-office"
+          }
+        ]
+      }
+    ]
+  }
+}

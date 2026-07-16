@@ -30,6 +30,44 @@ ATTRIBUTE_KEYWORDS = {
     ],
 }
 
+INDUSTRIES: Dict[str, List[str]] = {
+    "arquitectura": ["arquitectura", "arquitecto", "arquitectos", "estudio de arquitectura"],
+    "construccion": ["constructora", "construccion", "construcción", "builder", "obra", "edificacion", "edificación"],
+    "ingenieria": ["ingenieria", "ingeniería", "ingeniero", "ingenieros"],
+    "tecnologia": ["tecnologia", "tecnología", "tech", "software", "informatica", "informática", "saas", "startup"],
+    "universidad": ["universidad", "universidades", "universitario", "facultad", "campus"],
+    "colegio": ["colegio", "colegios", "escuela", "escuelas", "colegial", "estudiantes"],
+    "hospital": ["hospital", "hospitales", "clinica", "clínica", "clinicas", "clínicas", "salud", "medicos", "médicos"],
+    "financiera": ["banco", "bancos", "financiera", "financiero", "financieros", "seguros", "aseguradora"],
+}
+
+SEGMENTS: Dict[str, List[str]] = {
+    "vip": ["vip", "clientes vip", "clientes premium", "alta gama", "exclusivo", "ejecutivos", "ejecutivo"],
+    "comerciales": ["comerciales", "vendedores", "ventas", "fuerza de ventas", "equipo de ventas"],
+    "mujeres": ["mujer", "mujeres", "femenino", "femenina"],
+    "hombres": ["hombre", "hombres", "masculino", "masculina"],
+    "ninos": ["niño", "niña", "niños", "niñas", "infantil", "kids"],
+}
+
+COMMERCIAL_CONTEXT_BY_INDUSTRY: Dict[str, List[str]] = {
+    "arquitectura": ["oficina", "escritorio", "diseno", "diseño", "planos", "construccion", "construcción"],
+    "construccion": ["obra", "seguridad", "herramienta", "construccion", "construcción"],
+    "ingenieria": ["oficina", "tecnicos", "técnicos", "ingenieria", "ingeniería"],
+    "tecnologia": ["tecnologia", "tecnología", "oficina", "gadget", "branding"],
+    "universidad": ["estudiantes", "educacion", "educación", "oficina", "merchandising"],
+    "colegio": ["estudiantes", "educacion", "educación", "infantil", "merchandising"],
+    "hospital": ["salud", "medicos", "médicos", "bienestar", "oficina"],
+    "financiera": ["corporativo", "ejecutivo", "oficina", "branding", "alta gama"],
+}
+
+COMMERCIAL_CONTEXT_BY_SEGMENT: Dict[str, List[str]] = {
+    "vip": ["premium", "lujo", "ejecutivo", "alta gama"],
+    "comerciales": ["utilidad", "movilidad", "oficina", "branding"],
+    "mujeres": ["regalo", "belleza", "hogar", "personalizable"],
+    "hombres": ["tecnologia", "utilidad", "hogar"],
+    "ninos": ["infantil", "juguete", "colorido", "didactico", "didáctico"],
+}
+
 
 class IntentAnalyzer(IntentAnalyzerPort):
     def analyze(self, text: str) -> CommercialIntent:
@@ -52,7 +90,34 @@ class IntentAnalyzer(IntentAnalyzerPort):
 
         if intent.eco:
             intent.generation_mode = "eco"
+
+        intent.industry = self._match_dict(normalized, INDUSTRIES)
+        intent.segment_tags = self._match_all(normalized, SEGMENTS)
+        intent.commercial_context_tags = self._build_context_tags(
+            intent.industry, intent.segment_tags, intent.occasion
+        )
         return intent
+
+    def _build_context_tags(
+        self,
+        industry: Optional[str],
+        segments: List[str],
+        occasion: Optional[str],
+    ) -> List[str]:
+        tags: List[str] = []
+        if industry:
+            tags.extend(COMMERCIAL_CONTEXT_BY_INDUSTRY.get(industry, []))
+        for seg in segments:
+            tags.extend(COMMERCIAL_CONTEXT_BY_SEGMENT.get(seg, []))
+        if occasion == "campana":
+            tags.extend(["merchandising", "branding", "marketing"])
+        seen = set()
+        unique = []
+        for t in tags:
+            if t not in seen:
+                seen.add(t)
+                unique.append(t)
+        return unique
 
     def _normalize(self, text: str) -> str:
         return " ".join(text.lower().split())
@@ -62,6 +127,13 @@ class IntentAnalyzer(IntentAnalyzerPort):
             if self._has_any(text, variants):
                 return canonical
         return None
+
+    def _match_all(self, text: str, mapping: Dict[str, List[str]]) -> List[str]:
+        found = []
+        for canonical, variants in mapping.items():
+            if self._has_any(text, variants):
+                found.append(canonical)
+        return found
 
     def _has_any(self, text: str, keywords: List[str]) -> bool:
         return any(kw in text for kw in keywords)
