@@ -1,0 +1,305 @@
+{
+  "proposal_id": "prop-20260716-152717-432c",
+  "version": 1,
+  "created_at": "2026-07-16T15:27:17",
+  "updated_at": "2026-07-16T15:27:17",
+  "original_query": "Necesito 500 regalos para empleados con presupuesto de 30000 COP por unidad",
+  "client": "",
+  "intent": {
+    "raw_text": "Necesito 500 regalos para empleados con presupuesto de 30000 COP por unidad",
+    "occasion": null,
+    "quantity": 500,
+    "budget_total": null,
+    "budget_per_unit": 30000.0,
+    "target_audience": null,
+    "preferred_categories": [],
+    "preferred_materials": [],
+    "preferred_colors": [],
+    "eco": false,
+    "personalizable": false,
+    "packaging_required": false,
+    "generation_mode": "balanced"
+  },
+  "proposal": {
+    "name": "PROPUESTA 2",
+    "score": 76.21894736842106,
+    "items": [
+      {
+        "reference": "TE-631",
+        "name": "PUERTO USB SYNTRA Nuevo",
+        "unit_price": {
+          "amount": 26900.0,
+          "currency": "COP"
+        },
+        "quantity": 500,
+        "role": "PACKAGING",
+        "selection_reason": "Seleccionado por personalizable; cumple el presupuesto.",
+        "decision_trace": {
+          "semantic_score": 0.0,
+          "commercial_score": 43.0,
+          "occasion_score": 0.5,
+          "budget_score": 0.866666666666667,
+          "final_score": 42.733333333333334,
+          "reason": "Seleccionado por personalizable; cumple el presupuesto.",
+          "detail": {}
+        },
+        "thumbnail_url": "https://firebasestorage.googleapis.com/v0/b/promos-278023.appspot.com/o/products%2FTE-631%2F1.jpg?alt=media",
+        "detail_url": "https://catalogospromocionales.com/producto-cataprom/TE-631/puerto-usb-syntra-nuevo",
+        "category": "Artículos Promocionales Categorias Antiestrés Antimicrobiano Artículos Escritura Artículos Reflectivos Bar & Vino Bicicleta Ecopromo Herramientas MARCAS URBAN TRAVEL URBAN BUSINESS CHILI BOOMPODS Newsletter Obtén nuestras últimas ofertas en tu correo Artículos Promocionales Categorias Antiestrés Antimicrobiano Artículos Escritura Artículos Reflectivos Bar & Vino Bicicleta Ecopromo Herramientas MARCAS URBAN TRAVEL URBAN BUSINESS CHILI BOOMPODS Newsletter Obtén nuestras últimas ofertas en tu correo Categorias Antiestrés Antimicrobiano Artículos Escritura Artículos Reflectivos Bar & Vino Bicicleta Ecopromo Herramientas Categorias",
+        "materials": "",
+        "colors": "Descargar carrusel *Colores y fotos de referencia. Se recomienda solicitar una muestra física para su verificación.* Compartir PUERTO USB SYNTRA TE-631 Puerto USB en aluminio con doble conexión Tipo C y USB. Dos puertos USB y un puerto Tipo C. Empaque caja individual. Medidas: 8 cm x 3.5 cm x 1 cm. Marca: 3 cm / Láser / Tampografía Tratamiento NUEVO Ficha Técnica Precio actualizado: 08-09-2025 * actualizado el 2026-07-16 15:19:37 TOTAL DISPONIBLE: 1.474 Unidades por caja 200 caja máster empaque alto (cm) ancho (cm) largo (cm) peso (kg) CAJA 40.5 24.5 20.5 9 EXISTENCIAS TE-631 - PUERTO USB SYNTRA COLOR BODEGA LOCAL BODEGA ZONA FRANCA TOTAL LLEGADA A BODEGA LOCAL CANTIDAD EN TRÁNSITO ESTADO DEL PEDIDO Silver 1.474 0 1.474 0 PRODUCTOS RELACIONADOS REF: TE-31 PUERTO USB EDON Existencias 2.854 Próximas llegadas 0 REF: TE-544 PUERTO USB RPET Existencias 294 Próximas llegadas 0 REF: TE-565 PUERTO USB 6-1 Existencias 8 Próximas llegadas 1.000 REF: TE-589 PUERTO USB DANTE ECO Existencias 926 Pr",
+        "capacity": "",
+        "customization": "",
+        "eco": true,
+        "personalizable": true,
+        "perceived_value_level": "alto"
+      }
+    ],
+    "total_cost": {
+      "amount": 13450000.0,
+      "currency": "COP"
+    },
+    "per_unit_cost": {
+      "amount": 26900.0,
+      "currency": "COP"
+    },
+    "warnings": [],
+    "occasion": "",
+    "target_audience": "",
+    "commercial_description": "Resumen\nLa PROPUESTA 2 ofrece un puerto USB SYNTRA Nuevo a un costo competitivo de 26,900 COP por unidad, con una ventaja significativa en calidad y beneficio.\n\nVentajas\n• Alta calidad del producto.\n• Beneficio económico para el comprador.\n• Satisfacción del cliente garantizada.\n\nIdeal para la compra general.",
+    "proposal_id": "",
+    "version": 1,
+    "parent_version": 0,
+    "refined": false,
+    "refinements": [],
+    "score_card": {
+      "overall_score": 76.21894736842106,
+      "budget_score": 96.63157894736842,
+      "commercial_score": 43.0,
+      "coherence_score": 50.0,
+      "diversity_score": 20.0,
+      "category_diversity_score": 25.0,
+      "utility_score": 100.0,
+      "brand_visibility_score": 100.0,
+      "premium_score": 0.0,
+      "eco_score": 0.0,
+      "personalization_score": 100.0,
+      "occasion_score": 50.0,
+      "audience_score": 50.0,
+      "balance_score": 50.0,
+      "criteria": [
+        {
+          "name": "Budget Efficiency",
+          "score": 96.63,
+          "weight": 0.22,
+          "contribution": 21.26,
+          "reason": "Utiliza 94% del presupuesto (13,450,000 de 14,250,000 COP)."
+        },
+        {
+          "name": "Commercial Value",
+          "score": 43.0,
+          "weight": 0.22,
+          "contribution": 9.46,
+          "reason": "Valor comercial promedio 43/100 de 1 productos."
+        },
+        {
+          "name": "Kit Coherence",
+          "score": 50.0,
+          "weight": 0.15,
+          "contribution": 7.5,
+          "reason": "Kit de un solo producto; coherencia neutral."
+        },
+        {
+          "name": "Product Diversity",
+          "score": 20.0,
+          "weight": 0.1,
+          "contribution": 2.0,
+          "reason": "1 productos distintos en el kit (max 5 evaluados)."
+        },
+        {
+          "name": "Category Diversity",
+          "score": 25.0,
+          "weight": 0.08,
+          "contribution": 2.0,
+          "reason": "1 categorias distintas: tecnologia."
+        },
+        {
+          "name": "Practical Utility",
+          "score": 100.0,
+          "weight": 0.08,
+          "contribution": 8.0,
+          "reason": "1 de 1 productos con utilidad practica diaria."
+        },
+        {
+          "name": "Brand Visibility",
+          "score": 100.0,
+          "weight": 0.05,
+          "contribution": 5.0,
+          "reason": "1 de 1 productos refuerzan la marca (logo/personalizacion)."
+        },
+        {
+          "name": "Premium Perception",
+          "score": 0.0,
+          "weight": 0.04,
+          "contribution": 0.0,
+          "reason": "0 de 1 productos con percepcion premium."
+        },
+        {
+          "name": "Sustainability",
+          "score": 0.0,
+          "weight": 0.04,
+          "contribution": 0.0,
+          "reason": "0 de 1 productos con atributos eco/sostenibles."
+        },
+        {
+          "name": "Personalization Potential",
+          "score": 100.0,
+          "weight": 0.05,
+          "contribution": 5.0,
+          "reason": "1 de 1 productos personalizables (logo/grabado)."
+        },
+        {
+          "name": "Occasion Fit",
+          "score": 50.0,
+          "weight": 0.16,
+          "contribution": 8.0,
+          "reason": "Sin ocasion especificada; ajuste neutral."
+        },
+        {
+          "name": "Audience Fit",
+          "score": 50.0,
+          "weight": 0.1,
+          "contribution": 5.0,
+          "reason": "Sin publico especificado; ajuste neutral."
+        },
+        {
+          "name": "Proposal Balance",
+          "score": 50.0,
+          "weight": 0.06,
+          "contribution": 3.0,
+          "reason": "Rango de precios 26,900-26,900 COP; equilibrio 50/100 (ideal ~50% de diferencia)."
+        }
+      ],
+      "observations": [
+        "Fortaleza: Practical Utility (100/100).",
+        "Debilidad: Premium Perception (0/100) debe mejorar.",
+        "El kit tiene poca variedad de productos."
+      ]
+    }
+  },
+  "score_card": {
+    "overall_score": 76.21894736842106,
+    "budget_score": 96.63157894736842,
+    "commercial_score": 43.0,
+    "coherence_score": 50.0,
+    "diversity_score": 20.0,
+    "category_diversity_score": 25.0,
+    "utility_score": 100.0,
+    "brand_visibility_score": 100.0,
+    "premium_score": 0.0,
+    "eco_score": 0.0,
+    "personalization_score": 100.0,
+    "occasion_score": 50.0,
+    "audience_score": 50.0,
+    "balance_score": 50.0,
+    "criteria": [
+      {
+        "name": "Budget Efficiency",
+        "score": 96.63,
+        "weight": 0.22,
+        "contribution": 21.26,
+        "reason": "Utiliza 94% del presupuesto (13,450,000 de 14,250,000 COP)."
+      },
+      {
+        "name": "Commercial Value",
+        "score": 43.0,
+        "weight": 0.22,
+        "contribution": 9.46,
+        "reason": "Valor comercial promedio 43/100 de 1 productos."
+      },
+      {
+        "name": "Kit Coherence",
+        "score": 50.0,
+        "weight": 0.15,
+        "contribution": 7.5,
+        "reason": "Kit de un solo producto; coherencia neutral."
+      },
+      {
+        "name": "Product Diversity",
+        "score": 20.0,
+        "weight": 0.1,
+        "contribution": 2.0,
+        "reason": "1 productos distintos en el kit (max 5 evaluados)."
+      },
+      {
+        "name": "Category Diversity",
+        "score": 25.0,
+        "weight": 0.08,
+        "contribution": 2.0,
+        "reason": "1 categorias distintas: tecnologia."
+      },
+      {
+        "name": "Practical Utility",
+        "score": 100.0,
+        "weight": 0.08,
+        "contribution": 8.0,
+        "reason": "1 de 1 productos con utilidad practica diaria."
+      },
+      {
+        "name": "Brand Visibility",
+        "score": 100.0,
+        "weight": 0.05,
+        "contribution": 5.0,
+        "reason": "1 de 1 productos refuerzan la marca (logo/personalizacion)."
+      },
+      {
+        "name": "Premium Perception",
+        "score": 0.0,
+        "weight": 0.04,
+        "contribution": 0.0,
+        "reason": "0 de 1 productos con percepcion premium."
+      },
+      {
+        "name": "Sustainability",
+        "score": 0.0,
+        "weight": 0.04,
+        "contribution": 0.0,
+        "reason": "0 de 1 productos con atributos eco/sostenibles."
+      },
+      {
+        "name": "Personalization Potential",
+        "score": 100.0,
+        "weight": 0.05,
+        "contribution": 5.0,
+        "reason": "1 de 1 productos personalizables (logo/grabado)."
+      },
+      {
+        "name": "Occasion Fit",
+        "score": 50.0,
+        "weight": 0.16,
+        "contribution": 8.0,
+        "reason": "Sin ocasion especificada; ajuste neutral."
+      },
+      {
+        "name": "Audience Fit",
+        "score": 50.0,
+        "weight": 0.1,
+        "contribution": 5.0,
+        "reason": "Sin publico especificado; ajuste neutral."
+      },
+      {
+        "name": "Proposal Balance",
+        "score": 50.0,
+        "weight": 0.06,
+        "contribution": 3.0,
+        "reason": "Rango de precios 26,900-26,900 COP; equilibrio 50/100 (ideal ~50% de diferencia)."
+      }
+    ],
+    "observations": [
+      "Fortaleza: Practical Utility (100/100).",
+      "Debilidad: Premium Perception (0/100) debe mejorar.",
+      "El kit tiene poca variedad de productos."
+    ]
+  },
+  "refinement_history": []
+}

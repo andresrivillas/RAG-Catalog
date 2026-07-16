@@ -1,8 +1,9 @@
 import json
 import logging
 import time
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
-from typing import List
+from typing import List, Optional
 
 from .catalog_web_scraper import CatalogWebScraper
 from .knowledge_merger import KnowledgeMerger
@@ -10,6 +11,8 @@ from .product_html_parser import ProductHtmlParser
 from ...domain.entities.product_knowledge import ProductKnowledge
 
 logger = logging.getLogger(__name__)
+
+MAX_WORKERS = 16
 
 
 class KnowledgeEnrichmentPipeline:
@@ -27,34 +30,39 @@ class KnowledgeEnrichmentPipeline:
 
     def enrich(self, products: List[ProductKnowledge]) -> List[ProductKnowledge]:
         start = time.time()
-        processed = 0
         enriched = 0
         errors = 0
 
-        for product in products:
-            processed += 1
+        def _work(product: ProductKnowledge) -> Optional[str]:
             try:
                 html = self.scraper.fetch(product.url)
                 if html:
                     scraped = self.parser.parse(html)
                     self.merger.merge(product, scraped)
-                    if product.enriched:
-                        enriched += 1
-                else:
-                    errors += 1
+                    return product.reference if product.enriched else None
+                return "no_html"
             except Exception as exc:  # noqa: BLE001
-                errors += 1
-                logger.warning(
-                    "Error enriqueciendo %s: %s", product.reference, exc
-                )
-            if processed % 100 == 0:
-                logger.info("Procesados %s/%s", processed, len(products))
+                logger.warning("Error enriqueciendo %s: %s", product.reference, exc)
+                return "error"
+
+        with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
+            futures = {executor.submit(_work, p): p for p in products}
+            done = 0
+            for future in as_completed(futures):
+                done += 1
+                result = future.result()
+                if result and result not in ("no_html", "error"):
+                    enriched += 1
+                elif result in ("no_html", "error"):
+                    errors += 1
+                if done % 100 == 0:
+                    logger.info("Procesados %s/%s", done, len(products))
 
         self._persist(products)
         logger.info(
             "Enriquecimiento completo: procesados=%s enriquecidos=%s errores=%s "
             "tiempo=%.1fs",
-            processed,
+            len(products),
             enriched,
             errors,
             time.time() - start,
@@ -79,6 +87,11 @@ class KnowledgeEnrichmentPipeline:
             "price_description": product.price_description,
             "additional_prices": product.additional_prices,
             "url": product.url,
+            "detail_url": product.detail_url,
+            "slug": product.slug,
+            "image_url": product.image_url,
+            "thumbnail_url": product.thumbnail_url,
+            "image_urls": product.image_urls,
             "benefits": product.benefits,
             "materials": product.materials,
             "dimensions": product.dimensions,

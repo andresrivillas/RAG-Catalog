@@ -1,0 +1,309 @@
+{
+  "proposal_id": "prop-20260716-152555-0b51",
+  "version": 1,
+  "created_at": "2026-07-16T15:25:55",
+  "updated_at": "2026-07-16T15:25:55",
+  "original_query": "Necesito 500 regalos para empleados con presupuesto de 30000 COP por unidad",
+  "client": "",
+  "intent": {
+    "raw_text": "Necesito 500 regalos para empleados con presupuesto de 30000 COP por unidad",
+    "occasion": null,
+    "quantity": 500,
+    "budget_total": null,
+    "budget_per_unit": 30000.0,
+    "target_audience": null,
+    "preferred_categories": [],
+    "preferred_materials": [],
+    "preferred_colors": [],
+    "eco": false,
+    "personalizable": false,
+    "packaging_required": false,
+    "generation_mode": "balanced"
+  },
+  "proposal": {
+    "name": "PROPUESTA 3",
+    "score": 60.15578947368421,
+    "items": [
+      {
+        "reference": "VA-699",
+        "name": "MORRAL BACKPACK PLEGABLE MOLLY",
+        "unit_price": {
+          "amount": 29900.0,
+          "currency": "COP"
+        },
+        "quantity": 500,
+        "role": "PACKAGING",
+        "selection_reason": "Seleccionado por personalizable; cumple el presupuesto.",
+        "decision_trace": {
+          "semantic_score": 0.0,
+          "commercial_score": 38.0,
+          "occasion_score": 0.5,
+          "budget_score": 0.938095238095238,
+          "final_score": 46.752380952380946,
+          "reason": "Seleccionado por personalizable; cumple el presupuesto.",
+          "detail": {}
+        },
+        "thumbnail_url": "https://firebasestorage.googleapis.com/v0/b/promos-278023.appspot.com/o/products%2FVA-699%2F1.jpg?alt=media",
+        "detail_url": "https://catalogospromocionales.com/producto-cataprom/VA-699/morral-backpack-plegable-molly",
+        "category": "Artículos Promocionales Categorias Antiestrés Antimicrobiano Artículos Escritura Artículos Reflectivos Bar & Vino Bicicleta Ecopromo Herramientas MARCAS URBAN TRAVEL URBAN BUSINESS CHILI BOOMPODS Newsletter Obtén nuestras últimas ofertas en tu correo Artículos Promocionales Categorias Antiestrés Antimicrobiano Artículos Escritura Artículos Reflectivos Bar & Vino Bicicleta Ecopromo Herramientas MARCAS URBAN TRAVEL URBAN BUSINESS CHILI BOOMPODS Newsletter Obtén nuestras últimas ofertas en tu correo Categorias Antiestrés Antimicrobiano Artículos Escritura Artículos Reflectivos Bar & Vino Bicicleta Ecopromo Herramientas Categorias",
+        "materials": "",
+        "colors": "Descargar carrusel *Colores y fotos de referencia. Se recomienda solicitar una muestra física para su verificación.* Compartir MORRAL BACKPACK PLEGABLE MOLLY VA-699 Morral backpack plegable en poliéster con dos bolsillos de malla. Medidas: Cerrado: 24 cm x 14 cm Abierto: 32 cm x 30 cm x 12.5 cm Marca: 13 cm / Serigrafía Complejo Ficha Técnica Precio actualizado: 03/07/26 * actualizado el 2026-07-16 15:21:47 TOTAL DISPONIBLE: 2.177 Unidades por caja 100 caja máster empaque alto (cm) ancho (cm) largo (cm) peso (kg) CAJA 65 45 29 13.5 EXISTENCIAS VA-699 - MORRAL BACKPACK PLEGABLE MOLLY COLOR BODEGA LOCAL BODEGA ZONA FRANCA TOTAL LLEGADA A BODEGA LOCAL CANTIDAD EN TRÁNSITO ESTADO DEL PEDIDO Azul Oscuro 772 0 772 lunes, 26 de octubre de 2026 1.500 Orden en producción (PENDIENTE CONFIRMACIÓN), fecha estimada salida de puerto origen Septiembre 8 Azul Royal 892 0 892 lunes, 26 de octubre de 2026 1.500 Orden en producción (PENDIENTE CONFIRMACIÓN), fecha estimada salida de puerto origen Septiemb",
+        "capacity": "",
+        "customization": "",
+        "eco": true,
+        "personalizable": true,
+        "perceived_value_level": "alto"
+      }
+    ],
+    "total_cost": {
+      "amount": 14950000.0,
+      "currency": "COP"
+    },
+    "per_unit_cost": {
+      "amount": 29900.0,
+      "currency": "COP"
+    },
+    "warnings": [
+      "El costo total supera el presupuesto utilizable."
+    ],
+    "occasion": "",
+    "target_audience": "",
+    "commercial_description": "Resumen\nLa PROPUESTA 3 ofrece un MORRAL BACKPACK PLEGABLE MOLLY a un costo de 29,900 COP por unidad, con una cantidad total de 500 unidades.\n\nVentajas\n• Aprovecha la oportunidad de ofrecer un producto útil y práctico.\n• El MORRAL BACKPACK PLEGABLE MOLLY es una excelente opción para el público objetivo general.\n• La variedad de productos incluidos en la propuesta puede atraer a más clientes.\n\nIdeal para eventos o ocasiones generales.",
+    "proposal_id": "",
+    "version": 1,
+    "parent_version": 0,
+    "refined": false,
+    "refinements": [],
+    "score_card": {
+      "overall_score": 60.15578947368421,
+      "budget_score": 55.08771929824562,
+      "commercial_score": 38.0,
+      "coherence_score": 50.0,
+      "diversity_score": 20.0,
+      "category_diversity_score": 0.0,
+      "utility_score": 100.0,
+      "brand_visibility_score": 100.0,
+      "premium_score": 0.0,
+      "eco_score": 0.0,
+      "personalization_score": 100.0,
+      "occasion_score": 50.0,
+      "audience_score": 50.0,
+      "balance_score": 50.0,
+      "criteria": [
+        {
+          "name": "Budget Efficiency",
+          "score": 55.09,
+          "weight": 0.18,
+          "contribution": 9.92,
+          "reason": "Supera el presupuesto utilizable en 5%; usa 14,950,000 de 14,250,000 COP."
+        },
+        {
+          "name": "Commercial Value",
+          "score": 38.0,
+          "weight": 0.28,
+          "contribution": 10.64,
+          "reason": "Valor comercial promedio 38/100 de 1 productos."
+        },
+        {
+          "name": "Kit Coherence",
+          "score": 50.0,
+          "weight": 0.13,
+          "contribution": 6.5,
+          "reason": "Kit de un solo producto; coherencia neutral."
+        },
+        {
+          "name": "Product Diversity",
+          "score": 20.0,
+          "weight": 0.08,
+          "contribution": 1.6,
+          "reason": "1 productos distintos en el kit (max 5 evaluados)."
+        },
+        {
+          "name": "Category Diversity",
+          "score": 0.0,
+          "weight": 0.07,
+          "contribution": 0.0,
+          "reason": "0 categorias distintas: ninguna clasificable."
+        },
+        {
+          "name": "Practical Utility",
+          "score": 100.0,
+          "weight": 0.05,
+          "contribution": 5.0,
+          "reason": "1 de 1 productos con utilidad practica diaria."
+        },
+        {
+          "name": "Brand Visibility",
+          "score": 100.0,
+          "weight": 0.08,
+          "contribution": 8.0,
+          "reason": "1 de 1 productos refuerzan la marca (logo/personalizacion)."
+        },
+        {
+          "name": "Premium Perception",
+          "score": 0.0,
+          "weight": 0.14,
+          "contribution": 0.0,
+          "reason": "0 de 1 productos con percepcion premium."
+        },
+        {
+          "name": "Sustainability",
+          "score": 0.0,
+          "weight": 0.02,
+          "contribution": 0.0,
+          "reason": "0 de 1 productos con atributos eco/sostenibles."
+        },
+        {
+          "name": "Personalization Potential",
+          "score": 100.0,
+          "weight": 0.06,
+          "contribution": 6.0,
+          "reason": "1 de 1 productos personalizables (logo/grabado)."
+        },
+        {
+          "name": "Occasion Fit",
+          "score": 50.0,
+          "weight": 0.13,
+          "contribution": 6.5,
+          "reason": "Sin ocasion especificada; ajuste neutral."
+        },
+        {
+          "name": "Audience Fit",
+          "score": 50.0,
+          "weight": 0.08,
+          "contribution": 4.0,
+          "reason": "Sin publico especificado; ajuste neutral."
+        },
+        {
+          "name": "Proposal Balance",
+          "score": 50.0,
+          "weight": 0.04,
+          "contribution": 2.0,
+          "reason": "Rango de precios 29,900-29,900 COP; equilibrio 50/100 (ideal ~50% de diferencia)."
+        }
+      ],
+      "observations": [
+        "Fortaleza: Practical Utility (100/100).",
+        "Debilidad: Category Diversity (0/100) debe mejorar.",
+        "La propuesta no aprovecha bien el presupuesto.",
+        "El kit tiene poca variedad de productos."
+      ]
+    }
+  },
+  "score_card": {
+    "overall_score": 60.15578947368421,
+    "budget_score": 55.08771929824562,
+    "commercial_score": 38.0,
+    "coherence_score": 50.0,
+    "diversity_score": 20.0,
+    "category_diversity_score": 0.0,
+    "utility_score": 100.0,
+    "brand_visibility_score": 100.0,
+    "premium_score": 0.0,
+    "eco_score": 0.0,
+    "personalization_score": 100.0,
+    "occasion_score": 50.0,
+    "audience_score": 50.0,
+    "balance_score": 50.0,
+    "criteria": [
+      {
+        "name": "Budget Efficiency",
+        "score": 55.09,
+        "weight": 0.18,
+        "contribution": 9.92,
+        "reason": "Supera el presupuesto utilizable en 5%; usa 14,950,000 de 14,250,000 COP."
+      },
+      {
+        "name": "Commercial Value",
+        "score": 38.0,
+        "weight": 0.28,
+        "contribution": 10.64,
+        "reason": "Valor comercial promedio 38/100 de 1 productos."
+      },
+      {
+        "name": "Kit Coherence",
+        "score": 50.0,
+        "weight": 0.13,
+        "contribution": 6.5,
+        "reason": "Kit de un solo producto; coherencia neutral."
+      },
+      {
+        "name": "Product Diversity",
+        "score": 20.0,
+        "weight": 0.08,
+        "contribution": 1.6,
+        "reason": "1 productos distintos en el kit (max 5 evaluados)."
+      },
+      {
+        "name": "Category Diversity",
+        "score": 0.0,
+        "weight": 0.07,
+        "contribution": 0.0,
+        "reason": "0 categorias distintas: ninguna clasificable."
+      },
+      {
+        "name": "Practical Utility",
+        "score": 100.0,
+        "weight": 0.05,
+        "contribution": 5.0,
+        "reason": "1 de 1 productos con utilidad practica diaria."
+      },
+      {
+        "name": "Brand Visibility",
+        "score": 100.0,
+        "weight": 0.08,
+        "contribution": 8.0,
+        "reason": "1 de 1 productos refuerzan la marca (logo/personalizacion)."
+      },
+      {
+        "name": "Premium Perception",
+        "score": 0.0,
+        "weight": 0.14,
+        "contribution": 0.0,
+        "reason": "0 de 1 productos con percepcion premium."
+      },
+      {
+        "name": "Sustainability",
+        "score": 0.0,
+        "weight": 0.02,
+        "contribution": 0.0,
+        "reason": "0 de 1 productos con atributos eco/sostenibles."
+      },
+      {
+        "name": "Personalization Potential",
+        "score": 100.0,
+        "weight": 0.06,
+        "contribution": 6.0,
+        "reason": "1 de 1 productos personalizables (logo/grabado)."
+      },
+      {
+        "name": "Occasion Fit",
+        "score": 50.0,
+        "weight": 0.13,
+        "contribution": 6.5,
+        "reason": "Sin ocasion especificada; ajuste neutral."
+      },
+      {
+        "name": "Audience Fit",
+        "score": 50.0,
+        "weight": 0.08,
+        "contribution": 4.0,
+        "reason": "Sin publico especificado; ajuste neutral."
+      },
+      {
+        "name": "Proposal Balance",
+        "score": 50.0,
+        "weight": 0.04,
+        "contribution": 2.0,
+        "reason": "Rango de precios 29,900-29,900 COP; equilibrio 50/100 (ideal ~50% de diferencia)."
+      }
+    ],
+    "observations": [
+      "Fortaleza: Practical Utility (100/100).",
+      "Debilidad: Category Diversity (0/100) debe mejorar.",
+      "La propuesta no aprovecha bien el presupuesto.",
+      "El kit tiene poca variedad de productos."
+    ]
+  },
+  "refinement_history": []
+}

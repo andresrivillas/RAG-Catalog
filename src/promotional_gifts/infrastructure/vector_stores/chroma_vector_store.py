@@ -39,6 +39,8 @@ class ChromaVectorStore(VectorStorePort):
                 "audience_tags": ",".join(p.audience_tags),
                 "perceived_value_level": p.perceived_value_level,
                 "benefits": p.benefits,
+                "thumbnail_url": p.thumbnail_url or p.image_url or "",
+                "detail_url": p.detail_url or p.url or "",
             }
             for p in products
         ]
@@ -97,6 +99,9 @@ class ChromaVectorStore(VectorStorePort):
                     "perceived_value_level", "medio"
                 ),
                 benefits=metadata.get("benefits", ""),
+                thumbnail_url=metadata.get("thumbnail_url", ""),
+                detail_url=metadata.get("detail_url", ""),
+                url=metadata.get("detail_url", ""),
             )
             product.embedding_text = document
             score = 1.0 - float(distance)

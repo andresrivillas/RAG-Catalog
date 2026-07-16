@@ -1,0 +1,319 @@
+{
+  "proposal_id": "prop-20260716-151446-1534",
+  "version": 1,
+  "created_at": "2026-07-16T15:14:46",
+  "updated_at": "2026-07-16T15:14:46",
+  "original_query": "Necesito 500 regalos para empleados con presupuesto de 30000 COP por unidad",
+  "client": "",
+  "intent": {
+    "raw_text": "Necesito 500 regalos para empleados con presupuesto de 30000 COP por unidad",
+    "occasion": null,
+    "quantity": 500,
+    "budget_total": null,
+    "budget_per_unit": 30000.0,
+    "target_audience": null,
+    "preferred_categories": [],
+    "preferred_materials": [],
+    "preferred_colors": [],
+    "eco": false,
+    "personalizable": false,
+    "packaging_required": false,
+    "generation_mode": "balanced"
+  },
+  "proposal": {
+    "name": "PROPUESTA 1",
+    "score": 61.37489151450054,
+    "items": [
+      {
+        "reference": "MU-235",
+        "name": "BOTILITO METALICO WOOD 700ML",
+        "unit_price": {
+          "amount": 24500.0,
+          "currency": "COP"
+        },
+        "quantity": 500,
+        "role": "PACKAGING",
+        "selection_reason": "Seleccionado por cumple el presupuesto.",
+        "decision_trace": {
+          "semantic_score": 0.0,
+          "commercial_score": 28.0,
+          "occasion_score": 0.5,
+          "budget_score": 0.9047619047619044,
+          "final_score": 38.995238095238086,
+          "reason": "Seleccionado por cumple el presupuesto.",
+          "detail": {}
+        },
+        "thumbnail_url": "https://firebasestorage.googleapis.com/v0/b/promos-278023.appspot.com/o/app_images%2F1602258164900-1a.UrbanTravel.png?alt=media",
+        "detail_url": "https://catalogospromocionales.com/producto-cataprom/MU-235/botilito-metalico-wood-700ml"
+      },
+      {
+        "reference": "LL-111",
+        "name": "LLAVERO POP",
+        "unit_price": {
+          "amount": 2920.0,
+          "currency": "COP"
+        },
+        "quantity": 500,
+        "role": "PROMOTIONAL",
+        "selection_reason": "Seleccionado por cumple el presupuesto.",
+        "decision_trace": {
+          "semantic_score": 0.0,
+          "commercial_score": 28.0,
+          "occasion_score": 0.5,
+          "budget_score": 0.0,
+          "final_score": 20.9,
+          "reason": "Seleccionado por cumple el presupuesto.",
+          "detail": {}
+        },
+        "thumbnail_url": "https://firebasestorage.googleapis.com/v0/b/promos-278023.appspot.com/o/app_images%2F1602258164900-1a.UrbanTravel.png?alt=media",
+        "detail_url": "https://catalogospromocionales.com/producto-cataprom/LL-111/llavero-pop"
+      }
+    ],
+    "total_cost": {
+      "amount": 13710000.0,
+      "currency": "COP"
+    },
+    "per_unit_cost": {
+      "amount": 27420.0,
+      "currency": "COP"
+    },
+    "warnings": [],
+    "occasion": "",
+    "target_audience": "",
+    "commercial_description": "Resumen\nLa PROPUESTA 1 incluye dos productos promocionales: BOTILITO METALICO WOOD 700ML y LLAVERO POP, diseñados para atraer al público general. El costo total es de 13,710,000 COP.\n\nVentajas\n• Mayor visibilidad y reconocimiento del marca.\n• Incremento en la satisfacción del cliente debido a la inclusión de productos de alta calidad.\n• Oportunidad de establecer una relación con el cliente a largo plazo.\n\nIdeal para eventos corporativos o promociones generales.",
+    "proposal_id": "",
+    "version": 1,
+    "parent_version": 0,
+    "refined": false,
+    "refinements": [],
+    "score_card": {
+      "overall_score": 61.37489151450054,
+      "budget_score": 97.72631578947369,
+      "commercial_score": 28.0,
+      "coherence_score": 60.0,
+      "diversity_score": 40.0,
+      "category_diversity_score": 0.0,
+      "utility_score": 0.0,
+      "brand_visibility_score": 50.0,
+      "premium_score": 37.5,
+      "eco_score": 0.0,
+      "personalization_score": 0.0,
+      "occasion_score": 50.0,
+      "audience_score": 50.0,
+      "balance_score": 61.91836734693877,
+      "criteria": [
+        {
+          "name": "Budget Efficiency",
+          "score": 97.73,
+          "weight": 0.22,
+          "contribution": 21.5,
+          "reason": "Utiliza 96% del presupuesto (13,710,000 de 14,250,000 COP)."
+        },
+        {
+          "name": "Commercial Value",
+          "score": 28.0,
+          "weight": 0.22,
+          "contribution": 6.16,
+          "reason": "Valor comercial promedio 28/100 de 2 productos."
+        },
+        {
+          "name": "Kit Coherence",
+          "score": 60.0,
+          "weight": 0.15,
+          "contribution": 9.0,
+          "reason": "2 productos en 1 categorias; 1 categoria(s) repetida(s); falta producto central (CORE)."
+        },
+        {
+          "name": "Product Diversity",
+          "score": 40.0,
+          "weight": 0.1,
+          "contribution": 4.0,
+          "reason": "2 productos distintos en el kit (max 5 evaluados)."
+        },
+        {
+          "name": "Category Diversity",
+          "score": 0.0,
+          "weight": 0.08,
+          "contribution": 0.0,
+          "reason": "0 categorias distintas: ninguna clasificable."
+        },
+        {
+          "name": "Practical Utility",
+          "score": 0.0,
+          "weight": 0.08,
+          "contribution": 0.0,
+          "reason": "0 de 2 productos con utilidad practica diaria."
+        },
+        {
+          "name": "Brand Visibility",
+          "score": 50.0,
+          "weight": 0.05,
+          "contribution": 2.5,
+          "reason": "1 de 2 productos refuerzan la marca (logo/personalizacion)."
+        },
+        {
+          "name": "Premium Perception",
+          "score": 37.5,
+          "weight": 0.04,
+          "contribution": 1.5,
+          "reason": "1 de 2 productos con percepcion premium."
+        },
+        {
+          "name": "Sustainability",
+          "score": 0.0,
+          "weight": 0.04,
+          "contribution": 0.0,
+          "reason": "0 de 2 productos con atributos eco/sostenibles."
+        },
+        {
+          "name": "Personalization Potential",
+          "score": 0.0,
+          "weight": 0.05,
+          "contribution": 0.0,
+          "reason": "0 de 2 productos personalizables (logo/grabado)."
+        },
+        {
+          "name": "Occasion Fit",
+          "score": 50.0,
+          "weight": 0.16,
+          "contribution": 8.0,
+          "reason": "Sin ocasion especificada; ajuste neutral."
+        },
+        {
+          "name": "Audience Fit",
+          "score": 50.0,
+          "weight": 0.1,
+          "contribution": 5.0,
+          "reason": "Sin publico especificado; ajuste neutral."
+        },
+        {
+          "name": "Proposal Balance",
+          "score": 61.92,
+          "weight": 0.06,
+          "contribution": 3.72,
+          "reason": "Rango de precios 2,920-24,500 COP; equilibrio 62/100 (ideal ~50% de diferencia)."
+        }
+      ],
+      "observations": [
+        "Fortaleza: Budget Efficiency (98/100).",
+        "Debilidad: Category Diversity (0/100) debe mejorar.",
+        "El kit tiene poca variedad de productos."
+      ]
+    }
+  },
+  "score_card": {
+    "overall_score": 61.37489151450054,
+    "budget_score": 97.72631578947369,
+    "commercial_score": 28.0,
+    "coherence_score": 60.0,
+    "diversity_score": 40.0,
+    "category_diversity_score": 0.0,
+    "utility_score": 0.0,
+    "brand_visibility_score": 50.0,
+    "premium_score": 37.5,
+    "eco_score": 0.0,
+    "personalization_score": 0.0,
+    "occasion_score": 50.0,
+    "audience_score": 50.0,
+    "balance_score": 61.91836734693877,
+    "criteria": [
+      {
+        "name": "Budget Efficiency",
+        "score": 97.73,
+        "weight": 0.22,
+        "contribution": 21.5,
+        "reason": "Utiliza 96% del presupuesto (13,710,000 de 14,250,000 COP)."
+      },
+      {
+        "name": "Commercial Value",
+        "score": 28.0,
+        "weight": 0.22,
+        "contribution": 6.16,
+        "reason": "Valor comercial promedio 28/100 de 2 productos."
+      },
+      {
+        "name": "Kit Coherence",
+        "score": 60.0,
+        "weight": 0.15,
+        "contribution": 9.0,
+        "reason": "2 productos en 1 categorias; 1 categoria(s) repetida(s); falta producto central (CORE)."
+      },
+      {
+        "name": "Product Diversity",
+        "score": 40.0,
+        "weight": 0.1,
+        "contribution": 4.0,
+        "reason": "2 productos distintos en el kit (max 5 evaluados)."
+      },
+      {
+        "name": "Category Diversity",
+        "score": 0.0,
+        "weight": 0.08,
+        "contribution": 0.0,
+        "reason": "0 categorias distintas: ninguna clasificable."
+      },
+      {
+        "name": "Practical Utility",
+        "score": 0.0,
+        "weight": 0.08,
+        "contribution": 0.0,
+        "reason": "0 de 2 productos con utilidad practica diaria."
+      },
+      {
+        "name": "Brand Visibility",
+        "score": 50.0,
+        "weight": 0.05,
+        "contribution": 2.5,
+        "reason": "1 de 2 productos refuerzan la marca (logo/personalizacion)."
+      },
+      {
+        "name": "Premium Perception",
+        "score": 37.5,
+        "weight": 0.04,
+        "contribution": 1.5,
+        "reason": "1 de 2 productos con percepcion premium."
+      },
+      {
+        "name": "Sustainability",
+        "score": 0.0,
+        "weight": 0.04,
+        "contribution": 0.0,
+        "reason": "0 de 2 productos con atributos eco/sostenibles."
+      },
+      {
+        "name": "Personalization Potential",
+        "score": 0.0,
+        "weight": 0.05,
+        "contribution": 0.0,
+        "reason": "0 de 2 productos personalizables (logo/grabado)."
+      },
+      {
+        "name": "Occasion Fit",
+        "score": 50.0,
+        "weight": 0.16,
+        "contribution": 8.0,
+        "reason": "Sin ocasion especificada; ajuste neutral."
+      },
+      {
+        "name": "Audience Fit",
+        "score": 50.0,
+        "weight": 0.1,
+        "contribution": 5.0,
+        "reason": "Sin publico especificado; ajuste neutral."
+      },
+      {
+        "name": "Proposal Balance",
+        "score": 61.92,
+        "weight": 0.06,
+        "contribution": 3.72,
+        "reason": "Rango de precios 2,920-24,500 COP; equilibrio 62/100 (ideal ~50% de diferencia)."
+      }
+    ],
+    "observations": [
+      "Fortaleza: Budget Efficiency (98/100).",
+      "Debilidad: Category Diversity (0/100) debe mejorar.",
+      "El kit tiene poca variedad de productos."
+    ]
+  },
+  "refinement_history": []
+}

@@ -1,0 +1,319 @@
+{
+  "proposal_id": "prop-20260716-151446-0a0e",
+  "version": 1,
+  "created_at": "2026-07-16T15:14:46",
+  "updated_at": "2026-07-16T15:14:46",
+  "original_query": "Necesito 500 regalos para empleados con presupuesto de 30000 COP por unidad",
+  "client": "",
+  "intent": {
+    "raw_text": "Necesito 500 regalos para empleados con presupuesto de 30000 COP por unidad",
+    "occasion": null,
+    "quantity": 500,
+    "budget_total": null,
+    "budget_per_unit": 30000.0,
+    "target_audience": null,
+    "preferred_categories": [],
+    "preferred_materials": [],
+    "preferred_colors": [],
+    "eco": false,
+    "personalizable": false,
+    "packaging_required": false,
+    "generation_mode": "balanced"
+  },
+  "proposal": {
+    "name": "PROPUESTA 2",
+    "score": 60.40911954607708,
+    "items": [
+      {
+        "reference": "TE-398-1",
+        "name": "SOPORTE PLASTICO PARA PORTATIL II",
+        "unit_price": {
+          "amount": 26900.0,
+          "currency": "COP"
+        },
+        "quantity": 500,
+        "role": "PACKAGING",
+        "selection_reason": "Seleccionado por cumple el presupuesto.",
+        "decision_trace": {
+          "semantic_score": 0.0,
+          "commercial_score": 23.0,
+          "occasion_score": 0.5,
+          "budget_score": 0.866666666666667,
+          "final_score": 36.733333333333334,
+          "reason": "Seleccionado por cumple el presupuesto.",
+          "detail": {}
+        },
+        "thumbnail_url": "https://firebasestorage.googleapis.com/v0/b/promos-278023.appspot.com/o/app_images%2F1602258164900-1a.UrbanTravel.png?alt=media",
+        "detail_url": "https://catalogospromocionales.com/producto-cataprom/TE-398-1/soporte-plastico-para-portatil-ii"
+      },
+      {
+        "reference": "JU-93",
+        "name": "GOLF TEES 7CM",
+        "unit_price": {
+          "amount": 350.0,
+          "currency": "COP"
+        },
+        "quantity": 500,
+        "role": "PROMOTIONAL",
+        "selection_reason": "Seleccionado por cumple el presupuesto.",
+        "decision_trace": {
+          "semantic_score": 0.0,
+          "commercial_score": 8.0,
+          "occasion_score": 0.5,
+          "budget_score": 0.0,
+          "final_score": 14.9,
+          "reason": "Seleccionado por cumple el presupuesto.",
+          "detail": {}
+        },
+        "thumbnail_url": "https://firebasestorage.googleapis.com/v0/b/promos-278023.appspot.com/o/app_images%2F1602258164900-1a.UrbanTravel.png?alt=media",
+        "detail_url": "https://catalogospromocionales.com/producto-cataprom/JU-93/golf-tees-7cm"
+      }
+    ],
+    "total_cost": {
+      "amount": 13625000.0,
+      "currency": "COP"
+    },
+    "per_unit_cost": {
+      "amount": 27250.0,
+      "currency": "COP"
+    },
+    "warnings": [],
+    "occasion": "",
+    "target_audience": "",
+    "commercial_description": "Resumen\nLa PROPUESTA 2 ofrece un conjunto de productos promocionales que pueden ser útiles para una variedad de ocasiones y públicos. Los productos incluyen un soporte plástico para portátiles y golf tees, diseñados para proporcionar beneficios específicos a los clientes.\n\nVentajas\n• Aumento de la satisfacción del cliente con productos de alta calidad.\n• Oportunidad de establecer relaciones con nuevos clientes o fortalecer las existentes.\n• Posibilidad de generar ingresos adicionales a través de la venta de estos productos promocionales.\n\nIdeal para eventos deportivos, reuniones corporativas o ocasiones especiales.",
+    "proposal_id": "",
+    "version": 1,
+    "parent_version": 0,
+    "refined": false,
+    "refinements": [],
+    "score_card": {
+      "overall_score": 60.40911954607708,
+      "budget_score": 97.36842105263158,
+      "commercial_score": 15.5,
+      "coherence_score": 60.0,
+      "diversity_score": 40.0,
+      "category_diversity_score": 0.0,
+      "utility_score": 50.0,
+      "brand_visibility_score": 50.0,
+      "premium_score": 0.0,
+      "eco_score": 0.0,
+      "personalization_score": 0.0,
+      "occasion_score": 50.0,
+      "audience_score": 50.0,
+      "balance_score": 51.301115241635685,
+      "criteria": [
+        {
+          "name": "Budget Efficiency",
+          "score": 97.37,
+          "weight": 0.22,
+          "contribution": 21.42,
+          "reason": "Utiliza 96% del presupuesto (13,625,000 de 14,250,000 COP)."
+        },
+        {
+          "name": "Commercial Value",
+          "score": 15.5,
+          "weight": 0.22,
+          "contribution": 3.41,
+          "reason": "Valor comercial promedio 16/100 de 2 productos."
+        },
+        {
+          "name": "Kit Coherence",
+          "score": 60.0,
+          "weight": 0.15,
+          "contribution": 9.0,
+          "reason": "2 productos en 1 categorias; 1 categoria(s) repetida(s); falta producto central (CORE)."
+        },
+        {
+          "name": "Product Diversity",
+          "score": 40.0,
+          "weight": 0.1,
+          "contribution": 4.0,
+          "reason": "2 productos distintos en el kit (max 5 evaluados)."
+        },
+        {
+          "name": "Category Diversity",
+          "score": 0.0,
+          "weight": 0.08,
+          "contribution": 0.0,
+          "reason": "0 categorias distintas: ninguna clasificable."
+        },
+        {
+          "name": "Practical Utility",
+          "score": 50.0,
+          "weight": 0.08,
+          "contribution": 4.0,
+          "reason": "1 de 2 productos con utilidad practica diaria."
+        },
+        {
+          "name": "Brand Visibility",
+          "score": 50.0,
+          "weight": 0.05,
+          "contribution": 2.5,
+          "reason": "1 de 2 productos refuerzan la marca (logo/personalizacion)."
+        },
+        {
+          "name": "Premium Perception",
+          "score": 0.0,
+          "weight": 0.04,
+          "contribution": 0.0,
+          "reason": "0 de 2 productos con percepcion premium."
+        },
+        {
+          "name": "Sustainability",
+          "score": 0.0,
+          "weight": 0.04,
+          "contribution": 0.0,
+          "reason": "0 de 2 productos con atributos eco/sostenibles."
+        },
+        {
+          "name": "Personalization Potential",
+          "score": 0.0,
+          "weight": 0.05,
+          "contribution": 0.0,
+          "reason": "0 de 2 productos personalizables (logo/grabado)."
+        },
+        {
+          "name": "Occasion Fit",
+          "score": 50.0,
+          "weight": 0.16,
+          "contribution": 8.0,
+          "reason": "Sin ocasion especificada; ajuste neutral."
+        },
+        {
+          "name": "Audience Fit",
+          "score": 50.0,
+          "weight": 0.1,
+          "contribution": 5.0,
+          "reason": "Sin publico especificado; ajuste neutral."
+        },
+        {
+          "name": "Proposal Balance",
+          "score": 51.3,
+          "weight": 0.06,
+          "contribution": 3.08,
+          "reason": "Rango de precios 350-26,900 COP; equilibrio 51/100 (ideal ~50% de diferencia)."
+        }
+      ],
+      "observations": [
+        "Fortaleza: Budget Efficiency (97/100).",
+        "Debilidad: Category Diversity (0/100) debe mejorar.",
+        "El kit tiene poca variedad de productos."
+      ]
+    }
+  },
+  "score_card": {
+    "overall_score": 60.40911954607708,
+    "budget_score": 97.36842105263158,
+    "commercial_score": 15.5,
+    "coherence_score": 60.0,
+    "diversity_score": 40.0,
+    "category_diversity_score": 0.0,
+    "utility_score": 50.0,
+    "brand_visibility_score": 50.0,
+    "premium_score": 0.0,
+    "eco_score": 0.0,
+    "personalization_score": 0.0,
+    "occasion_score": 50.0,
+    "audience_score": 50.0,
+    "balance_score": 51.301115241635685,
+    "criteria": [
+      {
+        "name": "Budget Efficiency",
+        "score": 97.37,
+        "weight": 0.22,
+        "contribution": 21.42,
+        "reason": "Utiliza 96% del presupuesto (13,625,000 de 14,250,000 COP)."
+      },
+      {
+        "name": "Commercial Value",
+        "score": 15.5,
+        "weight": 0.22,
+        "contribution": 3.41,
+        "reason": "Valor comercial promedio 16/100 de 2 productos."
+      },
+      {
+        "name": "Kit Coherence",
+        "score": 60.0,
+        "weight": 0.15,
+        "contribution": 9.0,
+        "reason": "2 productos en 1 categorias; 1 categoria(s) repetida(s); falta producto central (CORE)."
+      },
+      {
+        "name": "Product Diversity",
+        "score": 40.0,
+        "weight": 0.1,
+        "contribution": 4.0,
+        "reason": "2 productos distintos en el kit (max 5 evaluados)."
+      },
+      {
+        "name": "Category Diversity",
+        "score": 0.0,
+        "weight": 0.08,
+        "contribution": 0.0,
+        "reason": "0 categorias distintas: ninguna clasificable."
+      },
+      {
+        "name": "Practical Utility",
+        "score": 50.0,
+        "weight": 0.08,
+        "contribution": 4.0,
+        "reason": "1 de 2 productos con utilidad practica diaria."
+      },
+      {
+        "name": "Brand Visibility",
+        "score": 50.0,
+        "weight": 0.05,
+        "contribution": 2.5,
+        "reason": "1 de 2 productos refuerzan la marca (logo/personalizacion)."
+      },
+      {
+        "name": "Premium Perception",
+        "score": 0.0,
+        "weight": 0.04,
+        "contribution": 0.0,
+        "reason": "0 de 2 productos con percepcion premium."
+      },
+      {
+        "name": "Sustainability",
+        "score": 0.0,
+        "weight": 0.04,
+        "contribution": 0.0,
+        "reason": "0 de 2 productos con atributos eco/sostenibles."
+      },
+      {
+        "name": "Personalization Potential",
+        "score": 0.0,
+        "weight": 0.05,
+        "contribution": 0.0,
+        "reason": "0 de 2 productos personalizables (logo/grabado)."
+      },
+      {
+        "name": "Occasion Fit",
+        "score": 50.0,
+        "weight": 0.16,
+        "contribution": 8.0,
+        "reason": "Sin ocasion especificada; ajuste neutral."
+      },
+      {
+        "name": "Audience Fit",
+        "score": 50.0,
+        "weight": 0.1,
+        "contribution": 5.0,
+        "reason": "Sin publico especificado; ajuste neutral."
+      },
+      {
+        "name": "Proposal Balance",
+        "score": 51.3,
+        "weight": 0.06,
+        "contribution": 3.08,
+        "reason": "Rango de precios 350-26,900 COP; equilibrio 51/100 (ideal ~50% de diferencia)."
+      }
+    ],
+    "observations": [
+      "Fortaleza: Budget Efficiency (97/100).",
+      "Debilidad: Category Diversity (0/100) debe mejorar.",
+      "El kit tiene poca variedad de productos."
+    ]
+  },
+  "refinement_history": []
+}

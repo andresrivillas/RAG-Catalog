@@ -62,6 +62,16 @@ def item_to_dict(item: ProposalItem) -> dict:
         "decision_trace": decision_trace_to_dict(item.decision_trace)
         if item.decision_trace
         else None,
+        "thumbnail_url": item.thumbnail_url,
+        "detail_url": item.detail_url,
+        "category": item.category,
+        "materials": item.materials,
+        "colors": item.colors,
+        "capacity": item.capacity,
+        "customization": item.customization,
+        "eco": item.eco,
+        "personalizable": item.personalizable,
+        "perceived_value_level": item.perceived_value_level,
     }
 
 
@@ -76,6 +86,16 @@ def dict_to_item(d: dict) -> ProposalItem:
         decision_trace=dict_to_decision_trace(d["decision_trace"])
         if d.get("decision_trace")
         else None,
+        thumbnail_url=d.get("thumbnail_url", ""),
+        detail_url=d.get("detail_url", ""),
+        category=d.get("category", ""),
+        materials=d.get("materials", ""),
+        colors=d.get("colors", ""),
+        capacity=d.get("capacity", ""),
+        customization=d.get("customization", ""),
+        eco=d.get("eco", False),
+        personalizable=d.get("personalizable", False),
+        perceived_value_level=d.get("perceived_value_level", ""),
     )
 
 

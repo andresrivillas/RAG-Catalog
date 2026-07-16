@@ -12,6 +12,8 @@ class ScrapedProduct:
     capacity: str = ""
     colors: str = ""
     images: List[str] = field(default_factory=list)
+    thumbnail_url: str = ""
+    image_urls: List[str] = field(default_factory=list)
     category: str = ""
     subcategory: str = ""
     recommendations: str = ""
@@ -44,7 +46,11 @@ class ProductHtmlParser:
         result.customization = self._text(
             soup, ["personaliz", "grabado", "customiz"]
         )
-        result.images = self._images(soup)
+        images = self._images(soup)
+        result.images = images
+        if images:
+            result.thumbnail_url = images[0]
+            result.image_urls = images
         return result
 
     def _text(self, soup, keywords: List[str]) -> str:
@@ -61,8 +67,48 @@ class ProductHtmlParser:
 
     def _images(self, soup) -> List[str]:
         images = []
+        seen = set()
+
+        gallery = soup.select(".gallery-top img, .swiper-slide img")
+        if gallery:
+            for img in gallery:
+                src = img.get("src") or img.get("data-src") or ""
+                if self._valid_gallery_image(src, seen):
+                    seen.add(src)
+                    images.append(src)
+            if images:
+                return images[:10]
+
+        zoom_imgs = soup.select("a.img_zoom img")
+        if zoom_imgs:
+            for img in zoom_imgs:
+                src = img.get("src") or img.get("data-src") or ""
+                if self._valid_gallery_image(src, seen):
+                    seen.add(src)
+                    images.append(src)
+            if images:
+                return images[:10]
+
         for img in soup.find_all("img"):
             src = img.get("src") or img.get("data-src") or ""
-            if src and src.startswith("http"):
+            if self._valid_gallery_image(src, seen):
+                seen.add(src)
                 images.append(src)
-        return images[:5]
+        return images[:10]
+
+    @staticmethod
+    def _valid_gallery_image(src: str, seen: set) -> bool:
+        if not src or not src.startswith("http"):
+            return False
+        low = src.lower()
+        if any(
+            skip in low
+            for skip in [
+                "logo", "icon", "pixel", "placeholder", "related",
+                "banner", "publicidad", "-ico", "ico.", "/ico",
+            ]
+        ):
+            return False
+        if src in seen:
+            return False
+        return True

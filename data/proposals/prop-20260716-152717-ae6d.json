@@ -1,0 +1,335 @@
+{
+  "proposal_id": "prop-20260716-152717-ae6d",
+  "version": 1,
+  "created_at": "2026-07-16T15:27:17",
+  "updated_at": "2026-07-16T15:27:17",
+  "original_query": "Necesito 500 regalos para empleados con presupuesto de 30000 COP por unidad",
+  "client": "",
+  "intent": {
+    "raw_text": "Necesito 500 regalos para empleados con presupuesto de 30000 COP por unidad",
+    "occasion": null,
+    "quantity": 500,
+    "budget_total": null,
+    "budget_per_unit": 30000.0,
+    "target_audience": null,
+    "preferred_categories": [],
+    "preferred_materials": [],
+    "preferred_colors": [],
+    "eco": false,
+    "personalizable": false,
+    "packaging_required": false,
+    "generation_mode": "balanced"
+  },
+  "proposal": {
+    "name": "PROPUESTA 1",
+    "score": 83.98155744199208,
+    "items": [
+      {
+        "reference": "TE-661",
+        "name": "CABLE MULTICARGADOR ECO FAST 65W Nuevo",
+        "unit_price": {
+          "amount": 27900.0,
+          "currency": "COP"
+        },
+        "quantity": 500,
+        "role": "PREMIUM",
+        "selection_reason": "Seleccionado por personalizable; cumple el presupuesto.",
+        "decision_trace": {
+          "semantic_score": 0.0,
+          "commercial_score": 50.0,
+          "occasion_score": 0.5,
+          "budget_score": 0.7714285714285716,
+          "final_score": 42.92857142857143,
+          "reason": "Seleccionado por personalizable; cumple el presupuesto.",
+          "detail": {}
+        },
+        "thumbnail_url": "https://firebasestorage.googleapis.com/v0/b/promos-278023.appspot.com/o/products%2FTE-661%2F1.jpg?alt=media",
+        "detail_url": "https://catalogospromocionales.com/producto-cataprom/TE-661/cable-multicargador-eco-fast-65w-nuevo",
+        "category": "Artículos Promocionales Categorias Antiestrés Antimicrobiano Artículos Escritura Artículos Reflectivos Bar & Vino Bicicleta Ecopromo Herramientas MARCAS URBAN TRAVEL URBAN BUSINESS CHILI BOOMPODS Newsletter Obtén nuestras últimas ofertas en tu correo Artículos Promocionales Categorias Antiestrés Antimicrobiano Artículos Escritura Artículos Reflectivos Bar & Vino Bicicleta Ecopromo Herramientas MARCAS URBAN TRAVEL URBAN BUSINESS CHILI BOOMPODS Newsletter Obtén nuestras últimas ofertas en tu correo Categorias Antiestrés Antimicrobiano Artículos Escritura Artículos Reflectivos Bar & Vino Bicicleta Ecopromo Herramientas Categorias",
+        "materials": "",
+        "colors": "Descargar carrusel *Colores y fotos de referencia. Se recomienda solicitar una muestra física para su verificación.* Compartir CABLE MULTICARGADOR ECO FAST 65W TE-661 Cable multicargador en bambú con carga rápida de 65 W. Con conexión USB y Tipo Lightning. Cables con conectores Tipo C. Cable de 3.4 mts. Medidas: 3.4 mts. Marca: 2 cm / Láser / Tampografía Tratamiento NUEVO Ficha Técnica Precio actualizado: 08-09-2025 * actualizado el 2026-07-16 15:19:42 TOTAL DISPONIBLE: 556 Unidades por caja 250 caja máster empaque alto (cm) ancho (cm) largo (cm) peso (kg) CAJA 57 26 22 10 EXISTENCIAS TE-661 - CABLE MULTICARGADOR ECO FAST 65W COLOR BODEGA LOCAL BODEGA ZONA FRANCA TOTAL LLEGADA A BODEGA LOCAL CANTIDAD EN TRÁNSITO ESTADO DEL PEDIDO Gris 556 0 556 0 PRODUCTOS RELACIONADOS REF: TE-419 CABLE MULTICARGADOR BAMBOO Existencias 1.200 Próximas llegadas 0 REF: TE-535 CABLE MULTICARGADOR COTTON Existencias -10 Próximas llegadas 2.000 REF: TE-565 PUERTO USB 6-1 Existencias 8 Próximas llegadas 1.000",
+        "capacity": "",
+        "customization": "",
+        "eco": true,
+        "personalizable": true,
+        "perceived_value_level": "bajo"
+      },
+      {
+        "reference": "VINNIE",
+        "name": "BOLÍGRAFO VINNIE Nuevo",
+        "unit_price": {
+          "amount": 530.0,
+          "currency": "COP"
+        },
+        "quantity": 500,
+        "role": "PACKAGING",
+        "selection_reason": "Seleccionado por personalizable; cumple el presupuesto.",
+        "decision_trace": {
+          "semantic_score": 0.0,
+          "commercial_score": 15.0,
+          "occasion_score": 0.5,
+          "budget_score": 0.0,
+          "final_score": 17.0,
+          "reason": "Seleccionado por personalizable; cumple el presupuesto.",
+          "detail": {}
+        },
+        "thumbnail_url": "https://firebasestorage.googleapis.com/v0/b/promos-278023.appspot.com/o/app_images%2F1761083012451-1.jpg?alt=media",
+        "detail_url": "https://catalogospromocionales.com/producto-cataprom/VINNIE/boligrafo-vinnie-nuevo",
+        "category": "Artículos Promocionales Categorias Antiestrés Antimicrobiano Artículos Escritura Artículos Reflectivos Bar & Vino Bicicleta Ecopromo Herramientas MARCAS URBAN TRAVEL URBAN BUSINESS CHILI BOOMPODS Newsletter Obtén nuestras últimas ofertas en tu correo Artículos Promocionales Categorias Antiestrés Antimicrobiano Artículos Escritura Artículos Reflectivos Bar & Vino Bicicleta Ecopromo Herramientas MARCAS URBAN TRAVEL URBAN BUSINESS CHILI BOOMPODS Newsletter Obtén nuestras últimas ofertas en tu correo Categorias Antiestrés Antimicrobiano Artículos Escritura Artículos Reflectivos Bar & Vino Bicicleta Ecopromo Herramientas Categorias",
+        "materials": "",
+        "colors": "Descargar carrusel *Colores y fotos de referencia. Se recomienda solicitar una muestra física para su verificación.* Compartir BOLÍGRAFO VINNIE VINNIE Bolígrafo plástico, mecanismo Push. Medidas: 13.5 cm Marca: 2.5 cm / Tampografía Plásticos Venta mínima y en múltiplos de caja de 50 unidades por color. NUEVO Ficha Técnica Precio actualizado: 08/07/26 * actualizado el 2026-07-16 15:22:31 TOTAL DISPONIBLE: 20.652 Unidades por caja 1.000 caja máster empaque alto (cm) ancho (cm) largo (cm) peso (kg) CAJA 42 31 18 7.5 EXISTENCIAS VINNIE - BOLÍGRAFO VINNIE COLOR BODEGA LOCAL BODEGA ZONA FRANCA TOTAL LLEGADA A BODEGA LOCAL CANTIDAD EN TRÁNSITO ESTADO DEL PEDIDO Amarillo 249 0 249 miércoles, 19 de agosto de 2026 10.000 Orden en tránsito (EMBARCADO). Fecha estimada de llegada a puerto Agosto 9. jueves, 3 de septiembre de 2026 15.000 Orden en producción (PENDIENTE CONFIRMACIÓN), fecha estimada salida de puerto origen Julio 18. Azul 17.769 0 17.769 miércoles, 19 de agosto de 2026 30.000 Orden en",
+        "capacity": "",
+        "customization": "",
+        "eco": true,
+        "personalizable": true,
+        "perceived_value_level": "bajo"
+      }
+    ],
+    "total_cost": {
+      "amount": 14215000.0,
+      "currency": "COP"
+    },
+    "per_unit_cost": {
+      "amount": 28430.0,
+      "currency": "COP"
+    },
+    "warnings": [],
+    "occasion": "",
+    "target_audience": "",
+    "commercial_description": "Resumen\nLa propuesta incluye un cable multicargador y un bolígrafo como regalos promocionales, con un costo total de 14,215,000 COP.\n\nVentajas\n• Aumento de la satisfacción del cliente con un producto útil y práctico.\n• Posibilidad de generar brand awareness a través del diseño distintivo de los productos.\n• Oportunidad de diferenciación en el mercado mediante la inclusión de un item de lujo.\n\nIdeal para eventos, promociones o cualquier ocasión que requiera un regalo personalizado.",
+    "proposal_id": "",
+    "version": 1,
+    "parent_version": 0,
+    "refined": false,
+    "refinements": [],
+    "score_card": {
+      "overall_score": 83.98155744199208,
+      "budget_score": 99.85263157894737,
+      "commercial_score": 32.5,
+      "coherence_score": 85.0,
+      "diversity_score": 40.0,
+      "category_diversity_score": 50.0,
+      "utility_score": 50.0,
+      "brand_visibility_score": 100.0,
+      "premium_score": 50.0,
+      "eco_score": 50.0,
+      "personalization_score": 100.0,
+      "occasion_score": 50.0,
+      "audience_score": 50.0,
+      "balance_score": 51.899641577060926,
+      "criteria": [
+        {
+          "name": "Budget Efficiency",
+          "score": 99.85,
+          "weight": 0.22,
+          "contribution": 21.97,
+          "reason": "Utiliza 100% del presupuesto (14,215,000 de 14,250,000 COP)."
+        },
+        {
+          "name": "Commercial Value",
+          "score": 32.5,
+          "weight": 0.22,
+          "contribution": 7.15,
+          "reason": "Valor comercial promedio 32/100 de 2 productos."
+        },
+        {
+          "name": "Kit Coherence",
+          "score": 85.0,
+          "weight": 0.15,
+          "contribution": 12.75,
+          "reason": "2 productos en 2 categorias; 0 categoria(s) repetida(s); falta producto central (CORE)."
+        },
+        {
+          "name": "Product Diversity",
+          "score": 40.0,
+          "weight": 0.1,
+          "contribution": 4.0,
+          "reason": "2 productos distintos en el kit (max 5 evaluados)."
+        },
+        {
+          "name": "Category Diversity",
+          "score": 50.0,
+          "weight": 0.08,
+          "contribution": 4.0,
+          "reason": "2 categorias distintas: escritura, tecnologia."
+        },
+        {
+          "name": "Practical Utility",
+          "score": 50.0,
+          "weight": 0.08,
+          "contribution": 4.0,
+          "reason": "1 de 2 productos con utilidad practica diaria."
+        },
+        {
+          "name": "Brand Visibility",
+          "score": 100.0,
+          "weight": 0.05,
+          "contribution": 5.0,
+          "reason": "2 de 2 productos refuerzan la marca (logo/personalizacion)."
+        },
+        {
+          "name": "Premium Perception",
+          "score": 50.0,
+          "weight": 0.04,
+          "contribution": 2.0,
+          "reason": "1 de 2 productos con percepcion premium."
+        },
+        {
+          "name": "Sustainability",
+          "score": 50.0,
+          "weight": 0.04,
+          "contribution": 2.0,
+          "reason": "1 de 2 productos con atributos eco/sostenibles."
+        },
+        {
+          "name": "Personalization Potential",
+          "score": 100.0,
+          "weight": 0.05,
+          "contribution": 5.0,
+          "reason": "2 de 2 productos personalizables (logo/grabado)."
+        },
+        {
+          "name": "Occasion Fit",
+          "score": 50.0,
+          "weight": 0.16,
+          "contribution": 8.0,
+          "reason": "Sin ocasion especificada; ajuste neutral."
+        },
+        {
+          "name": "Audience Fit",
+          "score": 50.0,
+          "weight": 0.1,
+          "contribution": 5.0,
+          "reason": "Sin publico especificado; ajuste neutral."
+        },
+        {
+          "name": "Proposal Balance",
+          "score": 51.9,
+          "weight": 0.06,
+          "contribution": 3.11,
+          "reason": "Rango de precios 530-27,900 COP; equilibrio 52/100 (ideal ~50% de diferencia)."
+        }
+      ],
+      "observations": [
+        "Fortaleza: Brand Visibility (100/100).",
+        "Debilidad: Commercial Value (32/100) debe mejorar.",
+        "El kit tiene poca variedad de productos."
+      ]
+    }
+  },
+  "score_card": {
+    "overall_score": 83.98155744199208,
+    "budget_score": 99.85263157894737,
+    "commercial_score": 32.5,
+    "coherence_score": 85.0,
+    "diversity_score": 40.0,
+    "category_diversity_score": 50.0,
+    "utility_score": 50.0,
+    "brand_visibility_score": 100.0,
+    "premium_score": 50.0,
+    "eco_score": 50.0,
+    "personalization_score": 100.0,
+    "occasion_score": 50.0,
+    "audience_score": 50.0,
+    "balance_score": 51.899641577060926,
+    "criteria": [
+      {
+        "name": "Budget Efficiency",
+        "score": 99.85,
+        "weight": 0.22,
+        "contribution": 21.97,
+        "reason": "Utiliza 100% del presupuesto (14,215,000 de 14,250,000 COP)."
+      },
+      {
+        "name": "Commercial Value",
+        "score": 32.5,
+        "weight": 0.22,
+        "contribution": 7.15,
+        "reason": "Valor comercial promedio 32/100 de 2 productos."
+      },
+      {
+        "name": "Kit Coherence",
+        "score": 85.0,
+        "weight": 0.15,
+        "contribution": 12.75,
+        "reason": "2 productos en 2 categorias; 0 categoria(s) repetida(s); falta producto central (CORE)."
+      },
+      {
+        "name": "Product Diversity",
+        "score": 40.0,
+        "weight": 0.1,
+        "contribution": 4.0,
+        "reason": "2 productos distintos en el kit (max 5 evaluados)."
+      },
+      {
+        "name": "Category Diversity",
+        "score": 50.0,
+        "weight": 0.08,
+        "contribution": 4.0,
+        "reason": "2 categorias distintas: escritura, tecnologia."
+      },
+      {
+        "name": "Practical Utility",
+        "score": 50.0,
+        "weight": 0.08,
+        "contribution": 4.0,
+        "reason": "1 de 2 productos con utilidad practica diaria."
+      },
+      {
+        "name": "Brand Visibility",
+        "score": 100.0,
+        "weight": 0.05,
+        "contribution": 5.0,
+        "reason": "2 de 2 productos refuerzan la marca (logo/personalizacion)."
+      },
+      {
+        "name": "Premium Perception",
+        "score": 50.0,
+        "weight": 0.04,
+        "contribution": 2.0,
+        "reason": "1 de 2 productos con percepcion premium."
+      },
+      {
+        "name": "Sustainability",
+        "score": 50.0,
+        "weight": 0.04,
+        "contribution": 2.0,
+        "reason": "1 de 2 productos con atributos eco/sostenibles."
+      },
+      {
+        "name": "Personalization Potential",
+        "score": 100.0,
+        "weight": 0.05,
+        "contribution": 5.0,
+        "reason": "2 de 2 productos personalizables (logo/grabado)."
+      },
+      {
+        "name": "Occasion Fit",
+        "score": 50.0,
+        "weight": 0.16,
+        "contribution": 8.0,
+        "reason": "Sin ocasion especificada; ajuste neutral."
+      },
+      {
+        "name": "Audience Fit",
+        "score": 50.0,
+        "weight": 0.1,
+        "contribution": 5.0,
+        "reason": "Sin publico especificado; ajuste neutral."
+      },
+      {
+        "name": "Proposal Balance",
+        "score": 51.9,
+        "weight": 0.06,
+        "contribution": 3.11,
+        "reason": "Rango de precios 530-27,900 COP; equilibrio 52/100 (ideal ~50% de diferencia)."
+      }
+    ],
+    "observations": [
+      "Fortaleza: Brand Visibility (100/100).",
+      "Debilidad: Commercial Value (32/100) debe mejorar.",
+      "El kit tiene poca variedad de productos."
+    ]
+  },
+  "refinement_history": []
+}

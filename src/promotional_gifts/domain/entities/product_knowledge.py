@@ -14,6 +14,11 @@ class ProductKnowledge:
     price_description: str = ""
     additional_prices: str = ""
     url: str = ""
+    detail_url: str = ""
+    slug: str = ""
+    image_url: str = ""
+    thumbnail_url: str = ""
+    image_urls: List[str] = field(default_factory=list)
     benefits: str = ""
     materials: str = ""
     dimensions: str = ""

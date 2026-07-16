@@ -39,6 +39,7 @@ class ExcelIngestionSource(IngestionSourcePort):
 
             url_raw = str(row.get("url", "")).strip()
             url = self._build_url(reference, name, url_raw)
+            slug = self._slug_from_url(url, name)
 
             products.append(
                 ProductKnowledge(
@@ -50,6 +51,8 @@ class ExcelIngestionSource(IngestionSourcePort):
                     price_description=price_description,
                     additional_prices=additional_prices,
                     url=url,
+                    detail_url=url,
+                    slug=slug,
                 )
             )
 
@@ -60,6 +63,11 @@ class ExcelIngestionSource(IngestionSourcePort):
             return url_raw
         slug = self._slugify(name)
         return f"https://catalogospromocionales.com/producto-cataprom/{reference}/{slug}"
+
+    def _slug_from_url(self, url: str, name: str) -> str:
+        if "/producto-cataprom/" in url:
+            return url.rstrip("/").split("/")[-1]
+        return self._slugify(name)
 
     def _slugify(self, text: str) -> str:
         import re

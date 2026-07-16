@@ -32,6 +32,13 @@ class KnowledgeMerger:
 
         if scraped.images:
             product.images = scraped.images
+        if scraped.thumbnail_url:
+            product.thumbnail_url = scraped.thumbnail_url
+            product.image_url = scraped.thumbnail_url
+        if scraped.image_urls:
+            product.image_urls = scraped.image_urls
+
+        product.detail_url = product.url or product.detail_url
 
         return product
 

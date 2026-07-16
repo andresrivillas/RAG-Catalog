@@ -140,6 +140,8 @@ class ProposalRefinementEngine:
             role=role,
             selection_reason=trace.reason,
             decision_trace=trace,
+            thumbnail_url=product.thumbnail_url or product.image_url,
+            detail_url=product.detail_url or product.url,
         )
 
     def _replace_product(self, proposal, request, intent, plan, log):

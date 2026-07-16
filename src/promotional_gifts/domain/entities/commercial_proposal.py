@@ -15,6 +15,16 @@ class ProposalItem:
     role: str = ""
     selection_reason: str = ""
     decision_trace: Optional[DecisionTrace] = None
+    thumbnail_url: str = ""
+    detail_url: str = ""
+    category: str = ""
+    materials: str = ""
+    colors: str = ""
+    capacity: str = ""
+    customization: str = ""
+    eco: bool = False
+    personalizable: bool = False
+    perceived_value_level: str = ""
 
     @property
     def subtotal(self) -> Money:
@@ -41,6 +51,7 @@ class CommercialProposal:
     refined: bool = False
     refinements: List[str] = field(default_factory=list)
     score_card: Optional[ProposalScoreCard] = None
+    generation_mode: str = ""
 
     def clone_as_refinement(self) -> "CommercialProposal":
         new = CommercialProposal(
