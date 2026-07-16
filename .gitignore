@@ -22,3 +22,6 @@ promotional_gifts.db
 .DS_Store
 .idea/
 .vscode/
+
+# Runtime generated proposals
+data/proposals/
