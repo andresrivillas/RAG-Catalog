@@ -65,11 +65,23 @@ COLLECTIONS: dict[str, dict] = {
 
 
 class DiscoveryService:
-    def __init__(self) -> None:
+    def __init__(self, extra_collections: list[dict] = None) -> None:
         self._store = ChromaCatalogStore(
             persist_directory=settings.chroma_dir,
             collection_name=settings.collection_name,
         )
+        self._collections = self._build_collections(extra_collections or [])
+
+    def _build_collections(self, extra_collections: list[dict]) -> dict[str, dict]:
+        collections = dict(COLLECTIONS)
+        for collection in extra_collections:
+            key = collection.get("key")
+            if not key:
+                continue
+            collections[key] = {
+                k: v for k, v in collection.items() if k != "key"
+            }
+        return collections
 
     def get_collections(self) -> list[dict]:
         return [
@@ -77,7 +89,7 @@ class DiscoveryService:
                 "key": key,
                 **info,
             }
-            for key, info in COLLECTIONS.items()
+            for key, info in self._collections.items()
         ]
 
     def load_collection(
@@ -87,7 +99,7 @@ class DiscoveryService:
     ) -> tuple[list[CatalogProduct], dict]:
         start = time.perf_counter()
 
-        info = COLLECTIONS.get(collection_key)
+        info = self._collections.get(collection_key)
         if not info:
             return [], {}
 

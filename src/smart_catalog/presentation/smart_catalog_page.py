@@ -3,9 +3,8 @@ import streamlit as st
 from .slices.search_catalog.ui import render_results
 from .slices.query_understanding.service import QueryUnderstandingService
 from .slices.conversation_context.service import ConversationContextService
-from .slices.discovery.service import DiscoveryService
 from .slices.discovery.ui import render_collections_grid, render_collection_detail
-from ..container import build_search_catalog_service
+from ..container import build_discovery_service, build_search_catalog_service
 
 SC_GLOBAL_CSS = """
 <style>
@@ -234,6 +233,8 @@ EXAMPLE_QUERIES = [
     "regalos ecológicos",
     "termos premium",
     "lapiceros baratos",
+    "regalos para arquitectos",
+    "productos ejecutivos",
 ]
 
 
@@ -327,7 +328,7 @@ def render_context_chips(ctx_service: ConversationContextService):
 
 
 def _render_discover_mode():
-    discovery = DiscoveryService()
+    discovery = build_discovery_service()
     active_collection = st.session_state.get("sc_discovery_collection")
 
     if active_collection:

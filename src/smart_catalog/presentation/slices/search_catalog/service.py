@@ -2,10 +2,7 @@ import logging
 
 from typing import Optional, Union
 
-from ....domain.models.catalog_product import CatalogProduct
 from ....domain.models.catalog_search_query import CatalogSearchQuery
-from ....domain.models.catalog_search_result import CatalogSearchResult
-from ....domain.models.search_explanation import SearchExplanation
 from ....domain.models.search_response import SearchResponse
 from ....domain.models.structured_search_query import StructuredSearchQuery
 from ....infrastructure.services.chroma_catalog_search_service import (
@@ -16,6 +13,7 @@ from ..search_ranking.service import SearchRankingService
 from ..semantic_query_expansion.service import SemanticQueryExpansionService
 from ..search_explanation.service import SearchExplanationService
 from ..intent_resolution.service import IntentResolutionService
+from ....commercial_knowledge.service import CommercialKnowledgeService
 
 logger = logging.getLogger("smart_catalog.search")
 
@@ -28,12 +26,14 @@ class SearchCatalogService:
         expansion_service: Optional[SemanticQueryExpansionService] = None,
         explanation_service: Optional[SearchExplanationService] = None,
         intent_service: Optional[IntentResolutionService] = None,
+        commercial_service: Optional[CommercialKnowledgeService] = None,
     ) -> None:
         self._search_service = search_service
         self._ranking_service = ranking_service
         self._expansion_service = expansion_service
         self._explanation_service = explanation_service
         self._intent_service = intent_service
+        self._commercial_service = commercial_service
 
     def search(
         self,
@@ -99,6 +99,14 @@ class SearchCatalogService:
         ):
             response = self._explanation_service.explain(
                 structured, expanded, response, intent,
+            )
+
+        if (
+            structured is not None
+            and self._commercial_service is not None
+        ):
+            response = self._commercial_service.enhance(
+                response, structured, intent,
             )
 
         return response

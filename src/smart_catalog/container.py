@@ -1,5 +1,3 @@
-from pathlib import Path
-
 from config.settings import settings
 
 from .domain.ports.catalog_search_service import CatalogSearchService
@@ -52,6 +50,16 @@ from .presentation.slices.intent_resolution.service import (
 from .presentation.slices.intent_resolution.engine import (
     IntentResolutionEngine,
 )
+from .commercial_knowledge.service import CommercialKnowledgeService
+from .commercial_knowledge.affinity_calculator import (
+    CommercialAffinityCalculator,
+)
+from .catalog_knowledge_enrichment.service import (
+    CatalogKnowledgeEnrichmentService,
+)
+from .catalog_knowledge_enrichment.store import CatalogKnowledgeStore
+from .commercial_knowledge.discovery import get_commercial_collections
+from .presentation.slices.discovery.service import DiscoveryService
 
 
 def build_catalog_search_service() -> CatalogSearchService:
@@ -79,7 +87,31 @@ def build_search_catalog_service() -> SearchCatalogService:
         expansion_service=build_semantic_query_expansion_service(),
         explanation_service=build_search_explanation_service(),
         intent_service=build_intent_resolution_service(),
+        commercial_service=build_commercial_knowledge_service(),
     )
+
+
+def build_commercial_knowledge_service() -> CommercialKnowledgeService:
+    return CommercialKnowledgeService(
+        affinity_calculator=CommercialAffinityCalculator(),
+        enrichment_store=build_catalog_knowledge_store(),
+    )
+
+
+def build_catalog_knowledge_enrichment_service() -> CatalogKnowledgeEnrichmentService:
+    return CatalogKnowledgeEnrichmentService(
+        store=build_catalog_knowledge_store(),
+    )
+
+
+def build_catalog_knowledge_store() -> CatalogKnowledgeStore:
+    return CatalogKnowledgeStore(
+        path=settings.catalog_path.parent.parent / "enriched" / "catalog_knowledge.json",
+    )
+
+
+def build_discovery_service() -> DiscoveryService:
+    return DiscoveryService(extra_collections=get_commercial_collections())
 
 
 def build_search_ranking_service() -> SearchRankingService:
