@@ -1,0 +1,1004 @@
+{
+  "intent": {
+    "raw_text": "Necesito 1.500 regalos para una campaña ambiental. Todos deben ser ecológicos. Personalizables. Presupuesto máximo de 30.000 COP por unidad.",
+    "occasion": "campana",
+    "quantity": 1500,
+    "budget_total": null,
+    "budget_per_unit": 30000.0,
+    "target_audience": null,
+    "preferred_categories": [],
+    "preferred_materials": [],
+    "preferred_colors": [],
+    "eco": true,
+    "personalizable": true,
+    "packaging_required": false,
+    "generation_mode": "balanced",
+    "industry": null,
+    "commercial_context_tags": [
+      "merchandising",
+      "branding",
+      "marketing"
+    ],
+    "segment_tags": []
+  },
+  "budget_plan": {
+    "total_budget": 45000000.0,
+    "spendable_budget": 42750000.0,
+    "per_unit_ceiling": 30000.0,
+    "margin_reserve": 2250000.0,
+    "quantity": 1500,
+    "eco_requested": true,
+    "utilization_target": [
+      0.9,
+      0.98
+    ]
+  },
+  "proposal_count": 3,
+  "generation_strategy": "global_diversity",
+  "global_observations": [
+    "Set global de 3 propuestas con 5 categorias distintas cubiertas.",
+    "1 producto(s) reutilizado(s) entre propuestas: LL-101.",
+    "Similitud maxima entre propuestas: 36%."
+  ],
+  "reused_products": [
+    "LL-101"
+  ],
+  "statistics": {
+    "total_proposals": 3,
+    "total_products_considered": 7,
+    "unique_products_used": 7,
+    "reused_products": 1,
+    "reuse_ratio": 0.143,
+    "shared_product_count": 0,
+    "shared_product_ratio": 0.0,
+    "category_coverage": 5,
+    "max_similarity": 0.361,
+    "avg_similarity": 0.263,
+    "budget_utilization_min": 81.9,
+    "budget_utilization_max": 99.8,
+    "budget_utilization_avg": 91.7,
+    "reused_references": [
+      "LL-101"
+    ],
+    "shared_references": [],
+    "category_list": [
+      "bolsos",
+      "eco",
+      "escritura",
+      "hogar",
+      "oficina"
+    ],
+    "warnings": [
+      "PROPUESTA 2: kit con pocos productos (2)."
+    ]
+  },
+  "proposals": [
+    {
+      "name": "PROPUESTA 1",
+      "score": 126.96295920524203,
+      "items": [
+        {
+          "reference": "VA-1054",
+          "name": "BOLSA EN ALGODON SHOPPER (290GR)",
+          "unit_price": {
+            "amount": 24900.0,
+            "currency": "COP"
+          },
+          "quantity": 1500,
+          "role": "PACKAGING",
+          "selection_reason": "BOLSA EN ALGODON SHOPPER (290GR) aporta coherencia al concepto de 'Tecnología'. Presenta el regalo de forma ordenada y profesional (algodon).",
+          "decision_trace": {
+            "semantic_score": 0.0,
+            "commercial_score": 0.0,
+            "occasion_score": 0.5,
+            "budget_score": 0.6857142857142857,
+            "context_score": 0.5,
+            "industry_score": 0.5,
+            "affinity_score": 0.5,
+            "availability_score": 0.5,
+            "commercial_value_score": 0.3425,
+            "harmony_score": 1.0,
+            "final_score": 79.09821428571428,
+            "reason": "BOLSA EN ALGODON SHOPPER (290GR) aporta coherencia al kit. Complementa la propuesta comercial (algodon). (se relajaron restricciones para asegurar propuestas)",
+            "detail": {}
+          },
+          "thumbnail_url": "https://firebasestorage.googleapis.com/v0/b/promos-278023.appspot.com/o/products%2FVA-1054%2F1.jpg?alt=media",
+          "detail_url": "https://catalogospromocionales.com/producto-cataprom/VA-1054/bolsa-en-algodon-shopper-290gr",
+          "category": "Bolsos",
+          "materials": "algodon",
+          "colors": "",
+          "capacity": "",
+          "customization": "",
+          "eco": false,
+          "personalizable": false,
+          "perceived_value_level": "bajo"
+        },
+        {
+          "reference": "LL-101",
+          "name": "LLAVERO CORCHO - OFERTA Oferta",
+          "unit_price": {
+            "amount": 670.0,
+            "currency": "COP"
+          },
+          "quantity": 1500,
+          "role": "CORE",
+          "selection_reason": "LLAVERO CORCHO - OFERTA Oferta aporta coherencia al concepto de 'Tecnología'. Funciona como pieza central de la propuesta (opción eco, corcho).",
+          "decision_trace": {
+            "semantic_score": 0.0,
+            "commercial_score": 0.0,
+            "occasion_score": 0.5,
+            "budget_score": 0.0,
+            "context_score": 0.5,
+            "industry_score": 0.5,
+            "affinity_score": 0.5,
+            "availability_score": 0.5,
+            "commercial_value_score": 0.515,
+            "harmony_score": 0.75,
+            "final_score": 68.125,
+            "reason": "LLAVERO CORCHO - OFERTA Oferta aporta coherencia al kit. Complementa la propuesta comercial (opción eco, corcho). (se relajaron restricciones para asegurar propuestas)",
+            "detail": {}
+          },
+          "thumbnail_url": "https://firebasestorage.googleapis.com/v0/b/promos-278023.appspot.com/o/products%2FLL-101%2F1.jpg?alt=media",
+          "detail_url": "https://catalogospromocionales.com/producto-cataprom/LL-101/llavero-corcho-oferta-oferta",
+          "category": "Eco",
+          "materials": "corcho",
+          "colors": "",
+          "capacity": "",
+          "customization": "",
+          "eco": true,
+          "personalizable": false,
+          "perceived_value_level": "bajo"
+        },
+        {
+          "reference": "ECO PEN",
+          "name": "LAPIZ ECO",
+          "unit_price": {
+            "amount": 995.0,
+            "currency": "COP"
+          },
+          "quantity": 1500,
+          "role": "UTILITY",
+          "selection_reason": "LAPIZ ECO aporta coherencia al concepto de 'Tecnología'. No solo aporta utilidad diaria; también prolonga la exposición de la marca (opción eco).",
+          "decision_trace": {
+            "semantic_score": 0.0,
+            "commercial_score": 0.0,
+            "occasion_score": 0.5,
+            "budget_score": 0.0,
+            "context_score": 0.5,
+            "industry_score": 0.5,
+            "affinity_score": 0.5,
+            "availability_score": 0.5,
+            "commercial_value_score": 0.38,
+            "harmony_score": 1.0,
+            "final_score": 69.75,
+            "reason": "LAPIZ ECO aporta coherencia al kit. Complementa la propuesta comercial (opción eco). (se relajaron restricciones para asegurar propuestas)",
+            "detail": {}
+          },
+          "thumbnail_url": "https://firebasestorage.googleapis.com/v0/b/promos-278023.appspot.com/o/products%2FECO PEN%2F1.jpg?alt=media",
+          "detail_url": "https://catalogospromocionales.com/producto-cataprom/ECO PEN/lapiz-eco",
+          "category": "Escritura",
+          "materials": "",
+          "colors": "",
+          "capacity": "",
+          "customization": "",
+          "eco": true,
+          "personalizable": false,
+          "perceived_value_level": "bajo"
+        }
+      ],
+      "total_cost": {
+        "amount": 39847500.0,
+        "currency": "COP"
+      },
+      "per_unit_cost": {
+        "amount": 26565.0,
+        "currency": "COP"
+      },
+      "warnings": [],
+      "occasion": "",
+      "target_audience": "",
+      "commercial_description": "",
+      "proposal_id": "prop-20260716-221124-f253__v1",
+      "version": 1,
+      "parent_version": 0,
+      "refined": false,
+      "refinements": [],
+      "score_card": {
+        "overall_score": 126.96295920524203,
+        "budget_score": 98.6421052631579,
+        "commercial_score": 0.0,
+        "coherence_score": 100.0,
+        "diversity_score": 60.0,
+        "category_diversity_score": 50.0,
+        "utility_score": 66.66666666666666,
+        "brand_visibility_score": 33.33333333333333,
+        "premium_score": 0.0,
+        "eco_score": 66.66666666666666,
+        "personalization_score": 33.33333333333333,
+        "occasion_score": 50.0,
+        "audience_score": 50.0,
+        "balance_score": 52.69076305220884,
+        "industry_score": 50.0,
+        "complementarity_score": 90.0,
+        "category_quality_score": 100.0,
+        "material_cleanliness_score": 83.33333333333333,
+        "mode_coherence_score": 70.0,
+        "availability_score": 50.0,
+        "selection_reason_quality_score": 100.0,
+        "consistency_score": 55.0,
+        "explainability_score": 60.0,
+        "criteria": [
+          {
+            "name": "Budget Efficiency",
+            "score": 98.6421052632,
+            "reason": "Utiliza 93% del presupuesto (39,847,500 de 42,750,000 COP); objetivo 90-98%.",
+            "weight": 0.2,
+            "contribution": 19.7284210526
+          },
+          {
+            "name": "Commercial Value",
+            "score": 0.0,
+            "reason": "Valor comercial promedio 0/100 de 3 productos.",
+            "weight": 0.25,
+            "contribution": 0.0
+          },
+          {
+            "name": "Kit Coherence",
+            "score": 100.0,
+            "reason": "3 productos en 3 categorias; 0 categoria(s) repetida(s); incluye producto central (CORE). Incluye utilidad (UTILITY).",
+            "weight": 0.15,
+            "contribution": 15.0
+          },
+          {
+            "name": "Product Diversity",
+            "score": 60.0,
+            "reason": "3 productos distintos en el kit (max 5 evaluados).",
+            "weight": 0.1,
+            "contribution": 6.0
+          },
+          {
+            "name": "Category Diversity",
+            "score": 50.0,
+            "reason": "2 categorias distintas: bolsos, escritura.",
+            "weight": 0.08,
+            "contribution": 4.0
+          },
+          {
+            "name": "Practical Utility",
+            "score": 66.6666666667,
+            "reason": "2 de 3 productos con utilidad practica diaria.",
+            "weight": 0.07,
+            "contribution": 4.6666666667
+          },
+          {
+            "name": "Brand Visibility",
+            "score": 33.3333333333,
+            "reason": "1 de 3 productos refuerzan la marca (logo/personalizacion).",
+            "weight": 0.05,
+            "contribution": 1.6666666667
+          },
+          {
+            "name": "Premium Perception",
+            "score": 0.0,
+            "reason": "0 de 3 productos con percepcion premium.",
+            "weight": 0.05,
+            "contribution": 0.0
+          },
+          {
+            "name": "Sustainability",
+            "score": 66.6666666667,
+            "reason": "2 de 3 productos con atributos eco/sostenibles.",
+            "weight": 0.05,
+            "contribution": 3.3333333333
+          },
+          {
+            "name": "Personalization Potential",
+            "score": 33.3333333333,
+            "reason": "1 de 3 productos personalizables (logo/grabado).",
+            "weight": 0.05,
+            "contribution": 1.6666666667
+          },
+          {
+            "name": "Occasion Fit",
+            "score": 50.0,
+            "reason": "Ajuste a ocasion 'campana' promedio 50/100.",
+            "weight": 0.15,
+            "contribution": 7.5
+          },
+          {
+            "name": "Audience Fit",
+            "score": 50.0,
+            "reason": "Sin publico especificado; ajuste neutral.",
+            "weight": 0.1,
+            "contribution": 5.0
+          },
+          {
+            "name": "Proposal Balance",
+            "score": 52.6907630522,
+            "reason": "Rango de precios 670-24,900 COP; equilibrio 53/100 (ideal ~50% de diferencia).",
+            "weight": 0.05,
+            "contribution": 2.6345381526
+          },
+          {
+            "name": "Industry Fit",
+            "score": 50.0,
+            "reason": "Sin industria especificada; ajuste neutral.",
+            "weight": 0.2,
+            "contribution": 10.0
+          },
+          {
+            "name": "Complementarity",
+            "score": 90.0,
+            "reason": "Complementariedad del kit: 90/100 (productos que se complementan en lugar de competir).",
+            "weight": 0.1,
+            "contribution": 9.0
+          },
+          {
+            "name": "Category Quality",
+            "score": 100.0,
+            "reason": "Categorías comerciales: 3 de 3 limpias.",
+            "weight": 0.08,
+            "contribution": 8.0
+          },
+          {
+            "name": "Material Cleanliness",
+            "score": 83.3333333333,
+            "reason": "Materiales limpios: 2 de 3.",
+            "weight": 0.05,
+            "contribution": 4.1666666667
+          },
+          {
+            "name": "Mode Coherence",
+            "score": 70.0,
+            "reason": "Modo balanced; coherencia balanceada sin penalización.",
+            "weight": 0.08,
+            "contribution": 5.6
+          },
+          {
+            "name": "Availability",
+            "score": 50.0,
+            "reason": "Disponibilidad desconocida; criterio neutral.",
+            "weight": 0.1,
+            "contribution": 5.0
+          },
+          {
+            "name": "Selection Reason Quality",
+            "score": 100.0,
+            "reason": "Justificaciones válidas: 3 de 3.",
+            "weight": 0.06,
+            "contribution": 6.0
+          },
+          {
+            "name": "Consistency",
+            "score": 55.0,
+            "reason": "Coherencia interna del kit: 55/100 (0 repeticiones detectadas).",
+            "weight": 0.08,
+            "contribution": 4.4
+          },
+          {
+            "name": "Explainability",
+            "score": 60.0,
+            "reason": "Justificaciones explicables: 3 de 3.",
+            "weight": 0.06,
+            "contribution": 3.6
+          }
+        ],
+        "observations": [
+          "Fortaleza: Kit Coherence (100/100).",
+          "Debilidad: Commercial Value (0/100) debe mejorar.",
+          "Se priorizaron productos eco/sostenibles: LLAVERO CORCHO - OFERTA Oferta, LAPIZ ECO.",
+          "Algunos productos tienen disponibilidad inferior a la cantidad requerida.",
+          "El kit presenta baja consistencia entre categoria, materiales y justificaciones."
+        ]
+      },
+      "generation_mode": "balanced"
+    },
+    {
+      "name": "PROPUESTA 2",
+      "score": 119.78841624609468,
+      "items": [
+        {
+          "reference": "HE-301",
+          "name": "MARTILLO CON NAVAJA ECO",
+          "unit_price": {
+            "amount": 21900.0,
+            "currency": "COP"
+          },
+          "quantity": 1500,
+          "role": "PREMIUM",
+          "selection_reason": "MARTILLO CON NAVAJA ECO aporta coherencia al concepto de 'Eco'. Aporta exclusividad y eleva la percepción de marca (opción eco).",
+          "decision_trace": {
+            "semantic_score": 0.0,
+            "commercial_score": 0.0,
+            "occasion_score": 0.5,
+            "budget_score": 0.4,
+            "context_score": 0.5,
+            "industry_score": 0.5,
+            "affinity_score": 0.5,
+            "availability_score": 0.5,
+            "commercial_value_score": 0.38,
+            "harmony_score": 0.5,
+            "final_score": 65.75,
+            "reason": "MARTILLO CON NAVAJA ECO aporta coherencia al kit. Complementa la propuesta comercial (opción eco). (se relajaron restricciones para asegurar propuestas)",
+            "detail": {}
+          },
+          "thumbnail_url": "https://firebasestorage.googleapis.com/v0/b/promos-278023.appspot.com/o/products%2FHE-301%2F1.jpg?alt=media",
+          "detail_url": "https://catalogospromocionales.com/producto-cataprom/HE-301/martillo-con-navaja-eco",
+          "category": "Eco",
+          "materials": "",
+          "colors": "",
+          "capacity": "",
+          "customization": "",
+          "eco": true,
+          "personalizable": false,
+          "perceived_value_level": "bajo"
+        },
+        {
+          "reference": "OF-577",
+          "name": "SET DE CAFE ECO",
+          "unit_price": {
+            "amount": 6550.0,
+            "currency": "COP"
+          },
+          "quantity": 1500,
+          "role": "CORE",
+          "selection_reason": "SET DE CAFE ECO aporta coherencia al concepto de 'Eco'. Funciona como pieza central de la propuesta (opción eco).",
+          "decision_trace": {
+            "semantic_score": 0.0,
+            "commercial_score": 0.0,
+            "occasion_score": 0.5,
+            "budget_score": 0.0,
+            "context_score": 0.5,
+            "industry_score": 0.5,
+            "affinity_score": 0.5,
+            "availability_score": 0.5,
+            "commercial_value_score": 0.38,
+            "harmony_score": 1.0,
+            "final_score": 69.75,
+            "reason": "SET DE CAFE ECO aporta coherencia al kit. Complementa la propuesta comercial (opción eco). (se relajaron restricciones para asegurar propuestas)",
+            "detail": {}
+          },
+          "thumbnail_url": "https://firebasestorage.googleapis.com/v0/b/promos-278023.appspot.com/o/products%2FOF-577%2F1.jpg?alt=media",
+          "detail_url": "https://catalogospromocionales.com/producto-cataprom/OF-577/set-de-cafe-eco",
+          "category": "Eco",
+          "materials": "",
+          "colors": "",
+          "capacity": "",
+          "customization": "",
+          "eco": true,
+          "personalizable": false,
+          "perceived_value_level": "bajo"
+        }
+      ],
+      "total_cost": {
+        "amount": 42675000.0,
+        "currency": "COP"
+      },
+      "per_unit_cost": {
+        "amount": 28450.0,
+        "currency": "COP"
+      },
+      "warnings": [],
+      "occasion": "",
+      "target_audience": "",
+      "commercial_description": "",
+      "proposal_id": "prop-20260716-221124-f253__v2",
+      "version": 1,
+      "parent_version": 0,
+      "refined": false,
+      "refinements": [],
+      "score_card": {
+        "overall_score": 119.78841624609468,
+        "budget_score": 99.96491228070175,
+        "commercial_score": 0.0,
+        "coherence_score": 60.0,
+        "diversity_score": 40.0,
+        "category_diversity_score": 0.0,
+        "utility_score": 50.0,
+        "brand_visibility_score": 50.0,
+        "premium_score": 50.0,
+        "eco_score": 100.0,
+        "personalization_score": 50.0,
+        "occasion_score": 50.0,
+        "audience_score": 50.0,
+        "balance_score": 79.90867579908677,
+        "industry_score": 50.0,
+        "complementarity_score": 60.0,
+        "category_quality_score": 100.0,
+        "material_cleanliness_score": 50.0,
+        "mode_coherence_score": 100.0,
+        "availability_score": 50.0,
+        "selection_reason_quality_score": 100.0,
+        "consistency_score": 65.0,
+        "explainability_score": 60.0,
+        "criteria": [
+          {
+            "name": "Budget Efficiency",
+            "score": 99.9649122807,
+            "reason": "Utiliza 100% del presupuesto (42,675,000 de 42,750,000 COP); objetivo 90-98%.",
+            "weight": 0.2,
+            "contribution": 19.9929824561
+          },
+          {
+            "name": "Commercial Value",
+            "score": 0.0,
+            "reason": "Valor comercial promedio 0/100 de 2 productos.",
+            "weight": 0.25,
+            "contribution": 0.0
+          },
+          {
+            "name": "Kit Coherence",
+            "score": 60.0,
+            "reason": "2 productos en 1 categorias; 1 categoria(s) repetida(s); incluye producto central (CORE). Falta utilidad (UTILITY).",
+            "weight": 0.15,
+            "contribution": 9.0
+          },
+          {
+            "name": "Product Diversity",
+            "score": 40.0,
+            "reason": "2 productos distintos en el kit (max 5 evaluados).",
+            "weight": 0.1,
+            "contribution": 4.0
+          },
+          {
+            "name": "Category Diversity",
+            "score": 0.0,
+            "reason": "0 categorias distintas: ninguna clasificable.",
+            "weight": 0.08,
+            "contribution": 0.0
+          },
+          {
+            "name": "Practical Utility",
+            "score": 50.0,
+            "reason": "1 de 2 productos con utilidad practica diaria.",
+            "weight": 0.07,
+            "contribution": 3.5
+          },
+          {
+            "name": "Brand Visibility",
+            "score": 50.0,
+            "reason": "1 de 2 productos refuerzan la marca (logo/personalizacion).",
+            "weight": 0.05,
+            "contribution": 2.5
+          },
+          {
+            "name": "Premium Perception",
+            "score": 50.0,
+            "reason": "1 de 2 productos con percepcion premium.",
+            "weight": 0.05,
+            "contribution": 2.5
+          },
+          {
+            "name": "Sustainability",
+            "score": 100.0,
+            "reason": "2 de 2 productos con atributos eco/sostenibles.",
+            "weight": 0.05,
+            "contribution": 5.0
+          },
+          {
+            "name": "Personalization Potential",
+            "score": 50.0,
+            "reason": "1 de 2 productos personalizables (logo/grabado).",
+            "weight": 0.05,
+            "contribution": 2.5
+          },
+          {
+            "name": "Occasion Fit",
+            "score": 50.0,
+            "reason": "Ajuste a ocasion 'campana' promedio 50/100.",
+            "weight": 0.15,
+            "contribution": 7.5
+          },
+          {
+            "name": "Audience Fit",
+            "score": 50.0,
+            "reason": "Sin publico especificado; ajuste neutral.",
+            "weight": 0.1,
+            "contribution": 5.0
+          },
+          {
+            "name": "Proposal Balance",
+            "score": 79.9086757991,
+            "reason": "Rango de precios 6,550-21,900 COP; equilibrio 80/100 (ideal ~50% de diferencia).",
+            "weight": 0.05,
+            "contribution": 3.99543379
+          },
+          {
+            "name": "Industry Fit",
+            "score": 50.0,
+            "reason": "Sin industria especificada; ajuste neutral.",
+            "weight": 0.2,
+            "contribution": 10.0
+          },
+          {
+            "name": "Complementarity",
+            "score": 60.0,
+            "reason": "Complementariedad del kit: 60/100 (productos que se complementan en lugar de competir).",
+            "weight": 0.1,
+            "contribution": 6.0
+          },
+          {
+            "name": "Category Quality",
+            "score": 100.0,
+            "reason": "Categorías comerciales: 2 de 2 limpias.",
+            "weight": 0.08,
+            "contribution": 8.0
+          },
+          {
+            "name": "Material Cleanliness",
+            "score": 50.0,
+            "reason": "Materiales limpios: 0 de 2.",
+            "weight": 0.05,
+            "contribution": 2.5
+          },
+          {
+            "name": "Mode Coherence",
+            "score": 100.0,
+            "reason": "2 de 2 productos con atributos eco/sostenibles (modo eco).",
+            "weight": 0.08,
+            "contribution": 8.0
+          },
+          {
+            "name": "Availability",
+            "score": 50.0,
+            "reason": "Disponibilidad desconocida; criterio neutral.",
+            "weight": 0.1,
+            "contribution": 5.0
+          },
+          {
+            "name": "Selection Reason Quality",
+            "score": 100.0,
+            "reason": "Justificaciones válidas: 2 de 2.",
+            "weight": 0.06,
+            "contribution": 6.0
+          },
+          {
+            "name": "Consistency",
+            "score": 65.0,
+            "reason": "Coherencia interna del kit: 65/100 (0 repeticiones detectadas).",
+            "weight": 0.08,
+            "contribution": 5.2
+          },
+          {
+            "name": "Explainability",
+            "score": 60.0,
+            "reason": "Justificaciones explicables: 2 de 2.",
+            "weight": 0.06,
+            "contribution": 3.6
+          }
+        ],
+        "observations": [
+          "Fortaleza: Sustainability (100/100).",
+          "Debilidad: Commercial Value (0/100) debe mejorar.",
+          "Se priorizaron productos eco/sostenibles: MARTILLO CON NAVAJA ECO, SET DE CAFE ECO.",
+          "El kit tiene poca variedad de productos.",
+          "Los materiales de algunos productos contienen texto HTML o terminos desconocidos.",
+          "Algunos productos tienen disponibilidad inferior a la cantidad requerida."
+        ]
+      },
+      "generation_mode": "eco"
+    },
+    {
+      "name": "PROPUESTA 3",
+      "score": 106.4190258580583,
+      "items": [
+        {
+          "reference": "LL-101",
+          "name": "LLAVERO CORCHO - OFERTA Oferta",
+          "unit_price": {
+            "amount": 670.0,
+            "currency": "COP"
+          },
+          "quantity": 1500,
+          "role": "CORE",
+          "selection_reason": "LLAVERO CORCHO - OFERTA Oferta aporta coherencia al concepto de 'Ejecutiva'. Funciona como pieza central de la propuesta (opción eco, corcho).",
+          "decision_trace": {
+            "semantic_score": 0.0,
+            "commercial_score": 0.0,
+            "occasion_score": 0.5,
+            "budget_score": 0.0,
+            "context_score": 0.5,
+            "industry_score": 0.5,
+            "affinity_score": 0.5,
+            "availability_score": 0.5,
+            "commercial_value_score": 0.515,
+            "harmony_score": 0.75,
+            "final_score": 68.125,
+            "reason": "LLAVERO CORCHO - OFERTA Oferta aporta coherencia al kit. Complementa la propuesta comercial (opción eco, corcho). (se relajaron restricciones para asegurar propuestas)",
+            "detail": {}
+          },
+          "thumbnail_url": "https://firebasestorage.googleapis.com/v0/b/promos-278023.appspot.com/o/products%2FLL-101%2F1.jpg?alt=media",
+          "detail_url": "https://catalogospromocionales.com/producto-cataprom/LL-101/llavero-corcho-oferta-oferta",
+          "category": "Eco",
+          "materials": "corcho",
+          "colors": "",
+          "capacity": "",
+          "customization": "",
+          "eco": true,
+          "personalizable": false,
+          "perceived_value_level": "bajo"
+        },
+        {
+          "reference": "OF-529",
+          "name": "SET DE ESCRITORIO OFFICE",
+          "unit_price": {
+            "amount": 11690.0,
+            "currency": "COP"
+          },
+          "quantity": 1500,
+          "role": "UTILITY",
+          "selection_reason": "SET DE ESCRITORIO OFFICE aporta coherencia al concepto de 'Ejecutiva'. No solo aporta utilidad diaria; también prolonga la exposición de la marca.",
+          "decision_trace": {
+            "semantic_score": 0.0,
+            "commercial_score": 0.0,
+            "occasion_score": 0.5,
+            "budget_score": 0.0,
+            "context_score": 0.5,
+            "industry_score": 0.5,
+            "affinity_score": 0.5,
+            "availability_score": 0.5,
+            "commercial_value_score": 0.4625,
+            "harmony_score": 1.0,
+            "final_score": 71.8125,
+            "reason": "SET DE ESCRITORIO OFFICE aporta coherencia al kit. Complementa la propuesta comercial. (se relajaron restricciones para asegurar propuestas)",
+            "detail": {}
+          },
+          "thumbnail_url": "https://firebasestorage.googleapis.com/v0/b/promos-278023.appspot.com/o/products%2FOF-529%2F1.jpg?alt=media",
+          "detail_url": "https://catalogospromocionales.com/producto-cataprom/OF-529/set-de-escritorio-office",
+          "category": "Oficina",
+          "materials": "",
+          "colors": "",
+          "capacity": "",
+          "customization": "",
+          "eco": false,
+          "personalizable": false,
+          "perceived_value_level": "bajo"
+        },
+        {
+          "reference": "VA-1099",
+          "name": "ABANICO EN MADERA",
+          "unit_price": {
+            "amount": 10990.0,
+            "currency": "COP"
+          },
+          "quantity": 1500,
+          "role": "CORE",
+          "selection_reason": "ABANICO EN MADERA aporta coherencia al concepto de 'Ejecutiva'. Funciona como pieza central de la propuesta (madera).",
+          "decision_trace": {
+            "semantic_score": 0.0,
+            "commercial_score": 20.0,
+            "occasion_score": 0.5,
+            "budget_score": 0.0,
+            "context_score": 0.5,
+            "industry_score": 0.5,
+            "affinity_score": 0.5,
+            "availability_score": 0.5,
+            "commercial_value_score": 0.4325,
+            "harmony_score": 1.0,
+            "final_score": 75.0625,
+            "reason": "ABANICO EN MADERA aporta coherencia al kit. Complementa la propuesta comercial (madera). (se relajaron restricciones para asegurar propuestas)",
+            "detail": {}
+          },
+          "thumbnail_url": "https://firebasestorage.googleapis.com/v0/b/promos-278023.appspot.com/o/products%2FVA-1099%2F1.jpg?alt=media",
+          "detail_url": "https://catalogospromocionales.com/producto-cataprom/VA-1099/abanico-en-madera",
+          "category": "Hogar",
+          "materials": "madera",
+          "colors": "",
+          "capacity": "",
+          "customization": "",
+          "eco": false,
+          "personalizable": false,
+          "perceived_value_level": "bajo"
+        }
+      ],
+      "total_cost": {
+        "amount": 35025000.0,
+        "currency": "COP"
+      },
+      "per_unit_cost": {
+        "amount": 23350.0,
+        "currency": "COP"
+      },
+      "warnings": [],
+      "occasion": "",
+      "target_audience": "",
+      "commercial_description": "",
+      "proposal_id": "prop-20260716-221124-f253__v3",
+      "version": 1,
+      "parent_version": 0,
+      "refined": false,
+      "refinements": [],
+      "score_card": {
+        "overall_score": 106.4190258580583,
+        "budget_score": 69.91228070175438,
+        "commercial_score": 6.666666666666667,
+        "coherence_score": 40.0,
+        "diversity_score": 60.0,
+        "category_diversity_score": 0.0,
+        "utility_score": 100.0,
+        "brand_visibility_score": 33.33333333333333,
+        "premium_score": 25.0,
+        "eco_score": 33.33333333333333,
+        "personalization_score": 33.33333333333333,
+        "occasion_score": 50.0,
+        "audience_score": 50.0,
+        "balance_score": 55.73139435414885,
+        "industry_score": 50.0,
+        "complementarity_score": 60.0,
+        "category_quality_score": 100.0,
+        "material_cleanliness_score": 83.33333333333333,
+        "mode_coherence_score": 33.33333333333333,
+        "availability_score": 50.0,
+        "selection_reason_quality_score": 100.0,
+        "consistency_score": 60.0,
+        "explainability_score": 60.0,
+        "criteria": [
+          {
+            "name": "Budget Efficiency",
+            "score": 69.9122807018,
+            "reason": "Utiliza 82% del presupuesto (35,025,000 de 42,750,000 COP); objetivo 90-98%.",
+            "weight": 0.2,
+            "contribution": 13.9824561404
+          },
+          {
+            "name": "Commercial Value",
+            "score": 6.6666666667,
+            "reason": "Valor comercial promedio 7/100 de 3 productos.",
+            "weight": 0.25,
+            "contribution": 1.6666666667
+          },
+          {
+            "name": "Kit Coherence",
+            "score": 40.0,
+            "reason": "3 productos en 1 categorias; 2 categoria(s) repetida(s); incluye producto central (CORE). Incluye utilidad (UTILITY).",
+            "weight": 0.15,
+            "contribution": 6.0
+          },
+          {
+            "name": "Product Diversity",
+            "score": 60.0,
+            "reason": "3 productos distintos en el kit (max 5 evaluados).",
+            "weight": 0.1,
+            "contribution": 6.0
+          },
+          {
+            "name": "Category Diversity",
+            "score": 0.0,
+            "reason": "0 categorias distintas: ninguna clasificable.",
+            "weight": 0.08,
+            "contribution": 0.0
+          },
+          {
+            "name": "Practical Utility",
+            "score": 100.0,
+            "reason": "3 de 3 productos con utilidad practica diaria.",
+            "weight": 0.07,
+            "contribution": 7.0
+          },
+          {
+            "name": "Brand Visibility",
+            "score": 33.3333333333,
+            "reason": "1 de 3 productos refuerzan la marca (logo/personalizacion).",
+            "weight": 0.05,
+            "contribution": 1.6666666667
+          },
+          {
+            "name": "Premium Perception",
+            "score": 25.0,
+            "reason": "1 de 3 productos con percepcion premium.",
+            "weight": 0.05,
+            "contribution": 1.25
+          },
+          {
+            "name": "Sustainability",
+            "score": 33.3333333333,
+            "reason": "1 de 3 productos con atributos eco/sostenibles.",
+            "weight": 0.05,
+            "contribution": 1.6666666667
+          },
+          {
+            "name": "Personalization Potential",
+            "score": 33.3333333333,
+            "reason": "1 de 3 productos personalizables (logo/grabado).",
+            "weight": 0.05,
+            "contribution": 1.6666666667
+          },
+          {
+            "name": "Occasion Fit",
+            "score": 50.0,
+            "reason": "Ajuste a ocasion 'campana' promedio 50/100.",
+            "weight": 0.15,
+            "contribution": 7.5
+          },
+          {
+            "name": "Audience Fit",
+            "score": 50.0,
+            "reason": "Sin publico especificado; ajuste neutral.",
+            "weight": 0.1,
+            "contribution": 5.0
+          },
+          {
+            "name": "Proposal Balance",
+            "score": 55.7313943541,
+            "reason": "Rango de precios 670-11,690 COP; equilibrio 56/100 (ideal ~50% de diferencia).",
+            "weight": 0.05,
+            "contribution": 2.7865697177
+          },
+          {
+            "name": "Industry Fit",
+            "score": 50.0,
+            "reason": "Sin industria especificada; ajuste neutral.",
+            "weight": 0.2,
+            "contribution": 10.0
+          },
+          {
+            "name": "Complementarity",
+            "score": 60.0,
+            "reason": "Complementariedad del kit: 60/100 (productos que se complementan en lugar de competir).",
+            "weight": 0.1,
+            "contribution": 6.0
+          },
+          {
+            "name": "Category Quality",
+            "score": 100.0,
+            "reason": "Categorías comerciales: 3 de 3 limpias.",
+            "weight": 0.08,
+            "contribution": 8.0
+          },
+          {
+            "name": "Material Cleanliness",
+            "score": 83.3333333333,
+            "reason": "Materiales limpios: 2 de 3.",
+            "weight": 0.05,
+            "contribution": 4.1666666667
+          },
+          {
+            "name": "Mode Coherence",
+            "score": 33.3333333333,
+            "reason": "1 de 3 productos con apariencia premium (modo premium).",
+            "weight": 0.08,
+            "contribution": 2.6666666667
+          },
+          {
+            "name": "Availability",
+            "score": 50.0,
+            "reason": "Disponibilidad desconocida; criterio neutral.",
+            "weight": 0.1,
+            "contribution": 5.0
+          },
+          {
+            "name": "Selection Reason Quality",
+            "score": 100.0,
+            "reason": "Justificaciones válidas: 3 de 3.",
+            "weight": 0.06,
+            "contribution": 6.0
+          },
+          {
+            "name": "Consistency",
+            "score": 60.0,
+            "reason": "Coherencia interna del kit: 60/100 (0 repeticiones detectadas).",
+            "weight": 0.08,
+            "contribution": 4.8
+          },
+          {
+            "name": "Explainability",
+            "score": 60.0,
+            "reason": "Justificaciones explicables: 3 de 3.",
+            "weight": 0.06,
+            "contribution": 3.6
+          }
+        ],
+        "observations": [
+          "Fortaleza: Practical Utility (100/100).",
+          "Debilidad: Category Diversity (0/100) debe mejorar.",
+          "Se priorizaron productos eco/sostenibles: LLAVERO CORCHO - OFERTA Oferta.",
+          "La propuesta subutiliza el presupuesto; conviene anadir o mejorar productos para acercarse al objetivo.",
+          "El kit presenta poca coherencia entre sus productos.",
+          "La propuesta no refleja claramente el modo de generacion solicitado.",
+          "Algunos productos tienen disponibilidad inferior a la cantidad requerida."
+        ]
+      },
+      "generation_mode": "premium"
+    }
+  ]
+}

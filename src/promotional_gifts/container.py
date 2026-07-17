@@ -93,8 +93,10 @@ def build_commercial_writer() -> CommercialWriter:
     )
 
 
+_SENTINEL = object()
+
 def build_generate_proposal_use_case(
-    top_k: int = None, llm_model: str = None, mode=None
+    top_k: int = None, llm_model: str = None, mode=None, workspace=_SENTINEL
 ) -> GenerateProposalUseCase:
     return GenerateProposalUseCase(
         intent_analyzer=IntentAnalyzer(),
@@ -104,7 +106,7 @@ def build_generate_proposal_use_case(
         llm_model=llm_model or settings.ollama_model,
         llm_temperature=settings.ollama_temperature,
         negative_keywords=settings.negative_categories,
-        workspace=build_proposal_workspace(),
+        workspace=workspace if workspace is not _SENTINEL else build_proposal_workspace(),
         mode=mode,
     )
 
