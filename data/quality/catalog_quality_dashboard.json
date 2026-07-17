@@ -1,0 +1,2001 @@
+{
+  "generated_at": "2026-07-17T11:41:56.686781",
+  "total_products": 2034,
+  "summary": {
+    "avg_quality_score": 0.3214,
+    "avg_completeness": 0.3564,
+    "avg_metadata": 0.11,
+    "avg_commercial": 0.2402,
+    "avg_evidence": 0.1492,
+    "avg_priority": 0.5788,
+    "score_min": 0.1176,
+    "score_max": 0.6391,
+    "score_median": 0.2599
+  },
+  "distribution": {
+    "excelente": 0,
+    "bueno": 0,
+    "aceptable": 368,
+    "pobre": 430,
+    "critico": 1236
+  },
+  "coverage": {
+    "con_materiales": "459/2034 (23%)",
+    "con_descripcion": "11/2034 (1%)",
+    "con_tags": "514/2034 (25%)",
+    "con_colores": "3/2034 (0%)",
+    "con_familia": "996/2034 (49%)",
+    "con_commercial_strong": "568/2034 (28%)",
+    "categoria_generica": "811/2034 (40%)"
+  },
+  "missing_fields": {
+    "sin_materiales": 0,
+    "sin_descripcion": 2023,
+    "sin_tags": 1520,
+    "sin_colores": 2031
+  },
+  "top_problems": [
+    [
+      "missing_occasion_tags",
+      2034
+    ],
+    [
+      "missing_benefits",
+      2034
+    ],
+    [
+      "missing_subcategory",
+      2034
+    ],
+    [
+      "missing_characteristics",
+      2033
+    ],
+    [
+      "missing_colors",
+      2031
+    ],
+    [
+      "missing_description",
+      2023
+    ],
+    [
+      "missing_audience_tags",
+      1974
+    ],
+    [
+      "missing_materials",
+      1575
+    ],
+    [
+      "missing_commercial_tags",
+      1520
+    ],
+    [
+      "generic_category",
+      811
+    ],
+    [
+      "potential_misclassification",
+      222
+    ],
+    [
+      "missing_name",
+      52
+    ],
+    [
+      "empty_name",
+      52
+    ],
+    [
+      "missing_price",
+      20
+    ],
+    [
+      "name_looks_like_reference",
+      16
+    ]
+  ],
+  "top_100_priorities": [
+    {
+      "reference": "VA-706",
+      "name": "",
+      "score": 0.1176,
+      "level": "critico",
+      "priority": 0.703,
+      "missing": [
+        "name",
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "Ventura Cl",
+      "name": "",
+      "score": 0.1177,
+      "level": "critico",
+      "priority": 0.7029,
+      "missing": [
+        "name",
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "HE-290",
+      "name": "",
+      "score": 0.1181,
+      "level": "critico",
+      "priority": 0.7028,
+      "missing": [
+        "name",
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "OF-692",
+      "name": "",
+      "score": 0.1183,
+      "level": "critico",
+      "priority": 0.7027,
+      "missing": [
+        "name",
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "LL-107",
+      "name": "",
+      "score": 0.1185,
+      "level": "critico",
+      "priority": 0.7026,
+      "missing": [
+        "name",
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "MU-49",
+      "name": "",
+      "score": 0.1186,
+      "level": "critico",
+      "priority": 0.7026,
+      "missing": [
+        "name",
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "OF-525",
+      "name": "",
+      "score": 0.1184,
+      "level": "critico",
+      "priority": 0.7026,
+      "missing": [
+        "name",
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "CP-193",
+      "name": "",
+      "score": 0.1188,
+      "level": "critico",
+      "priority": 0.7025,
+      "missing": [
+        "name",
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "US-44",
+      "name": "",
+      "score": 0.1187,
+      "level": "critico",
+      "priority": 0.7025,
+      "missing": [
+        "name",
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "VA-1237",
+      "name": "",
+      "score": 0.1187,
+      "level": "critico",
+      "priority": 0.7025,
+      "missing": [
+        "name",
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "OF-228-CH",
+      "name": "",
+      "score": 0.1191,
+      "level": "critico",
+      "priority": 0.7024,
+      "missing": [
+        "name",
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "OF-257",
+      "name": "",
+      "score": 0.119,
+      "level": "critico",
+      "priority": 0.7024,
+      "missing": [
+        "name",
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "US-54",
+      "name": "",
+      "score": 0.1191,
+      "level": "critico",
+      "priority": 0.7024,
+      "missing": [
+        "name",
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "OF-163",
+      "name": "",
+      "score": 0.1192,
+      "level": "critico",
+      "priority": 0.7023,
+      "missing": [
+        "name",
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "OF-202",
+      "name": "",
+      "score": 0.1193,
+      "level": "critico",
+      "priority": 0.7023,
+      "missing": [
+        "name",
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "OF-228-1",
+      "name": "",
+      "score": 0.1193,
+      "level": "critico",
+      "priority": 0.7023,
+      "missing": [
+        "name",
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "US-21",
+      "name": "",
+      "score": 0.1193,
+      "level": "critico",
+      "priority": 0.7023,
+      "missing": [
+        "name",
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "US-41",
+      "name": "",
+      "score": 0.1192,
+      "level": "critico",
+      "priority": 0.7023,
+      "missing": [
+        "name",
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "VA-512",
+      "name": "",
+      "score": 0.1193,
+      "level": "critico",
+      "priority": 0.7023,
+      "missing": [
+        "name",
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "US-08",
+      "name": "",
+      "score": 0.1196,
+      "level": "critico",
+      "priority": 0.7022,
+      "missing": [
+        "name",
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "US-64",
+      "name": "",
+      "score": 0.1196,
+      "level": "critico",
+      "priority": 0.7022,
+      "missing": [
+        "name",
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "VA-741",
+      "name": "",
+      "score": 0.1195,
+      "level": "critico",
+      "priority": 0.7022,
+      "missing": [
+        "name",
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "OF-371",
+      "name": "",
+      "score": 0.1197,
+      "level": "critico",
+      "priority": 0.7021,
+      "missing": [
+        "name",
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "US-50",
+      "name": "",
+      "score": 0.1197,
+      "level": "critico",
+      "priority": 0.7021,
+      "missing": [
+        "name",
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "VA-157",
+      "name": "",
+      "score": 0.1198,
+      "level": "critico",
+      "priority": 0.7021,
+      "missing": [
+        "name",
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "VA-451",
+      "name": "",
+      "score": 0.12,
+      "level": "critico",
+      "priority": 0.702,
+      "missing": [
+        "name",
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "VA-892",
+      "name": "",
+      "score": 0.1211,
+      "level": "critico",
+      "priority": 0.7016,
+      "missing": [
+        "name",
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "US-57",
+      "name": "",
+      "score": 0.1212,
+      "level": "critico",
+      "priority": 0.7015,
+      "missing": [
+        "name",
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "MU-364",
+      "name": "",
+      "score": 0.1214,
+      "level": "critico",
+      "priority": 0.7014,
+      "missing": [
+        "name",
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "US-30",
+      "name": "",
+      "score": 0.1214,
+      "level": "critico",
+      "priority": 0.7014,
+      "missing": [
+        "name",
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "VA-893",
+      "name": "",
+      "score": 0.1214,
+      "level": "critico",
+      "priority": 0.7014,
+      "missing": [
+        "name",
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "MU-397",
+      "name": "",
+      "score": 0.1218,
+      "level": "critico",
+      "priority": 0.7013,
+      "missing": [
+        "name",
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "US-56",
+      "name": "",
+      "score": 0.122,
+      "level": "critico",
+      "priority": 0.7012,
+      "missing": [
+        "name",
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "VA-967",
+      "name": "",
+      "score": 0.1227,
+      "level": "critico",
+      "priority": 0.7009,
+      "missing": [
+        "name",
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "TE-367-1",
+      "name": "",
+      "score": 0.1283,
+      "level": "critico",
+      "priority": 0.6987,
+      "missing": [
+        "name",
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "TE-367",
+      "name": "",
+      "score": 0.1285,
+      "level": "critico",
+      "priority": 0.6986,
+      "missing": [
+        "name",
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "VA-811",
+      "name": "",
+      "score": 0.1287,
+      "level": "critico",
+      "priority": 0.6985,
+      "missing": [
+        "name",
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "VA-1084",
+      "name": "",
+      "score": 0.1301,
+      "level": "critico",
+      "priority": 0.698,
+      "missing": [
+        "name",
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "VA-1087",
+      "name": "",
+      "score": 0.1301,
+      "level": "critico",
+      "priority": 0.698,
+      "missing": [
+        "name",
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "MU-277",
+      "name": "",
+      "score": 0.1302,
+      "level": "critico",
+      "priority": 0.6979,
+      "missing": [
+        "name",
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "VA-1173",
+      "name": "",
+      "score": 0.1303,
+      "level": "critico",
+      "priority": 0.6979,
+      "missing": [
+        "name",
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "VA-1077",
+      "name": "",
+      "score": 0.1304,
+      "level": "critico",
+      "priority": 0.6978,
+      "missing": [
+        "name",
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "VA-1086",
+      "name": "",
+      "score": 0.1305,
+      "level": "critico",
+      "priority": 0.6978,
+      "missing": [
+        "name",
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "VA-1075",
+      "name": "",
+      "score": 0.1308,
+      "level": "critico",
+      "priority": 0.6977,
+      "missing": [
+        "name",
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "VA-1076",
+      "name": "",
+      "score": 0.1308,
+      "level": "critico",
+      "priority": 0.6977,
+      "missing": [
+        "name",
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "VA-1172",
+      "name": "",
+      "score": 0.1308,
+      "level": "critico",
+      "priority": 0.6977,
+      "missing": [
+        "name",
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "MAGNO",
+      "name": "MAGNO",
+      "score": 0.1602,
+      "level": "critico",
+      "priority": 0.6659,
+      "missing": [
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags",
+        "audience_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "MAUI",
+      "name": "MAUI",
+      "score": 0.1603,
+      "level": "critico",
+      "priority": 0.6659,
+      "missing": [
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags",
+        "audience_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "CARTOON",
+      "name": "CARTOON",
+      "score": 0.1613,
+      "level": "critico",
+      "priority": 0.6655,
+      "missing": [
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags",
+        "audience_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "LAMONT",
+      "name": "LAMONT",
+      "score": 0.1612,
+      "level": "critico",
+      "priority": 0.6655,
+      "missing": [
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags",
+        "audience_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "LEGOX",
+      "name": "LEGOX",
+      "score": 0.1613,
+      "level": "critico",
+      "priority": 0.6655,
+      "missing": [
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags",
+        "audience_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "NOLTON",
+      "name": "NOLTON",
+      "score": 0.1613,
+      "level": "critico",
+      "priority": 0.6655,
+      "missing": [
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags",
+        "audience_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "PRISMA",
+      "name": "PRISMA",
+      "score": 0.1612,
+      "level": "critico",
+      "priority": 0.6655,
+      "missing": [
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags",
+        "audience_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "SUMMIT-BO",
+      "name": "SUMMIT",
+      "score": 0.1612,
+      "level": "critico",
+      "priority": 0.6655,
+      "missing": [
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags",
+        "audience_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "ARIA",
+      "name": "ARIA",
+      "score": 0.1615,
+      "level": "critico",
+      "priority": 0.6654,
+      "missing": [
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags",
+        "audience_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "PARROT",
+      "name": "PARROT",
+      "score": 0.1615,
+      "level": "critico",
+      "priority": 0.6654,
+      "missing": [
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags",
+        "audience_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "TILLOT",
+      "name": "TILLOT",
+      "score": 0.1615,
+      "level": "critico",
+      "priority": 0.6654,
+      "missing": [
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags",
+        "audience_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "LL-49",
+      "name": "CARABINERO",
+      "score": 0.1618,
+      "level": "critico",
+      "priority": 0.6653,
+      "missing": [
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags",
+        "audience_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "TOKKEN",
+      "name": "TOKKEN",
+      "score": 0.1617,
+      "level": "critico",
+      "priority": 0.6653,
+      "missing": [
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags",
+        "audience_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "SMITH",
+      "name": "SMITH",
+      "score": 0.1628,
+      "level": "critico",
+      "priority": 0.6649,
+      "missing": [
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags",
+        "audience_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "MOP-STY",
+      "name": "MOP STYLUS",
+      "score": 0.1712,
+      "level": "critico",
+      "priority": 0.6615,
+      "missing": [
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags",
+        "audience_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "ASTON-MATE",
+      "name": "ASTON MATE",
+      "score": 0.1714,
+      "level": "critico",
+      "priority": 0.6614,
+      "missing": [
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags",
+        "audience_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "EMORY NEON",
+      "name": "EMORY NEON",
+      "score": 0.1716,
+      "level": "critico",
+      "priority": 0.6614,
+      "missing": [
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags",
+        "audience_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "CP-321",
+      "name": "GRIP GYRO",
+      "score": 0.1717,
+      "level": "critico",
+      "priority": 0.6613,
+      "missing": [
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags",
+        "audience_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "VA-944",
+      "name": "SET PAINT",
+      "score": 0.1725,
+      "level": "critico",
+      "priority": 0.661,
+      "missing": [
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags",
+        "audience_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "VA-367",
+      "name": "SET DONY",
+      "score": 0.1727,
+      "level": "critico",
+      "priority": 0.6609,
+      "missing": [
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags",
+        "audience_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "VA-1140",
+      "name": "CLIP CORK",
+      "score": 0.1744,
+      "level": "critico",
+      "priority": 0.6602,
+      "missing": [
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags",
+        "audience_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "ML-398",
+      "name": "SET ML-398",
+      "score": 0.1748,
+      "level": "critico",
+      "priority": 0.6601,
+      "missing": [
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags",
+        "audience_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "ML-391",
+      "name": "SET ML-391",
+      "score": 0.1805,
+      "level": "critico",
+      "priority": 0.6578,
+      "missing": [
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags",
+        "audience_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "VA-934",
+      "name": "YOGA MAT",
+      "score": 0.1808,
+      "level": "critico",
+      "priority": 0.6577,
+      "missing": [
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags",
+        "audience_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "MU-377",
+      "name": "SET NÉBULA",
+      "score": 0.1833,
+      "level": "critico",
+      "priority": 0.6567,
+      "missing": [
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags",
+        "audience_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "HO-352",
+      "name": "PICNIC SET",
+      "score": 0.1835,
+      "level": "critico",
+      "priority": 0.6566,
+      "missing": [
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags",
+        "audience_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "ML-383",
+      "name": "SET ML-383",
+      "score": 0.1834,
+      "level": "critico",
+      "priority": 0.6566,
+      "missing": [
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags",
+        "audience_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "OF-612",
+      "name": "SET HARLEY",
+      "score": 0.1834,
+      "level": "critico",
+      "priority": 0.6566,
+      "missing": [
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags",
+        "audience_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "CP-187",
+      "name": "CEPILLO CON ESPEJO KOLORS",
+      "score": 0.1853,
+      "level": "critico",
+      "priority": 0.6559,
+      "missing": [
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags",
+        "audience_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "OF-564",
+      "name": "STICKY SET KERRY",
+      "score": 0.1853,
+      "level": "critico",
+      "priority": 0.6559,
+      "missing": [
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags",
+        "audience_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "OF-607",
+      "name": "STICKY SET SEPARADOR DE HOJAS",
+      "score": 0.1853,
+      "level": "critico",
+      "priority": 0.6559,
+      "missing": [
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags",
+        "audience_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "VA-125",
+      "name": "ALCANCIA ESTRELLA 13 5CM- PRODUCCION NACIONAL Produccion Nacional",
+      "score": 0.1853,
+      "level": "critico",
+      "priority": 0.6559,
+      "missing": [
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags",
+        "audience_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "VA-225",
+      "name": "ESTUCHE MULTIFUNCION - PRODUCCION NACIONAL Produccion Nacional",
+      "score": 0.1853,
+      "level": "critico",
+      "priority": 0.6559,
+      "missing": [
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags",
+        "audience_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "VA-459",
+      "name": "BOLA ANTIESTRES TRICOLOR",
+      "score": 0.1852,
+      "level": "critico",
+      "priority": 0.6559,
+      "missing": [
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags",
+        "audience_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "VA-513",
+      "name": "PORTAVIANDA - PRODUCCION NACIONAL Produccion Nacional",
+      "score": 0.1853,
+      "level": "critico",
+      "priority": 0.6559,
+      "missing": [
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags",
+        "audience_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "VA-631",
+      "name": "GOTA ANTIESTRES",
+      "score": 0.1853,
+      "level": "critico",
+      "priority": 0.6559,
+      "missing": [
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags",
+        "audience_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "VA-685",
+      "name": "SPORTY BAG KIDZ CON DISENO",
+      "score": 0.1853,
+      "level": "critico",
+      "priority": 0.6559,
+      "missing": [
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags",
+        "audience_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "VA-727",
+      "name": "COSMETIQUERA MONROE",
+      "score": 0.1852,
+      "level": "critico",
+      "priority": 0.6559,
+      "missing": [
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags",
+        "audience_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "VENT-B-INF",
+      "name": "VENTURA BAMBOO INFINITY",
+      "score": 0.1853,
+      "level": "critico",
+      "priority": 0.6559,
+      "missing": [
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags",
+        "audience_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "HE-171",
+      "name": "METRO CARABINERO STANLEY",
+      "score": 0.1855,
+      "level": "critico",
+      "priority": 0.6558,
+      "missing": [
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags",
+        "audience_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "MU-35",
+      "name": "BOTILITO MINI SPRING 590ML (TAPA IMPORTADA O NACIONAL) Produccion Nacional",
+      "score": 0.1856,
+      "level": "critico",
+      "priority": 0.6558,
+      "missing": [
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags",
+        "audience_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "MU-53",
+      "name": "MINI BOTILITO ERGO 400ML - PRODUCCION NACIONAL Produccion Nacional",
+      "score": 0.1854,
+      "level": "critico",
+      "priority": 0.6558,
+      "missing": [
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags",
+        "audience_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "OF-316",
+      "name": "PORTARRETRATO - ALMANAQUE - PRODUCCION NACIONAL Produccion Nacional",
+      "score": 0.1855,
+      "level": "critico",
+      "priority": 0.6558,
+      "missing": [
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags",
+        "audience_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "OF-395",
+      "name": "STICKY SET FLOPPY",
+      "score": 0.1855,
+      "level": "critico",
+      "priority": 0.6558,
+      "missing": [
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags",
+        "audience_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "OF-532",
+      "name": "MEMO STICKY SET RING",
+      "score": 0.1856,
+      "level": "critico",
+      "priority": 0.6558,
+      "missing": [
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags",
+        "audience_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "TE-448-1",
+      "name": "PORTATARJETAS PUMP BAMBOO",
+      "score": 0.1855,
+      "level": "critico",
+      "priority": 0.6558,
+      "missing": [
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags",
+        "audience_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "VA-1079",
+      "name": "SET DE CRAYOLAS INFANT",
+      "score": 0.1856,
+      "level": "critico",
+      "priority": 0.6558,
+      "missing": [
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags",
+        "audience_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "VA-1134",
+      "name": "Juego para Mascotas",
+      "score": 0.1855,
+      "level": "critico",
+      "priority": 0.6558,
+      "missing": [
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags",
+        "audience_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "VA-177",
+      "name": "BOTILITO IGLOO 500ML - PRODUCCION NACIONAL (VER TAPA ENERGY) Produccion Nacional",
+      "score": 0.1854,
+      "level": "critico",
+      "priority": 0.6558,
+      "missing": [
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags",
+        "audience_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "VA-483",
+      "name": "GAFAS FASHION",
+      "score": 0.1856,
+      "level": "critico",
+      "priority": 0.6558,
+      "missing": [
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags",
+        "audience_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "VA-517",
+      "name": "SET ESCOLAR - PRODUCCION NACIONAL Produccion Nacional",
+      "score": 0.1854,
+      "level": "critico",
+      "priority": 0.6558,
+      "missing": [
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags",
+        "audience_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "VA-611",
+      "name": "ALCANCIA FLEX - PRODUCCION NACIONAL Produccion Nacional",
+      "score": 0.1855,
+      "level": "critico",
+      "priority": 0.6558,
+      "missing": [
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags",
+        "audience_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "VA-722",
+      "name": "FLORERO INOX - PRODUCCION NACIONAL - OFERTA Oferta",
+      "score": 0.1855,
+      "level": "critico",
+      "priority": 0.6558,
+      "missing": [
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags",
+        "audience_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    },
+    {
+      "reference": "VA-761",
+      "name": "CARTUCHERA EN CAMBREL KIDZ CON DISENO",
+      "score": 0.1855,
+      "level": "critico",
+      "priority": 0.6558,
+      "missing": [
+        "description",
+        "commercial_tags",
+        "colors",
+        "occasion_tags",
+        "audience_tags"
+      ],
+      "recommendations": [
+        "Agregar descripcion del producto incluyendo materiales, uso y beneficios.",
+        "Agregar material principal (ej: acero inoxidable, RPET, bambu, plastico).",
+        "Reclasificar categoria 'Otros' a una mas especifica (Tecnologia, Oficina, Eco, etc.)."
+      ]
+    }
+  ]
+}
