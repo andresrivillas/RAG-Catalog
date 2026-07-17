@@ -8,6 +8,8 @@ import streamlit as st
 
 from config.settings import settings
 from smart_catalog.presentation.smart_catalog_page import render_smart_catalog
+from smart_catalog.presentation.slices.search_catalog.ui import render_price_block
+from smart_catalog.domain.models.catalog_product import CatalogProduct
 from promotional_gifts.container import (
     build_generate_proposal_use_case,
     build_refine_proposal_use_case,
@@ -237,22 +239,232 @@ section[data-testid="stSidebar"] .stSidebarContent {
     )
 
 
+def _item_to_product(item) -> CatalogProduct:
+    price = item.unit_price.amount if item.unit_price else 0
+    return CatalogProduct(
+        reference=item.reference or "",
+        name=item.name or "",
+        price=price,
+        currency=item.unit_price.currency if item.unit_price else "COP",
+        eco_friendly=getattr(item, "eco", False),
+        perceived_value_level=getattr(item, "perceived_value_level", ""),
+    )
+
+
+def inject_re_dark_theme():
+    st.markdown(
+        """
+<style>
+/* ── unified dark theme ── */
+html, body, .stApp, [data-testid="stAppViewContainer"],
+[data-testid="stHeader"], [data-testid="stToolbar"],
+section[data-testid="stSidebar"] .stSidebarContent {
+    background: #0F172A !important;
+}
+section[data-testid="stSidebar"] .stSidebarContent {
+    border-right: 1px solid #1E293B;
+}
+.main > div { background: #0F172A !important; }
+
+/* ── RE card overrides ── */
+.pg-card {
+    background: #1E293B !important;
+    border: 1px solid #334155 !important;
+    border-radius: 12px !important;
+    box-shadow: none !important;
+}
+.pg-product {
+    background: #1E293B !important;
+    border: 1px solid #334155 !important;
+    border-radius: 10px !important;
+    display: flex !important;
+    gap: 12px !important;
+    padding: 12px !important;
+}
+.pg-product:hover {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15) !important;
+}
+.pg-name {
+    color: #F1F5F9 !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+}
+.pg-name:hover { color: #A5B4FC !important; }
+.pg-meta {
+    color: #64748B !important;
+    font-size: 12px !important;
+}
+.pg-price {
+    color: #34D399 !important;
+    font-weight: 800 !important;
+    font-size: 16px !important;
+}
+.pg-section-title {
+    color: #64748B !important;
+    font-size: 11px !important;
+}
+.pg-img-placeholder {
+    background: #0F172A !important;
+    border-color: #334155 !important;
+    color: #475569 !important;
+}
+.pg-reason {
+    color: #94A3B8 !important;
+    font-size: 11px !important;
+}
+.pg-link {
+    color: #A5B4FC !important;
+}
+.pg-score-ring {
+    background: transparent !important;
+}
+.pg-hdr-label {
+    color: #64748B !important;
+}
+.pg-hdr-value {
+    color: #F1F5F9 !important;
+}
+.pg-mode-chip {
+    background: #334155 !important;
+    color: #94A3B8 !important;
+}
+.pg-criterion-group {
+    color: #64748B !important;
+}
+.pg-score-pill {
+    color: #94A3B8 !important;
+}
+.pg-util-good, .pg-util-warn, .pg-util-bad {
+    font-weight: 700 !important;
+}
+.pg-warning {
+    color: #FCA5A5 !important;
+}
+.pg-b-eco { background: #064E3B !important; color: #6EE7B7 !important; }
+.pg-b-premium { background: #78350F !important; color: #FCD34D !important; }
+.pg-b-pers { background: #312E81 !important; color: #A5B4FC !important; }
+.pg-b-pack { background: #334155 !important; color: #94A3B8 !important; }
+.pg-b-corp { background: #334155 !important; color: #94A3B8 !important; }
+
+/* ── expanders ── */
+.streamlit-expanderHeader {
+    color: #94A3B8 !important;
+    font-size: 12px !important;
+}
+
+/* ── buttons ── */
+.stButton button[kind="primary"] {
+    background: #6366F1 !important;
+    border: none !important;
+    color: #FFFFFF !important;
+}
+.stButton button[kind="secondary"] {
+    background: transparent !important;
+    border: 1px solid #334155 !important;
+    color: #94A3B8 !important;
+}
+.stButton button:hover { filter: brightness(1.1); }
+
+/* ── text inputs ── */
+[data-testid="stTextInput"] input,
+[data-testid="stTextArea"] textarea {
+    background: #1E293B !important;
+    border: 1px solid #334155 !important;
+    color: #F1F5F9 !important;
+    border-radius: 8px !important;
+}
+[data-testid="stTextInput"] input:focus,
+[data-testid="stTextArea"] textarea:focus {
+    border-color: #6366F1 !important;
+    box-shadow: 0 0 0 2px rgba(99,102,241,0.15) !important;
+}
+
+/* ── selectbox / radio ── */
+[data-testid="stSelectbox"] div[data-baseweb="select"] > div {
+    background: #1E293B !important;
+    border-color: #334155 !important;
+    color: #F1F5F9 !important;
+}
+[data-testid="stRadio"] label {
+    color: #94A3B8 !important;
+}
+
+/* ── number input ── */
+[data-testid="stNumberInput"] input {
+    background: #1E293B !important;
+    border-color: #334155 !important;
+    color: #F1F5F9 !important;
+}
+
+/* ── progress ── */
+[data-testid="stProgress"] > div {
+    background: #334155 !important;
+}
+
+/* ── spinner ── */
+[data-testid="stSpinner"] {
+    color: #A5B4FC !important;
+}
+</style>
+""",
+        unsafe_allow_html=True,
+    )
+
+
 def render_module_selector():
-    col1, col2 = st.columns([1, 1], gap="small")
-    with col1:
-        re_active = st.session_state.get("active_module", "RE") == "RE"
+    st.markdown(
+        """
+<style>
+.module-tabs {
+    display: flex;
+    gap: 4px;
+    padding: 4px;
+    background: #F3F4F6;
+    border-radius: 10px;
+    max-width: 380px;
+    margin: 0 0 20px 0;
+}
+.module-tab {
+    flex: 1;
+    text-align: center;
+    padding: 7px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    color: #6B7280;
+    transition: all 0.15s ease;
+}
+.module-tab.active {
+    background: #FFFFFF;
+    color: #111827;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+</style>
+<div class='module-tabs'>
+""",
+        unsafe_allow_html=True,
+    )
+    re_active = st.session_state.get("active_module", "RE") == "RE"
+    sc_active = st.session_state.get("active_module") == "SC"
+
+    left, right = st.columns([1, 1])
+    with left:
         if st.button(
             "Recommendation Engine",
             use_container_width=True,
             type="primary" if re_active else "secondary",
+            key="mod_re",
         ):
             st.session_state.active_module = "RE"
-    with col2:
-        sc_active = st.session_state.get("active_module") == "SC"
+    with right:
         if st.button(
             "Smart Catalog",
             use_container_width=True,
             type="primary" if sc_active else "secondary",
+            key="mod_sc",
         ):
             st.session_state.active_module = "SC"
     return st.session_state.get("active_module", "RE")
@@ -266,6 +478,8 @@ active_module = render_module_selector()
 if active_module == "SC":
     render_smart_catalog()
     st.stop()
+
+inject_re_dark_theme()
 
 st.markdown(
     "<div style='margin-bottom:4px;font-size:28px;font-weight:700;color:#111827;'>"
@@ -452,12 +666,13 @@ def render_summary_facts(proposal, intent, util_pct):
 def render_product_card(item, image_map):
     thumb = item.thumbnail_url or image_map.get(item.reference)
     detail = item.detail_url or image_map.get("__url__" + item.reference)
+    product = _item_to_product(item)
 
     cols = st.columns([1, 3.5])
     with cols[0]:
         try:
             if thumb:
-                st.image(thumb, width=120, caption=None)
+                st.image(thumb, width=110)
             else:
                 st.markdown(
                     "<div class='pg-img-placeholder'>Sin imagen</div>",
@@ -470,7 +685,6 @@ def render_product_card(item, image_map):
             )
 
     with cols[1]:
-        # Name
         if detail:
             st.markdown(
                 f"<a href='{detail}' target='_blank' class='pg-name'>{item.name}</a>",
@@ -482,7 +696,6 @@ def render_product_card(item, image_map):
                 unsafe_allow_html=True,
             )
 
-        # Meta: reference · role
         meta_parts = []
         if item.reference:
             meta_parts.append(f"Ref: {item.reference}")
@@ -494,21 +707,6 @@ def render_product_card(item, image_map):
                 unsafe_allow_html=True,
             )
 
-        # Price line
-        price_parts = []
-        if item.unit_price:
-            price_parts.append(f"<span class='pg-price'>{item.unit_price}</span>")
-        if item.quantity:
-            price_parts.append(f"Cant: {item.quantity}")
-        if item.subtotal:
-            price_parts.append(f"Sub: {item.subtotal}")
-        if price_parts:
-            st.markdown(
-                f"<div class='pg-meta' style='margin-top:4px;'>{' · '.join(price_parts)}</div>",
-                unsafe_allow_html=True,
-            )
-
-        # Badges
         badges = []
         if item.eco:
             badges.append("<span class='pg-badge pg-b-eco'>Eco</span>")
@@ -522,19 +720,16 @@ def render_product_card(item, image_map):
             badges.append("<span class='pg-badge pg-b-corp'>Corporativo</span>")
         if badges:
             st.markdown(
-                f"<div style='margin-top:6px;'>{' '.join(badges)}</div>",
+                f"<div style='margin-top:4px;'>{' '.join(badges)}</div>",
                 unsafe_allow_html=True,
             )
 
-        # Selection reason
+        st.markdown(render_price_block(product), unsafe_allow_html=True)
+
         reason = (item.selection_reason or "").strip()
         if reason:
-            st.markdown(
-                f"<div class='pg-reason'>{reason}</div>",
-                unsafe_allow_html=True,
-            )
+            st.markdown(f"<div class='pg-reason'>{reason}</div>", unsafe_allow_html=True)
 
-        # Detail link
         if detail:
             st.markdown(
                 f"<div style='margin-top:6px;'><a href='{detail}' target='_blank' class='pg-link'>"
@@ -793,9 +988,50 @@ def render_proposal(proposal, key_prefix, parent_document=None):
             )
         st.markdown("</div>", unsafe_allow_html=True)
 
+        # Financial summary
+        total_amount = proposal.total_cost.amount if proposal.total_cost else 0
+        discount_pct = 0.52
+        vat_pct = 0.19
+        discount_val = round(total_amount * discount_pct, 0)
+        subtotal = round(total_amount - discount_val, 0)
+        vat_val = round(subtotal * vat_pct, 0)
+        final_total = round(subtotal + vat_val, 0)
+
+        st.markdown(
+            "<div style='background:#0F172A;border-radius:10px;padding:14px;margin-bottom:12px;'>",
+            unsafe_allow_html=True,
+        )
+        st.markdown(
+            f"<div class='pg-section-title' style='margin-top:0;'>Resumen financiero</div>"
+            f"<div style='display:flex;justify-content:space-between;align-items:center;padding:2px 0;'>"
+            f"<span style='font-size:11px;color:#64748B;'>CATÁLOGO</span>"
+            f"<span style='font-size:13px;color:#94A3B8;text-decoration:line-through;'>$ {total_amount:,.0f}</span>"
+            f"</div>"
+            f"<div style='display:flex;justify-content:space-between;align-items:center;padding:2px 0;'>"
+            f"<span style='font-size:11px;color:#FCA5A5;'>-{discount_pct*100:.0f}%</span>"
+            f"<span style='font-size:13px;color:#FCA5A5;'>- $ {discount_val:,.0f}</span>"
+            f"</div>"
+            f"<div style='display:flex;justify-content:space-between;align-items:center;padding:2px 0;"
+            f"border-top:1px solid #334155;margin-top:2px;'>"
+            f"<span style='font-size:11px;color:#64748B;'>SUBTOTAL</span>"
+            f"<span style='font-size:13px;color:#94A3B8;'>$ {subtotal:,.0f}</span>"
+            f"</div>"
+            f"<div style='display:flex;justify-content:space-between;align-items:center;padding:2px 0;'>"
+            f"<span style='font-size:11px;color:#6EE7B7;'>+ IVA {vat_pct*100:.0f}%</span>"
+            f"<span style='font-size:13px;color:#6EE7B7;'>$ {vat_val:,.0f}</span>"
+            f"</div>"
+            f"<div style='display:flex;justify-content:space-between;align-items:center;padding:4px 0 0;"
+            f"border-top:2px solid #6366F1;margin-top:2px;'>"
+            f"<span style='font-size:13px;font-weight:700;color:#F1F5F9;'>TOTAL FINAL</span>"
+            f"<span style='font-size:18px;font-weight:800;color:#34D399;'>$ {final_total:,.0f}</span>"
+            f"</div>",
+            unsafe_allow_html=True,
+        )
+        st.markdown("</div>", unsafe_allow_html=True)
+
         # Summary facts
         st.markdown(
-            "<div style='background:#F9FAFB;border-radius:10px;padding:16px;margin-bottom:12px;'>",
+            "<div style='background:#1E293B;border:1px solid #334155;border-radius:10px;padding:14px;margin-bottom:12px;'>",
             unsafe_allow_html=True,
         )
         render_summary_facts(proposal, intent, util_pct)

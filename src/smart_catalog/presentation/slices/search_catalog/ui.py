@@ -7,188 +7,213 @@ from ....shared.commercial_price_calculator import calculate as calc_price
 
 SC_CARD_CSS = """
 <style>
+/* ── theme ── */
 .sc-result-count {
-    font-size: 13px;
-    color: #6B7280;
-    margin-bottom: 20px;
+    font-size: 12px;
+    color: #94A3B8;
+    margin-bottom: 14px;
     text-align: center;
 }
+
+/* ── responsive grid ── */
+.sc-card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 12px;
+}
+
+@media (min-width: 1200px) { .sc-card-grid { grid-template-columns: repeat(4, 1fr); } }
+@media (min-width: 900px) and (max-width: 1199px) { .sc-card-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (min-width: 600px) and (max-width: 899px) { .sc-card-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 599px) { .sc-card-grid { grid-template-columns: 1fr; } }
+
+/* ── card ── */
 .sc-card {
-    background: #FFFFFF;
-    border: 1px solid #E5E7EB;
-    border-radius: 14px;
-    padding: 16px;
-    margin-bottom: 16px;
+    background: #1E293B;
+    border: 1px solid #334155;
+    border-radius: 12px;
+    overflow: hidden;
     display: flex;
-    gap: 16px;
-    transition: box-shadow 0.15s ease;
+    flex-direction: column;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    height: 100%;
 }
 .sc-card:hover {
-    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    border-color: #475569;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
 }
-.sc-card-img {
-    width: 120px;
-    height: 120px;
-    object-fit: contain;
-    border-radius: 10px;
-    background: #F9FAFB;
-    flex-shrink: 0;
-}
-.sc-card-img-placeholder {
-    width: 120px;
-    height: 120px;
-    border: 1px solid #E5E7EB;
-    border-radius: 10px;
+
+/* ── image ── */
+.sc-card-img-wrap {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background: #0F172A;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #9CA3AF;
-    font-size: 11px;
-    background: #F9FAFB;
-    flex-shrink: 0;
+    overflow: hidden;
 }
+.sc-card-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+.sc-card-img-placeholder {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background: #0F172A;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #475569;
+    font-size: 12px;
+}
+
+/* ── body ── */
 .sc-card-body {
+    padding: 10px 12px 8px;
     flex: 1;
-    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
 }
 .sc-card-name {
-    font-weight: 600;
-    font-size: 15px;
-    color: #111827;
-    line-height: 1.3;
-    margin-bottom: 4px;
+    font-weight: 700;
+    font-size: 13px;
+    color: #F1F5F9;
+    line-height: 1.35;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 .sc-card-ref {
-    font-size: 12px;
-    color: #9CA3AF;
-    margin-bottom: 6px;
+    font-size: 11px;
+    color: #64748B;
 }
-.sc-price-block {
-    margin: 8px 0;
-}
-.sc-price-original {
-    font-size: 13px;
-    color: #9CA3AF;
-    text-decoration: line-through;
-}
-.sc-price-discounted {
-    font-size: 14px;
-    color: #6B7280;
-    margin-top: 1px;
-}
-.sc-price-final {
-    font-weight: 700;
-    font-size: 20px;
-    color: #059669;
-    margin-top: 2px;
-}
-.sc-price-net {
-    font-weight: 700;
-    font-size: 20px;
-    color: #059669;
-    margin-top: 2px;
-}
-.sc-price-badge {
-    display: inline-block;
-    font-size: 10px;
-    font-weight: 700;
-    padding: 1px 6px;
-    border-radius: 4px;
-    margin-right: 4px;
-}
-.sc-badge-catalog {
-    background: #F3F4F6;
-    color: #6B7280;
-}
-.sc-badge-discount {
-    background: #FEF2F2;
-    color: #DC2626;
-}
-.sc-badge-vat {
-    background: #ECFDF5;
-    color: #059669;
-}
-.sc-badge-net {
-    background: #EEF2FF;
-    color: #4F46E5;
-}
-.sc-card-tags {
+.sc-card-badges {
     display: flex;
     flex-wrap: wrap;
     gap: 4px;
-    margin-bottom: 6px;
+    margin: 2px 0;
 }
 .sc-badge {
     display: inline-block;
-    font-size: 11px;
+    font-size: 10px;
     font-weight: 600;
-    padding: 2px 10px;
+    padding: 1px 8px;
     border-radius: 999px;
     white-space: nowrap;
 }
-.sc-badge-cat {
-    background: #EEF2FF;
-    color: #4F46E5;
-}
-.sc-badge-eco {
-    background: #ECFDF5;
-    color: #059669;
-}
-.sc-badge-premium {
-    background: #FFFBEB;
-    color: #D97706;
-}
+.sc-badge-cat { background: #312E81; color: #A5B4FC; }
+.sc-badge-eco { background: #064E3B; color: #6EE7B7; }
+.sc-badge-premium { background: #78350F; color: #FCD34D; }
 .sc-chip {
     display: inline-block;
-    font-size: 11px;
-    padding: 2px 8px;
-    border-radius: 6px;
-    background: #F3F4F6;
-    color: #6B7280;
+    font-size: 10px;
+    padding: 1px 7px;
+    border-radius: 5px;
+    background: #334155;
+    color: #94A3B8;
     white-space: nowrap;
 }
-.sc-card-score {
+.sc-chip-overflow {
+    font-size: 10px;
+    color: #64748B;
+    padding: 1px 4px;
+}
+
+/* ── price ── */
+.sc-price-block {
+    margin: 4px 0;
+    padding: 6px 8px;
+    background: #0F172A;
+    border-radius: 8px;
+}
+.sc-price-line {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+.sc-price-original {
     font-size: 11px;
-    color: #9CA3AF;
+    color: #64748B;
+    text-decoration: line-through;
+}
+.sc-price-discounted {
+    font-size: 11px;
+    color: #94A3B8;
+}
+.sc-price-final {
+    font-weight: 800;
+    font-size: 18px;
+    color: #34D399;
+}
+.sc-price-badge {
+    font-size: 9px;
+    font-weight: 700;
+    padding: 1px 5px;
+    border-radius: 3px;
+}
+.sc-badge-catalog { background: #334155; color: #94A3B8; }
+.sc-badge-discount { background: #7F1D1D; color: #FCA5A5; }
+.sc-badge-vat { background: #064E3B; color: #6EE7B7; }
+.sc-badge-net { background: #78350F; color: #FCD34D; font-size: 10px; padding: 1px 8px; border-radius: 4px; display: inline-block; margin-bottom: 2px; }
+
+/* ── explanation ── */
+.sc-explain-box {
     margin-top: 6px;
+    padding: 6px 8px;
+    background: #0F172A;
+    border-radius: 8px;
+    border-left: 3px solid #6366F1;
 }
-.sc-explanation {
-    margin-top: 10px;
-    padding-top: 10px;
-    border-top: 1px solid #F3F4F6;
-}
-.sc-explanation-summary {
-    font-size: 12px;
-    font-weight: 600;
-    color: #4F46E5;
-    margin-bottom: 6px;
-}
-.sc-explanation-label {
+.sc-explain-summary {
     font-size: 11px;
-    color: #9CA3AF;
-    margin-bottom: 4px;
+    font-weight: 600;
+    color: #A5B4FC;
+    margin-bottom: 3px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.sc-explain-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3px;
 }
 .sc-explain-chip {
-    display: inline-block;
-    font-size: 10px;
-    padding: 2px 8px;
-    border-radius: 6px;
-    background: #EEF2FF;
-    color: #4F46E5;
+    font-size: 9px;
+    padding: 1px 6px;
+    border-radius: 4px;
+    background: #312E81;
+    color: #A5B4FC;
     white-space: nowrap;
-    margin: 1px 2px;
 }
-.sc-explain-chip-eco {
-    background: #ECFDF5;
-    color: #059669;
+.sc-explain-chip-eco { background: #064E3B; color: #6EE7B7; }
+.sc-explain-chip-premium { background: #78350F; color: #FCD34D; }
+.sc-explain-chip-price { background: #7F1D1D; color: #FCA5A5; }
+
+/* ── link ── */
+.sc-card-link {
+    display: block;
+    text-align: center;
+    padding: 8px;
+    margin: 8px 12px 12px;
+    background: #312E81;
+    color: #A5B4FC;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.12s ease;
+    flex-shrink: 0;
 }
-.sc-explain-chip-premium {
-    background: #FFFBEB;
-    color: #D97706;
-}
-.sc-explain-chip-price {
-    background: #FEF2F2;
-    color: #DC2626;
+.sc-card-link:hover {
+    background: #4338CA;
+    color: #FFFFFF;
 }
 </style>
 """
@@ -205,140 +230,147 @@ def render_price_block(product: CatalogProduct) -> str:
     if cp.is_net_price:
         return (
             f"<div class='sc-price-block'>"
-            f"<div><span class='sc-badge sc-badge-net'>PRECIO NETO</span></div>"
-            f"<div class='sc-price-net'>{_price_fmt(cp.final_price, cp.currency)}</div>"
+            f"<span class='sc-badge-net'>PRECIO NETO</span>"
+            f"<div class='sc-price-line' style='margin-top:4px;'>"
+            f"<span class='sc-price-final'>{_price_fmt(cp.final_price, cp.currency)}</span>"
+            f"</div>"
             f"</div>"
         )
 
     return (
         f"<div class='sc-price-block'>"
-        f"<div>"
-        f"<span class='sc-badge sc-badge-catalog'>CATÁLOGO</span>"
+        f"<div class='sc-price-line'>"
+        f"<span class='sc-badge sc-badge-catalog'>CAT</span>"
         f"<span class='sc-price-original'>{_price_fmt(cp.original_price, cp.currency)}</span>"
         f"</div>"
-        f"<div>"
+        f"<div class='sc-price-line'>"
         f"<span class='sc-badge sc-badge-discount'>-{cp.discount_percentage:.0f}%</span>"
         f"<span class='sc-price-discounted'>{_price_fmt(cp.discounted_price, cp.currency)}</span>"
         f"</div>"
-        f"<div>"
-        f"<span class='sc-badge sc-badge-vat'>FINAL + IVA</span>"
+        f"<div class='sc-price-line' style='margin-top:2px;'>"
+        f"<span class='sc-badge sc-badge-vat'>FINAL</span>"
         f"<span class='sc-price-final'>{_price_fmt(cp.final_price, cp.currency)}</span>"
         f"</div>"
         f"</div>"
     )
 
 
-def _render_explanation(result: CatalogSearchResult) -> None:
+def _render_card(product: CatalogProduct, result: CatalogSearchResult) -> str:
     exp = result.explanation
-    if not exp or not exp.summary:
-        return
 
-    st.markdown(
-        f"<div class='sc-explanation'>"
-        f"<div class='sc-explanation-label'>¿Por que aparece este resultado?</div>"
-        f"<div class='sc-explanation-summary'>{exp.summary}</div>",
-        unsafe_allow_html=True,
+    img_html = (
+        f"<img src='{product.image_url}' alt='' loading='lazy' />"
+        if product.image_url
+        else "<div class='sc-card-img-placeholder'>Sin imagen</div>"
     )
 
-    chips = ""
+    badges = ""
+    if product.category:
+        badges += f"<span class='sc-badge sc-badge-cat'>{product.category}</span>"
+    if product.eco_friendly:
+        badges += "<span class='sc-badge sc-badge-eco'>Eco</span>"
+    if "premium" in product.tags or "alto" in product.tags:
+        badges += "<span class='sc-badge sc-badge-premium'>Premium</span>"
 
-    for mat in exp.matched_materials:
-        chips += f"<span class='sc-explain-chip'>Material: {mat.lower()}</span>"
+    mats = ""
+    if product.material:
+        materials = [m.strip() for m in product.material.split(",") if m.strip()]
+        if materials:
+            chips = "".join(
+                f"<span class='sc-chip'>{m}</span>" for m in materials[:3]
+            )
+            if len(materials) > 3:
+                chips += f"<span class='sc-chip-overflow'>+{len(materials)-3}</span>"
+            mats = f"<div class='sc-card-badges'>{chips}</div>"
 
-    for cat in exp.matched_categories:
-        chips += f"<span class='sc-explain-chip'>Categoria: {cat}</span>"
+    explain_html = ""
+    if exp and exp.summary:
+        e_chips = ""
+        for m in exp.matched_materials:
+            e_chips += f"<span class='sc-explain-chip'>Mat: {m.lower()}</span>"
+        for c in exp.matched_categories:
+            e_chips += f"<span class='sc-explain-chip'>Cat: {c}</span>"
+        if exp.matched_eco_intent:
+            e_chips += "<span class='sc-explain-chip sc-explain-chip-eco'>Eco</span>"
+        if exp.matched_quality_intent:
+            e_chips += "<span class='sc-explain-chip sc-explain-chip-premium'>Prem</span>"
+        if exp.matched_price_intent == "LOW_PRICE":
+            e_chips += "<span class='sc-explain-chip sc-explain-chip-price'>Bajo $</span>"
+        elif exp.matched_price_intent == "HIGH_PRICE":
+            e_chips += "<span class='sc-explain-chip sc-explain-chip-premium'>Alto $</span>"
+        for co in exp.matched_colors:
+            e_chips += f"<span class='sc-explain-chip'>{co.lower()}</span>"
 
-    if exp.matched_eco_intent:
-        chips += f"<span class='sc-explain-chip sc-explain-chip-eco'>Eco</span>"
-
-    if exp.matched_quality_intent:
-        chips += f"<span class='sc-explain-chip sc-explain-chip-premium'>Premium</span>"
-
-    if exp.matched_price_intent == "LOW_PRICE":
-        chips += f"<span class='sc-explain-chip sc-explain-chip-price'>Bajo precio</span>"
-    elif exp.matched_price_intent == "HIGH_PRICE":
-        chips += f"<span class='sc-explain-chip sc-explain-chip-premium'>Alto precio</span>"
-
-    for color in exp.matched_colors:
-        chips += f"<span class='sc-explain-chip'>Color: {color.lower()}</span>"
-
-    if chips:
-        st.markdown(
-            f"<div class='sc-card-tags'>{chips}</div>",
-            unsafe_allow_html=True,
+        explain_html = (
+            f"<div class='sc-explain-box'>"
+            f"<div class='sc-explain-summary'>{exp.summary}</div>"
+            + (f"<div class='sc-explain-chips'>{e_chips}</div>" if e_chips else "")
+            + f"</div>"
         )
 
-    st.markdown("</div>", unsafe_allow_html=True)
-
-
-def _render_product_card(product: CatalogProduct, score: float) -> None:
-    cols = st.columns([1, 3])
-    with cols[0]:
-        if product.image_url:
-            try:
-                st.image(product.image_url, width=120)
-            except Exception:
-                st.markdown(
-                    "<div class='sc-card-img-placeholder'>Sin imagen</div>",
-                    unsafe_allow_html=True,
-                )
-        else:
-            st.markdown(
-                "<div class='sc-card-img-placeholder'>Sin imagen</div>",
-                unsafe_allow_html=True,
-            )
-
-    with cols[1]:
-        st.markdown(
-            f"<div class='sc-card-name'>{product.name}</div>",
-            unsafe_allow_html=True,
+    link_html = ""
+    if product.detail_url:
+        link_html = (
+            f"<a href='{product.detail_url}' target='_blank' class='sc-card-link'>"
+            f"Ver producto \u2192</a>"
         )
 
-        st.markdown(
-            f"<div class='sc-card-ref'>Ref: {product.reference}</div>",
-            unsafe_allow_html=True,
+    return (
+        f"<div class='sc-card'>"
+        f"<div class='sc-card-img-wrap'>{img_html}</div>"
+        f"<div class='sc-card-body'>"
+        f"<div class='sc-card-name'>{product.name}</div>"
+        f"<div class='sc-card-ref'>Ref: {product.reference}</div>"
+        + (f"<div class='sc-card-badges'>{badges}</div>" if badges else "")
+        + mats
+        + render_price_block(product)
+        + explain_html
+        + f"</div>"
+        + link_html
+        + f"</div>"
+    )
+
+
+def render_product_card_html(product: CatalogProduct) -> str:
+    img_html = (
+        f"<img src='{product.image_url}' alt='' loading='lazy' />"
+        if product.image_url
+        else "<div class='sc-card-img-placeholder'>Sin imagen</div>"
+    )
+    badges = ""
+    if product.category:
+        badges += f"<span class='sc-badge sc-badge-cat'>{product.category}</span>"
+    if product.eco_friendly:
+        badges += "<span class='sc-badge sc-badge-eco'>Eco</span>"
+    if "premium" in product.tags or "alto" in product.tags:
+        badges += "<span class='sc-badge sc-badge-premium'>Premium</span>"
+    mats = ""
+    if product.material:
+        materials = [m.strip() for m in product.material.split(",") if m.strip()]
+        if materials:
+            chips = "".join(f"<span class='sc-chip'>{m}</span>" for m in materials[:3])
+            if len(materials) > 3:
+                chips += f"<span class='sc-chip-overflow'>+{len(materials)-3}</span>"
+            mats = f"<div class='sc-card-badges'>{chips}</div>"
+    link_html = ""
+    if product.detail_url:
+        link_html = (
+            f"<a href='{product.detail_url}' target='_blank' class='sc-card-link'>"
+            f"Ver producto \u2192</a>"
         )
-
-        st.markdown(
-            render_price_block(product),
-            unsafe_allow_html=True,
-        )
-
-        tags_html = ""
-        if product.category:
-            tags_html += (
-                f"<span class='sc-badge sc-badge-cat'>{product.category}</span>"
-            )
-        if product.eco_friendly:
-            tags_html += "<span class='sc-badge sc-badge-eco'>Eco</span>"
-        if "premium" in product.tags or "alto" in product.tags:
-            tags_html += "<span class='sc-badge sc-badge-premium'>Premium</span>"
-        if tags_html:
-            st.markdown(
-                f"<div class='sc-card-tags'>{tags_html}</div>",
-                unsafe_allow_html=True,
-            )
-
-        if product.material:
-            materials = [m.strip() for m in product.material.split(",") if m.strip()]
-            if materials:
-                chips = "".join(
-                    f"<span class='sc-chip'>{m}</span>" for m in materials[:4]
-                )
-                st.markdown(
-                    f"<div class='sc-card-tags'>{chips}</div>",
-                    unsafe_allow_html=True,
-                )
-
-        if product.detail_url:
-            st.markdown(
-                f"<a href='{product.detail_url}' target='_blank' "
-                f"style='display:inline-block;margin-top:8px;padding:6px 16px;"
-                f"border-radius:8px;background:#4F46E5;color:#FFFFFF;"
-                f"font-size:12px;font-weight:600;text-decoration:none;'>"
-                f"Ver producto →</a>",
-                unsafe_allow_html=True,
-            )
+    return (
+        f"<div class='sc-card'>"
+        f"<div class='sc-card-img-wrap'>{img_html}</div>"
+        f"<div class='sc-card-body'>"
+        f"<div class='sc-card-name'>{product.name}</div>"
+        f"<div class='sc-card-ref'>Ref: {product.reference}</div>"
+        + (f"<div class='sc-card-badges'>{badges}</div>" if badges else "")
+        + mats
+        + render_price_block(product)
+        + f"</div>"
+        + link_html
+        + f"</div>"
+    )
 
 
 def render_results(response: SearchResponse) -> None:
@@ -346,11 +378,9 @@ def render_results(response: SearchResponse) -> None:
 
     if not response.results:
         st.markdown(
-            "<div style='text-align:center;padding:80px 20px;'>"
-            "<div style='font-size:14px;color:#9CA3AF;'>"
-            "No encontramos productos relacionados."
-            "</div>"
-            "</div>",
+            "<div style='text-align:center;padding:60px 20px;'>"
+            "<div style='font-size:14px;color:#64748B;'>"
+            "No encontramos productos relacionados.</div></div>",
             unsafe_allow_html=True,
         )
         return
@@ -358,12 +388,13 @@ def render_results(response: SearchResponse) -> None:
     elapsed = response.metadata.processing_time_ms if response.metadata else 0
     st.markdown(
         f"<div class='sc-result-count'>"
-        f"{response.total_results} resultados encontrados "
-        f"({elapsed:.0f}ms)"
-        f"</div>",
+        f"{response.total_results} resultados ({elapsed:.0f}ms)</div>",
         unsafe_allow_html=True,
     )
 
+    cards_html = "<div class='sc-card-grid'>"
     for result in response.results:
-        _render_product_card(result.product, result.relevance_score)
-        _render_explanation(result)
+        cards_html += _render_card(result.product, result)
+    cards_html += "</div>"
+
+    st.markdown(cards_html, unsafe_allow_html=True)
