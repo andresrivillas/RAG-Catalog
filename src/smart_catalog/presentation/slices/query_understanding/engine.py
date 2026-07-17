@@ -5,6 +5,8 @@ from ....domain.models.structured_search_query import StructuredSearchQuery
 from .normalizer import QueryNormalizer, SYNONYM_MAP, GENERIC_TERMS
 from .detectors import material, category, color, attribute, audience, intent
 from .detectors.confidence import calculate_confidence
+from .detectors.capacity import detect_capacity
+from .detectors.technology import detect_technologies
 
 logger = logging.getLogger("smart_catalog.query_understanding")
 
@@ -33,6 +35,8 @@ class QueryUnderstandingEngine:
         colors = color.detect_colors(content_tokens)
         aud = audience.detect_audience(normalized)
         attrs = attribute.detect_attributes(content_tokens)
+        capacity = detect_capacity(content_tokens, original)
+        technologies = detect_technologies(original)
 
         known_tokens: set[str] = set()
         for t in content_tokens:
@@ -65,6 +69,8 @@ class QueryUnderstandingEngine:
             original_query=original,
             normalized_query=normalized_query,
             detected_categories=categories,
+            detected_capacity=capacity,
+            detected_technologies=technologies,
             detected_materials=materials,
             detected_price_intent=price_intent,
             detected_quality_intent=quality_intent,

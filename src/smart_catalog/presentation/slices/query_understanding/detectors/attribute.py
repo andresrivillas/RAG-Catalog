@@ -1,19 +1,11 @@
 import logging
+from .....knowledge_store.loader import KnowledgeLoader
 
 logger = logging.getLogger("smart_catalog.query_understanding")
 
-ATTRIBUTE_KEYWORDS: dict[str, str] = {
-    "personalizable": "PERSONALIZABLE", "personalizado": "PERSONALIZABLE",
-    "personalizados": "PERSONALIZABLE", "personalizada": "PERSONALIZABLE",
-    "personalizadas": "PERSONALIZABLE",
-    "estampado": "ESTAMPADO", "grabado": "GRABADO", "bordado": "BORDADO",
-    "ligero": "LIGERO", "ligera": "LIGERO", "liviano": "LIGERO", "liviana": "LIGERO",
-    "compacto": "COMPACTO", "compacta": "COMPACTO",
-    "portatil": "PORTATIL", "plegable": "PLEGABLE",
-    "reutilizable": "REUTILIZABLE",
-    "resistente": "RESISTENTE", "impermeable": "IMPERMEABLE",
-    "termico": "TERMICO", "termica": "TERMICO", "aislante": "AISLANTE",
-}
+_loader = KnowledgeLoader()
+_knowledge = _loader.load()
+ATTRIBUTE_KEYWORDS: dict[str, str] = dict(_knowledge.attributes)
 
 
 def detect_attributes(tokens: list[str]) -> list[str]:

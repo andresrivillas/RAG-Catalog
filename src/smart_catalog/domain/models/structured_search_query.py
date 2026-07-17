@@ -15,5 +15,7 @@ class StructuredSearchQuery:
     detected_audience: Optional[str] = None
     detected_colors: list[str] = field(default_factory=list)
     detected_attributes: list[str] = field(default_factory=list)
+    detected_capacity: Optional[dict] = None
+    detected_technologies: list[str] = field(default_factory=list)
     unknown_terms: list[str] = field(default_factory=list)
     confidence: float = 0.0

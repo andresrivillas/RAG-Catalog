@@ -1,0 +1,131 @@
+expansions:
+  Accesorios:
+  - accesorio
+  - complemento
+  - detalle
+  Belleza:
+  - belleza
+  - cosmetica
+  - cuidado personal
+  - espejo
+  Bolsos:
+  - bolso
+  - bolsa
+  - mochila
+  - cartera
+  - accesorio
+  - bolsa corporativa
+  Deportes:
+  - deporte
+  - deportivo
+  - accesorio deportivo
+  - toalla
+  - gorra
+  - botella deportiva
+  Eco:
+  - eco
+  - ecologico
+  - sostenible
+  - rpet
+  - bambu
+  - reciclado
+  - reciclable
+  - corcho
+  - algodon
+  - biodegradable
+  - material reciclado
+  Escolar:
+  - escolar
+  - universidad
+  - estudiante
+  - papeleria
+  - utiles escolares
+  - mochila escolar
+  Escritura:
+  - escritura
+  - lapicero
+  - lapiz
+  - boligrafo
+  - esfero
+  - pluma
+  - marcador
+  - resaltador
+  Herramientas:
+  - herramienta
+  - multiusos
+  - utilidad
+  - kit herramientas
+  Hogar:
+  - hogar
+  - casa
+  - cocina
+  - decoracion
+  - accesorio hogar
+  - utilidad hogar
+  Juguetes:
+  - juguete
+  - peluche
+  - juego
+  - didactico
+  Libretas:
+  - libreta
+  - cuaderno
+  - agenda
+  - block
+  - papeleria
+  - libreta corporativa
+  Moda:
+  - moda
+  - accesorio moda
+  - ropa
+  - complemento
+  Musica:
+  - musica
+  - audifonos
+  - parlante
+  - accesorio musica
+  Oficina:
+  - oficina
+  - escritorio
+  - organizador
+  - papeleria
+  - lapicero
+  - agenda
+  - calculadora
+  - accesorio oficina
+  Salud:
+  - salud
+  - bienestar
+  - cuidado personal
+  - masajeador
+  Tecnologia:
+  - tecnologia
+  - electronico
+  - digital
+  - cargador
+  - usb
+  - inalambrico
+  - cable
+  - accesorio electronico
+  Termos:
+  - termo
+  - termico
+  - aislante
+  - caliente
+  - frio
+  - botella termica
+  Textil:
+  - textil
+  - ropa
+  - camisa
+  - camiseta
+  - polo
+  - uniforme
+  - vestuario corporativo
+  Viaje:
+  - viaje
+  - viajero
+  - maleta
+  - accesorio viaje
+  - neceser
+  - organizador viaje

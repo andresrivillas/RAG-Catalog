@@ -1,0 +1,194 @@
+details:
+  AGENDA:
+    exclude_categories: []
+    name_terms:
+    - agenda
+    - libreta
+    - cuaderno
+    - block
+    product_types:
+    - AGENDA
+    - LIBRETA
+  AUDIFONOS:
+    exclude_categories: []
+    name_terms:
+    - audifonos
+    - cascos
+    product_types:
+    - AUDIFONOS
+  BOLSO:
+    exclude_categories: []
+    name_terms:
+    - bolso
+    - bolsa
+    - mochila
+    - cartera
+    - morral
+    - maletin
+    - tula
+    - tote
+    product_types:
+    - BOLSO
+  BOTELLA:
+    exclude_categories: []
+    name_terms:
+    - botella
+    - botilito
+    - botellon
+    product_types:
+    - BOTELLA
+  CALCULADORA:
+    exclude_categories: []
+    name_terms:
+    - calculadora
+    product_types:
+    - CALCULADORA
+  CARGADOR:
+    exclude_categories: []
+    name_terms:
+    - cargador
+    - power bank
+    - carga
+    product_types:
+    - CARGADOR
+  GORRA:
+    exclude_categories: []
+    name_terms:
+    - gorra
+    - visera
+    product_types:
+    - GORRA
+  LAPICERO:
+    exclude_categories: []
+    name_terms:
+    - lapicero
+    - lapiz
+    - boligrafo
+    - esfero
+    - pluma
+    product_types:
+    - LAPICERO
+    - LAPIZ
+    - BOLIGRAFO
+    - PLUMA
+  LLAVERO:
+    exclude_categories: []
+    name_terms:
+    - llavero
+    - portallaves
+    product_types:
+    - LLAVERO
+  MOUSE:
+    exclude_categories: []
+    name_terms:
+    - mouse
+    - raton
+    product_types:
+    - MOUSE
+  MUG:
+    exclude_categories: []
+    name_terms:
+    - mug
+    - taza
+    - vaso
+    product_types:
+    - MUG
+    - VASO
+  NEVERA:
+    exclude_categories: []
+    name_terms:
+    - nevera
+    - cooler
+    - lonchera
+    - termico
+    product_types:
+    - NEVERA
+    - LONCHERA
+    - BOLSO_TERMICO
+  ORGANIZADOR:
+    exclude_categories: []
+    name_terms:
+    - organizador
+    - bandeja
+    product_types:
+    - ORGANIZADOR
+  PARAGUAS:
+    exclude_categories: []
+    name_terms:
+    - paraguas
+    product_types:
+    - PARAGUAS
+  PULSERA:
+    exclude_categories: []
+    name_terms:
+    - pulsera
+    product_types:
+    - PULSERA
+  REGALO:
+    exclude_categories: []
+    name_terms:
+    - regalo
+    - obsequio
+    - detalle
+    product_types:
+    - REGALO
+  RELOJ:
+    exclude_categories: []
+    name_terms:
+    - reloj
+    product_types:
+    - RELOJ
+  ROPA:
+    exclude_categories: []
+    name_terms:
+    - camisa
+    - camiseta
+    - polo
+    - chaqueta
+    - delantal
+    product_types:
+    - ROPA
+  TERMO:
+    exclude_categories: []
+    name_terms:
+    - termo
+    - termico
+    product_types:
+    - TERMO
+  TOALLA:
+    exclude_categories: []
+    name_terms:
+    - toalla
+    product_types:
+    - TOALLA
+  USB:
+    exclude_categories: []
+    name_terms:
+    - usb
+    - pendrive
+    - flash
+    - memory stick
+    product_types:
+    - USB
+families:
+- USB
+- BOTELLA
+- LAPICERO
+- MUG
+- BOLSO
+- TERMO
+- CARGADOR
+- AGENDA
+- GORRA
+- LLAVERO
+- RELOJ
+- PULSERA
+- MOUSE
+- AUDIFONOS
+- CALCULADORA
+- PARAGUAS
+- NEVERA
+- TOALLA
+- ORGANIZADOR
+- REGALO
+- ROPA

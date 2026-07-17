@@ -1,0 +1,206 @@
+expansions:
+  AGENDA:
+  - agenda
+  - libreta
+  - cuaderno
+  - block
+  - agenda corporativa
+  - agenda promocional
+  AUDIFONOS:
+  - audifonos
+  - cascos
+  - audifonos corporativos
+  BILLETERA:
+  - billetera
+  - monedero
+  - tarjetero
+  BOLIGRAFO:
+  - boligrafo
+  - lapicero
+  - esfero
+  - lapiz
+  - escritura
+  BOLSO:
+  - bolso
+  - bolsa
+  - mochila
+  - cartera
+  - morral
+  - bolsa corporativa
+  - bolsa promocional
+  BOLSO_TERMICO:
+  - bolso termico
+  - nevera portatil
+  - lonchera
+  BOTELLA:
+  - botella
+  - termo
+  - botella termica
+  - botellon
+  - botella metalica
+  - botella acero
+  - botella aluminio
+  CABLE:
+  - cable
+  - cable usb
+  - cable carga
+  CALCULADORA:
+  - calculadora
+  - calculadora corporativa
+  - calculadora promocional
+  CARGADOR:
+  - cargador
+  - cargador inalambrico
+  - cargador movil
+  - cargador usb
+  - cargador coche
+  - power bank
+  GAFAS:
+  - gafas
+  - lentes
+  - gafas corporativas
+  GORRA:
+  - gorra
+  - visera
+  - gorra corporativa
+  - gorra promocional
+  HUB:
+  - hub
+  - hub usb
+  - multipuerto
+  LAPICERO:
+  - lapicero
+  - boligrafo
+  - esfero
+  - lapiz
+  - escritura
+  - boligrafo promocional
+  - lapiz corporativo
+  LAPIZ:
+  - lapiz
+  - lapicero
+  - boligrafo
+  - grafito
+  - escritura
+  LIBRETA:
+  - libreta
+  - cuaderno
+  - agenda
+  - block
+  - libreta corporativa
+  LINTERNA:
+  - linterna
+  - linterna corporativa
+  - luz led
+  LLAVERO:
+  - llavero
+  - llaveros
+  - portallaves
+  - llavero promocional
+  LONCHERA:
+  - lonchera
+  - nevera portatil
+  - bolso termico
+  MALETA:
+  - maleta
+  - maletin
+  - portafolio
+  - maleta corporativa
+  MONEDERO:
+  - monedero
+  - monedero corporativo
+  - billetera
+  MOUSE:
+  - mouse
+  - raton
+  - mouse pad
+  - accesorio computacion
+  MUG:
+  - mug
+  - taza
+  - vaso
+  - ceramica
+  - mug corporativo
+  - taza promocional
+  - mug ceramica
+  NECESER:
+  - neceser
+  - estuche
+  - cosmetiquera
+  NEVERA:
+  - nevera
+  - cooler
+  - nevera portatil
+  - bolso termico
+  - nevera corporativa
+  ORGANIZADOR:
+  - organizador
+  - organizador escritorio
+  - bandeja
+  PARAGUAS:
+  - paraguas
+  - paraguas corporativo
+  - paraguas promocional
+  PLUMA:
+  - pluma
+  - lapicero
+  - boligrafo
+  - escritura fina
+  PORTAFOLIO:
+  - portafolio
+  - maletin
+  - carpeta corporativa
+  PULSERA:
+  - pulsera
+  - pulsera corporativa
+  - pulsera promocional
+  REGALO:
+  - regalo empresarial
+  - regalo corporativo
+  - obsequio
+  - detalle promocional
+  - articulo promocional
+  RELOJ:
+  - reloj
+  - reloj corporativo
+  - reloj promocional
+  ROPA:
+  - camisa
+  - camiseta
+  - polo
+  - chaqueta
+  - delantal
+  - ropa corporativa
+  TARJETERO:
+  - tarjetero
+  - portatarjetas
+  - portacredencial
+  - tarjetero corporativo
+  TECLADO:
+  - teclado
+  - teclado corporativo
+  TERMO:
+  - termo
+  - botella termica
+  - termico
+  - termo metalico
+  - botella caliente
+  - botella frio
+  - aislante
+  TOALLA:
+  - toalla
+  - toalla corporativa
+  - toalla promocional
+  USB:
+  - usb
+  - memoria usb
+  - hub usb
+  - puerto usb
+  - pendrive
+  - dispositivo usb
+  VASO:
+  - vaso
+  - mug
+  - taza
+  - vaso corporativo
+  - cristaleria

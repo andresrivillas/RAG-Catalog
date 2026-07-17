@@ -54,6 +54,7 @@ from .commercial_knowledge.service import CommercialKnowledgeService
 from .commercial_knowledge.affinity_calculator import (
     CommercialAffinityCalculator,
 )
+from .commercial_recommendation.engine import CommercialRecommendationEngine
 from .catalog_knowledge_enrichment.service import (
     CatalogKnowledgeEnrichmentService,
 )
@@ -95,6 +96,7 @@ def build_commercial_knowledge_service() -> CommercialKnowledgeService:
     return CommercialKnowledgeService(
         affinity_calculator=CommercialAffinityCalculator(),
         enrichment_store=build_catalog_knowledge_store(),
+        recommendation_engine=CommercialRecommendationEngine(),
     )
 
 

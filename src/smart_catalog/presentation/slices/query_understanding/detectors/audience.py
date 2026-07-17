@@ -2,28 +2,13 @@ import logging
 import re
 from typing import Optional
 
+from .....knowledge_store.loader import KnowledgeLoader
+
 logger = logging.getLogger("smart_catalog.query_understanding")
 
-AUDIENCE_PATTERNS: list[tuple[str, str]] = [
-    (r"para\s+medicos", "MEDICOS"), (r"para\s+doctor", "MEDICOS"),
-    (r"para\s+enfermer", "MEDICOS"),
-    (r"para\s+arquitectos", "ARQUITECTOS"),
-    (r"para\s+ingenieros", "INGENIEROS"),
-    (r"para\s+abogados", "ABOGADOS"),
-    (r"para\s+profesores", "PROFESORES"), (r"para\s+maestros", "PROFESORES"),
-    (r"para\s+docentes", "PROFESORES"),
-    (r"para\s+ninos", "NINOS"), (r"para\s+ninas", "NINOS"),
-    (r"para\s+universidad", "UNIVERSITARIOS"),
-    (r"para\s+estudiantes", "ESTUDIANTES"),
-    (r"para\s+empresa", "EMPRESA"), (r"para\s+empleados", "EMPRESA"),
-    (r"para\s+corporativo", "EMPRESA"), (r"corporativos?", "EMPRESA"),
-    (r"para\s+oficina", "OFICINA"),
-    (r"eventos?", "EVENTOS"), (r"ferias?", "FERIAS"),
-    (r"congresos?", "EVENTOS"), (r"convenciones?", "EVENTOS"),
-    (r"lanzamiento", "LANZAMIENTO"), (r"cumpleanos", "CUMPLEANOS"),
-    (r"boda", "BODA"),
-    (r"regalos?\s+empresariales?", "EMPRESA"),
-]
+_loader = KnowledgeLoader()
+_knowledge = _loader.load()
+AUDIENCE_PATTERNS: list[tuple[str, str]] = list(_knowledge.audience_patterns)
 
 
 def detect_audience(text: str) -> Optional[str]:

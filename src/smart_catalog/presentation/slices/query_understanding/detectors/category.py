@@ -1,8 +1,11 @@
 import logging
-
-from .....shared.dictionaries.categories import CATEGORY_KEYWORDS
+from .....knowledge_store.loader import KnowledgeLoader
 
 logger = logging.getLogger("smart_catalog.query_understanding")
+
+_loader = KnowledgeLoader()
+_knowledge = _loader.load()
+CATEGORY_KEYWORDS: dict[str, str] = dict(_knowledge.categories)
 
 
 def detect_categories(tokens: list[str]) -> list[str]:

@@ -1,0 +1,189 @@
+generic_terms:
+- articulo
+- articulos
+- cosa
+- cosas
+- detalle
+- detalles
+- item
+- items
+- obsequio
+- obsequios
+- producto
+- productos
+- regalo
+- regalos
+stop_words:
+- a
+- al
+- aquel
+- aquella
+- como
+- con
+- cuando
+- de
+- del
+- donde
+- e
+- el
+- en
+- es
+- esa
+- esas
+- ese
+- esos
+- esta
+- estas
+- este
+- estos
+- la
+- las
+- le
+- lo
+- los
+- mas
+- me
+- mis
+- muy
+- 'no'
+- o
+- para
+- pero
+- por
+- que
+- se
+- sin
+- su
+- sus
+- te
+- tus
+- un
+- una
+- y
+synonyms:
+  agenda: AGENDA
+  agendas: AGENDA
+  audifonos: AUDIFONOS
+  billetera: BILLETERA
+  billeteras: BILLETERA
+  block: LIBRETA
+  blocks: LIBRETA
+  boligrafo: BOLIGRAFO
+  boligrafos: BOLIGRAFO
+  bolso: BOLSO
+  bolso_termico: BOLSO_TERMICO
+  bolsos: BOLSO
+  botella: BOTELLA
+  botellas: BOTELLA
+  botellon: BOTELLA
+  botellones: BOTELLA
+  botilito: BOTELLA
+  botilitos: BOTELLA
+  cable: CABLE
+  cables: CABLE
+  calculadora: CALCULADORA
+  calculadoras: CALCULADORA
+  camisa: ROPA
+  camisas: ROPA
+  camiseta: ROPA
+  camisetas: ROPA
+  cargador: CARGADOR
+  cargadores: CARGADOR
+  cartera: BOLSO
+  carteras: BOLSO
+  cascos: AUDIFONOS
+  chaqueta: ROPA
+  chaquetas: ROPA
+  cooler: NEVERA
+  coolers: NEVERA
+  cuaderno: LIBRETA
+  cuadernos: LIBRETA
+  delantal: ROPA
+  delantales: ROPA
+  esfero: LAPICERO
+  esferos: LAPICERO
+  flash: USB
+  flash drive: USB
+  gafas: GAFAS
+  gorra: GORRA
+  gorras: GORRA
+  hub: HUB
+  lapicero: LAPICERO
+  lapiceros: LAPICERO
+  lapices: LAPIZ
+  lapiz: LAPIZ
+  libreta: LIBRETA
+  libretas: LIBRETA
+  linterna: LINTERNA
+  linternas: LINTERNA
+  llavero: LLAVERO
+  llaveros: LLAVERO
+  lonchera: LONCHERA
+  loncheras: LONCHERA
+  maleta: MALETA
+  maletas: MALETA
+  maletin: MALETA
+  maletines: MALETA
+  memoria: USB
+  memorias: USB
+  memory: USB
+  memory stick: USB
+  mochila: BOLSO
+  mochilas: BOLSO
+  monedero: MONEDERO
+  monederos: MONEDERO
+  morral: BOLSO
+  morrales: BOLSO
+  mouse: MOUSE
+  mug: MUG
+  mugs: MUG
+  neceser: NECESER
+  neceseres: NECESER
+  nevera: NEVERA
+  nevera_portatil: NEVERA
+  neveras: NEVERA
+  organizador: ORGANIZADOR
+  organizadores: ORGANIZADOR
+  paraguas: PARAGUAS
+  pendrive: USB
+  pendrives: USB
+  pluma: PLUMA
+  plumas: PLUMA
+  pocillo: VASO
+  pocillos: VASO
+  polo: ROPA
+  polos: ROPA
+  portacredencial: TARJETERO
+  portafolio: PORTAFOLIO
+  portafolios: PORTAFOLIO
+  portatarjetas: TARJETERO
+  power: CARGADOR
+  powerbank: CARGADOR
+  pulsera: PULSERA
+  pulseras: PULSERA
+  raton: MOUSE
+  regalo: REGALO
+  regalos: REGALO
+  reloj: RELOJ
+  relojes: RELOJ
+  tarjetero: TARJETERO
+  tarjeteros: TARJETERO
+  taza: MUG
+  tazas: MUG
+  teclado: TECLADO
+  teclados: TECLADO
+  termo: TERMO
+  termos: TERMO
+  toalla: TOALLA
+  toallas: TOALLA
+  tomatodo: BOTELLA
+  tomatodos: BOTELLA
+  tote: BOLSO
+  tote bag: BOLSO
+  tula: BOLSO
+  tulas: BOLSO
+  usb: USB
+  vaso: VASO
+  vasos: VASO
+  visera: GORRA
+  viseras: GORRA

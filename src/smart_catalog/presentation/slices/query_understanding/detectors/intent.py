@@ -1,63 +1,17 @@
 import logging
 from typing import Optional
 
+from .....knowledge_store.loader import KnowledgeLoader
+
 logger = logging.getLogger("smart_catalog.query_understanding")
 
-LOW_PRICE_KEYWORDS = frozenset({
-    "barato", "baratos", "barata", "baratas",
-    "economico", "economicamente", "economica", "economicos", "economicas",
-    "bajo_costo", "bajo_coste",
-    "accesible", "accesibles",
-    "oferta", "ofertas",
-    "descuento", "descuentos",
-    "promocion", "promociones",
-    "gratis", "gratuito", "gratuita",
-    "regalado", "regalada",
-})
+_loader = KnowledgeLoader()
+_knowledge = _loader.load()
 
-HIGH_PRICE_KEYWORDS = frozenset({
-    "caro", "caros", "cara", "caras",
-    "premium",
-    "lujoso", "lujosa", "lujosos", "lujosas",
-    "alta_gama",
-    "exclusivo", "exclusiva", "exclusivos", "exclusivas",
-    "lujo",
-    "delujo", "delujosa",
-    "ostentoso", "ostentosa",
-    "elegante", "elegantes",
-})
-
-QUALITY_KEYWORDS = frozenset({
-    "premium",
-    "ejecutivo", "ejecutiva",
-    "elegante", "elegantes",
-    "lujo", "lujoso", "lujosa",
-    "alta_calidad",
-    "corporativo", "corporativa",
-    "profesional",
-    "fino", "fina",
-    "superior",
-    "calidad",
-    "excelente",
-    "prestigio",
-})
-
-ECO_KEYWORDS = frozenset({
-    "eco", "ecologico", "ecologica", "ecologicos", "ecologicas",
-    "ecofriendly", "eco_friendly",
-    "sostenible", "sostenibles",
-    "reciclado", "reciclada", "reciclados", "recicladas",
-    "reciclable", "reciclables",
-    "verde", "verdes",
-    "natural", "naturales",
-    "organico", "organica", "organicos", "organicas",
-    "biodegradable", "biodegradables",
-    "rpet",
-    "ambiente", "ambiental",
-    "ecoconsciente",
-    "sustentable", "sustentables",
-})
-
+LOW_PRICE_KEYWORDS = frozenset(_knowledge.low_price_keywords)
+HIGH_PRICE_KEYWORDS = frozenset(_knowledge.high_price_keywords)
+QUALITY_KEYWORDS = frozenset(_knowledge.quality_keywords)
+ECO_KEYWORDS = frozenset(_knowledge.eco_keywords)
 ALL_INTENT_KEYWORDS = LOW_PRICE_KEYWORDS | HIGH_PRICE_KEYWORDS | ECO_KEYWORDS | QUALITY_KEYWORDS
 
 
