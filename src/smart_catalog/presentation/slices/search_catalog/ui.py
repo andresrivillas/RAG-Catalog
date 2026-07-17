@@ -3,7 +3,7 @@ import streamlit as st
 from ....domain.models.catalog_product import CatalogProduct
 from ....domain.models.catalog_search_result import CatalogSearchResult
 from ....domain.models.search_response import SearchResponse
-from ....shared.commercial_price_calculator import calculate as calc_price
+from ....shared.utils.commercial_price_calculator import calculate as calc_price
 
 SC_CARD_CSS = """
 <style>

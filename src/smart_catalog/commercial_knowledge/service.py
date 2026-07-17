@@ -10,7 +10,7 @@ from ..domain.models.search_response import SearchResponse
 from ..domain.models.structured_search_query import StructuredSearchQuery
 from .models import CommercialKnowledge
 from .ports import CatalogKnowledgeRepository
-from .rules import build_knowledge, build_from_catalog_knowledge
+from .rules import build_from_catalog_knowledge
 from .affinity_calculator import CommercialAffinityCalculator
 
 logger = logging.getLogger("smart_catalog.commercial_knowledge")
@@ -30,14 +30,11 @@ class CommercialKnowledgeService:
         if product.reference in self._cache:
             return self._cache[product.reference]
 
+        knowledge = CommercialKnowledge(reason="sin_conocimiento")
         if self._store is not None:
             ck = self._store.get(product.reference)
             if ck is not None:
                 knowledge = build_from_catalog_knowledge(ck, product)
-                self._cache[product.reference] = knowledge
-                return knowledge
-
-        knowledge = build_knowledge(product)
         self._cache[product.reference] = knowledge
         return knowledge
 

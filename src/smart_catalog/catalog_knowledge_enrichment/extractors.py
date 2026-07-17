@@ -13,7 +13,7 @@ from .signals import (
     SIGNAL_CATEGORY_INDUSTRY,
     DIFFERENTIATOR_KEYWORDS,
 )
-from ..shared.product_family_dictionary import PRODUCT_FAMILIES
+from ..shared.dictionaries.product_families import PRODUCT_FAMILIES
 
 
 def _name_lower(product: dict) -> str:

@@ -5,7 +5,7 @@ from ....domain.models.catalog_search_result import CatalogSearchResult
 from ....domain.models.ranking_score import RankingScore
 from ....domain.models.search_intent import SearchIntent
 from ....domain.models.structured_search_query import StructuredSearchQuery
-from ....shared.product_family_dictionary import (
+from ....shared.dictionaries.product_families import (
     is_product_in_family,
     get_family_key,
 )

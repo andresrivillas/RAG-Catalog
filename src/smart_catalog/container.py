@@ -105,9 +105,11 @@ def build_catalog_knowledge_enrichment_service() -> CatalogKnowledgeEnrichmentSe
 
 
 def build_catalog_knowledge_store() -> CatalogKnowledgeStore:
-    return CatalogKnowledgeStore(
+    store = CatalogKnowledgeStore(
         path=settings.catalog_path.parent.parent / "enriched" / "catalog_knowledge.json",
     )
+    store.load()
+    return store
 
 
 def build_discovery_service() -> DiscoveryService:

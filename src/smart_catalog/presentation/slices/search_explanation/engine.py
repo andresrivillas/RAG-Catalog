@@ -6,7 +6,7 @@ from ....domain.models.expanded_search_query import ExpandedSearchQuery
 from ....domain.models.search_explanation import SearchExplanation
 from ....domain.models.search_intent import SearchIntent
 from ....domain.models.structured_search_query import StructuredSearchQuery
-from ....shared.product_family_dictionary import is_product_in_family, get_family_key
+from ....shared.dictionaries.product_families import is_product_in_family, get_family_key
 
 logger = logging.getLogger("smart_catalog.explanation")
 

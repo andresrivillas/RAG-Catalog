@@ -2,8 +2,8 @@ import logging
 import re
 import unicodedata
 
-from ..domain.models.catalog_product import CatalogProduct
-from ..domain.models.commercial_price import CommercialPrice
+from ...domain.models.catalog_product import CatalogProduct
+from ...domain.models.commercial_price import CommercialPrice
 
 logger = logging.getLogger("smart_catalog.pricing")
 

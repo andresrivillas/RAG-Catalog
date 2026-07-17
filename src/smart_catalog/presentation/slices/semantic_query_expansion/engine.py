@@ -5,11 +5,10 @@ from typing import Optional
 from ....domain.models.expanded_search_query import ExpandedSearchQuery
 from ....domain.models.search_intent import SearchIntent
 from ....domain.models.structured_search_query import StructuredSearchQuery
-from ....shared.product_family_dictionary import get_family_expansions, get_family_key
+from ....shared.dictionaries.product_families import get_family_expansions, get_family_key, PRODUCT_EXPANSIONS
+from ....shared.dictionaries.categories import CATEGORY_EXPANSIONS
 from .dictionaries import (
-    PRODUCT_EXPANSIONS,
     MATERIAL_EXPANSIONS,
-    CATEGORY_EXPANSIONS,
     QUALITY_EXPANSIONS,
     PRICE_LOW_EXPANSIONS,
     PRICE_HIGH_EXPANSIONS,
