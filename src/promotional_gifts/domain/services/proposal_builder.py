@@ -6,10 +6,15 @@ from ..entities.commercial_intent import CommercialIntent
 from ..entities.commercial_proposal import CommercialProposal, ProposalItem
 from ..entities.product_knowledge import ProductKnowledge
 from ..services.budget_plan import BudgetPlan
-from ..services.generation_mode import GenerationMode
+from ..services.generation_mode import GenerationMode, get_profile
 from ..entities.proposal_set import ProposalSet, ProposalSetStatistics
 from ..services.kit_builder import KitBuilder, KitBuildConfig
 from ..services.product_selector import ScoredProduct
+from ..services.proposal_strategy_config import (
+    BASE_STRATEGIES as _BASE_STRATEGIES,
+    StrategySpec,
+    strategies_for,
+)
 from ..services.diversity_engine import DiversityEngine
 
 
@@ -23,161 +28,21 @@ class BuildConfig:
     similarity_threshold: float = 0.55
 
 
-# Una estrategia reordena el pool compartido y define el modo de generacion
-# para una propuesta concreta del set global.
-@dataclass
-class StrategySpec:
-    strategy_id: str
-    label: str
-    generation_mode: GenerationMode
-    # Reordena el pool compartido segun el foco de la estrategia.
-    rerank: Callable[[List[ScoredProduct], CommercialIntent, BudgetPlan], List[ScoredProduct]]
-
-
 def _score(sp: ScoredProduct) -> float:
     return sp.trace.final_score if sp.trace else sp.score
 
 
-def _make_thematic_rerank(category_boost: List[str], tag_boost: List[str], material_boost: List[str]):
-    """Devuelve una funcion de reranqueo que prioriza productos de ciertas
-    categorias, tags y materiales, manteniendo el score comercial como
-    desempate. Asi cada propuesta del set representa una estrategia distinta.
-    """
-    categories = {c.lower() for c in category_boost}
-    tags = {t.lower() for t in tag_boost}
-    materials = {m.lower() for m in material_boost}
-
-    def rerank(pool, intent, plan):
-        def thematic_score(sp: ScoredProduct) -> float:
-            product = sp.product
-            score = 0.0
-            if (product.category or "").lower() in categories:
-                score += 3.0
-            product_tags = {t.lower() for t in (product.commercial_tags or [])}
-            product_tags |= {t.lower() for t in (product.audience_tags or [])}
-            product_tags |= {t.lower() for t in (product.occasion_tags or [])}
-            tag_hits = len(product_tags & tags)
-            score += tag_hits * 1.5
-            product_materials = {
-                m.lower()
-                for m in (product.materials or "").replace(",", " ").replace(";", " ").split()
-            }
-            material_hits = len(product_materials & materials)
-            score += material_hits * 1.0
-            return score
-
-        return sorted(
-            pool,
-            key=lambda sp: (thematic_score(sp), _score(sp), sp.product.price.amount),
-            reverse=True,
-        )
-
-    return rerank
-
-
-# Estrategias tematicas deliberadamente distintas. Cada una impulsa un
-# conjunto de categorias/tags diferente para garantizar diversidad real.
-_STRATEGY_TECHNOLOGY = StrategySpec(
-    "technology",
-    "Tecnología",
-    GenerationMode.BALANCED,
-    _make_thematic_rerank(
-        category_boost=["tecnologia", "escritura", "oficina"],
-        tag_boost=["usb", "cargador", "gadget", "wireless", "auricular", "power bank", "tecnicos", "tecnologia"],
-        material_boost=["metal", "aluminio", "silicona", "plastico"],
-    ),
-)
-
-_STRATEGY_EXECUTIVE = StrategySpec(
-    "executive",
-    "Ejecutiva",
-    GenerationMode.PREMIUM,
-    _make_thematic_rerank(
-        category_boost=["oficina", "viaje", "escritura", "bolsos"],
-        tag_boost=["premium", "ejecutivo", "corporativo", "alta gama", "personalizable", "libreta", "agenda"],
-        material_boost=["cuero", "metal", "madera", "aluminio"],
-    ),
-)
-
-_STRATEGY_ECO = StrategySpec(
-    "eco",
-    "Eco",
-    GenerationMode.ECO,
-    _make_thematic_rerank(
-        category_boost=["hogar", "oficina", "otros"],
-        tag_boost=["eco", "ecologico", "sostenible", "rpet", "reciclado", "bambu"],
-        material_boost=["bambu", "madera", "rpet", "reciclado", "algodon"],
-    ),
-)
-
-_STRATEGY_WELLNESS = StrategySpec(
-    "wellness",
-    "Bienestar",
-    GenerationMode.BALANCED,
-    _make_thematic_rerank(
-        category_boost=["hogar", "viaje", "oficina"],
-        tag_boost=["bienestar", "salud", "hidratacion", "termo", "botella", "higiene"],
-        material_boost=["acero", "bambu", "aluminio", "vidrio"],
-    ),
-)
-
-_STRATEGY_EVENT = StrategySpec(
-    "event",
-    "Evento / Branding",
-    GenerationMode.BALANCED,
-    _make_thematic_rerank(
-        category_boost=["otros", "bolsos", "oficina", "escritura"],
-        tag_boost=["evento", "merchandising", "branding", "logo", "welcome", "bolsa"],
-        material_boost=["plastico", "carton", "algodon", "metal"],
-    ),
-)
-
-
-def _rerank_completeness(pool, intent, plan):
-    # Estrategia generica de respaldo: maximiza score comercial por peso,
-    # favoreciendo productos que dejan espacio para completar el kit.
-    def value(sp: ScoredProduct) -> float:
-        price = sp.product.price.amount or 1.0
-        room = max(0.0, (plan.per_unit_ceiling or price) - price)
-        return (_score(sp) * 1.0) / price + room / 10000.0
-    return sorted(pool, key=value, reverse=True)
-
-
-_STRATEGY_COMPLETENESS = StrategySpec(
-    "completeness", "Completitud de kit", GenerationMode.BALANCED, _rerank_completeness
-)
-
-_BASE_STRATEGIES: List[StrategySpec] = [
-    _STRATEGY_EXECUTIVE,
-    _STRATEGY_TECHNOLOGY,
-    _STRATEGY_ECO,
-]
-
-
 def _strategies_for(config: BuildConfig, intent: CommercialIntent) -> List[StrategySpec]:
-    mode = config.mode or GenerationMode.BALANCED
-    industry = (intent.industry or "").lower()
+    """Selecciona estrategias tematicas distintas segun la industria y modo.
 
-    # Fallback por industria: se intentan tres angulos distintos relevantes.
-    if industry in {"software", "tecnologia"}:
-        return [_STRATEGY_TECHNOLOGY, _STRATEGY_EXECUTIVE, _STRATEGY_ECO][: config.num_proposals]
-    if industry in {"arquitectura", "construccion", "ingenieria", "finanzas"}:
-        return [_STRATEGY_EXECUTIVE, _STRATEGY_TECHNOLOGY, _STRATEGY_ECO][: config.num_proposals]
-    if industry in {"salud", "hospital", "clinica"}:
-        return [_STRATEGY_WELLNESS, _STRATEGY_EXECUTIVE, _STRATEGY_ECO][: config.num_proposals]
-    if industry in {"eventos"}:
-        return [_STRATEGY_EVENT, _STRATEGY_EXECUTIVE, _STRATEGY_ECO][: config.num_proposals]
-    if industry in {"educacion", "universidad", "colegio"}:
-        return [_STRATEGY_EXECUTIVE, _STRATEGY_TECHNOLOGY, _STRATEGY_ECO][: config.num_proposals]
-
-    if mode == GenerationMode.ECO:
-        return [_STRATEGY_ECO, _STRATEGY_EXECUTIVE, _STRATEGY_TECHNOLOGY][: config.num_proposals]
-    if mode == GenerationMode.PREMIUM:
-        return [_STRATEGY_EXECUTIVE, _STRATEGY_TECHNOLOGY, _STRATEGY_ECO][: config.num_proposals]
-    if mode == GenerationMode.BUDGET:
-        return [_STRATEGY_TECHNOLOGY, _STRATEGY_ECO, _STRATEGY_EXECUTIVE][: config.num_proposals]
-
-    return _BASE_STRATEGIES[: config.num_proposals]
+    La configuracion concreta vive en `proposal_strategy_config` para que
+    sea facil de mantener y extender sin tocar el builder.
+    """
+    return strategies_for(
+        intent.industry,
+        num_proposals=config.num_proposals,
+        mode=config.mode or GenerationMode.BALANCED,
+    )
 
 
 class ProposalBuilder:
@@ -232,11 +97,12 @@ class ProposalBuilder:
             if not ranked:
                 continue
 
+            profile = get_profile(strategy.generation_mode)
             kit_builder = KitBuilder(
                 KitBuildConfig(
                     num_kits=1,
-                    min_lines=self.config.min_lines,
-                    max_lines=self.config.max_lines,
+                    min_lines=profile.min_lines,
+                    max_lines=profile.max_lines,
                     price_median=price_median,
                     mode=strategy.generation_mode,
                 )

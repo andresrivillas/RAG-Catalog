@@ -5,7 +5,6 @@ from promotional_gifts.container import (
     build_enrichment_pipeline,
     build_ingestion_source,
     build_knowledge_indexer,
-    build_cleaner,
     settings,
 )
 
@@ -24,7 +23,6 @@ def load_enriched() -> list:
 
 def main() -> None:
     indexer = build_knowledge_indexer()
-    cleaner = build_cleaner()
 
     enriched_data = load_enriched()
     if enriched_data:
@@ -40,18 +38,57 @@ def main() -> None:
         products = ingestion.load()
         logging.info("Filas cargadas: %s", len(products))
 
-        products = cleaner.clean(products)
+        products = indexer.cleaner.clean(products)
 
         logging.info("Enriqueciendo catálogo vía web...")
         pipeline = build_enrichment_pipeline()
         products = pipeline.enrich(products)
 
-        logging.info("Generando metadata y embeddings, indexando en ChromaDB...")
-        products = indexer.metadata_builder.build(products)
+    logging.info("Sanitizando, generando metadata y embeddings, indexando en ChromaDB...")
+    products = indexer.index(products)
 
-    embeddings = indexer.embedding_builder.build(products)
-    indexer._attach_embeddings(products, embeddings)
-    indexer.vector_store.add_products(products)
+    # Persistir el catálogo enriquecido y sanitizado para que las próximas
+    # cargas sean rápidas y consistentes con el vector store.
+    sanitized_data = [
+        {
+            "reference": p.reference,
+            "name": p.name,
+            "price": p.price.amount,
+            "currency": p.price.currency,
+            "characteristics": p.characteristics,
+            "description": p.description,
+            "price_description": p.price_description,
+            "additional_prices": p.additional_prices,
+            "url": p.url,
+            "detail_url": p.detail_url,
+            "slug": p.slug,
+            "image_url": p.image_url,
+            "thumbnail_url": p.thumbnail_url,
+            "image_urls": p.image_urls,
+            "images": p.images,
+            "benefits": p.benefits,
+            "materials": p.materials,
+            "dimensions": p.dimensions,
+            "capacity": p.capacity,
+            "colors": p.colors,
+            "category": p.category,
+            "subcategory": p.subcategory,
+            "excel_category": p.excel_category,
+            "recommendations": p.recommendations,
+            "customization": p.customization,
+            "keywords": p.keywords,
+            "occasion_tags": p.occasion_tags,
+            "audience_tags": p.audience_tags,
+            "commercial_tags": p.commercial_tags,
+            "perceived_value_level": p.perceived_value_level,
+            "enriched": p.enriched,
+            "availability": p.availability,
+            "breadcrumb": p.breadcrumb,
+        }
+        for p in products
+    ]
+    with open(settings.enriched_path, "w", encoding="utf-8") as fh:
+        json.dump(sanitized_data, fh, ensure_ascii=False, indent=2)
 
     logging.info("Productos indexados: %s", len(products))
 

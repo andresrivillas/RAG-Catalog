@@ -1,8 +1,12 @@
+import html
+import re
+import unicodedata
 from typing import List, Optional
 
 from ...entities.commercial_intent import CommercialIntent
 from ...entities.commercial_proposal import CommercialProposal, ProposalItem
 from ...services.budget_plan import BudgetPlan
+from ...services.material_reasoner import MATERIAL_FAMILIES, material_families
 from .proposal_score_card import CriterionResult, ProposalScoreCard
 
 ROLE_HINT_KEYWORDS = {
@@ -25,6 +29,57 @@ UTILITY_KEYWORDS = [
     "reusable", "plegable", "multiusos", "portatil", "portátil", "carga",
     "usb", "inalambrico", "inalámbrico", "termost", "termo", "impermeable",
 ]
+
+# Categorías comerciales canónicas (sin acentos, minúsculas).
+CANONICAL_CATEGORIES = {
+    "tecnologia", "oficina", "viaje", "hogar", "eco", "bebidas", "textiles",
+    "herramientas", "maletines", "termos", "libretas", "escritura", "bolsos",
+    "salud", "eventos", "deportes", "accesorios", "limpieza", "otros",
+}
+
+# Términos que indican texto sucio de menú, HTML o logística/inventario.
+DIRTY_TERMS = {
+    "html", "body", "href", "src", "script", "style", "div", "span", "nbsp",
+    "class=", "id=", "http", "www", ".com", "inventario", "existencias",
+    "bodega", "almacen", "almacén", "envio", "envío", "despacho",
+    "transporte", "logistica", "logística", "unidades", "cantidad", "pedido",
+    "entrega", "caja master", "caja máster", "disponible", "agotado", "stock",
+    "menu", "menú", "categorias", "categorías", "ver todo", "ver todos",
+    "subcategorias", "subcategorías", "volver", "seguir",
+}
+
+# Materiales comercialmente conocidos para regalos promocionales.
+KNOWN_MATERIALS: set = set()
+for _terms in MATERIAL_FAMILIES.values():
+    KNOWN_MATERIALS.update(_terms)
+
+# Separadores que sugieren múltiples categorías concatenadas.
+CATEGORY_SPLIT_RE = re.compile(r"[,;/|>]+|\sy\s|\se\s")
+
+
+def _normalize(text: str) -> str:
+    if not text:
+        return ""
+    text = unicodedata.normalize("NFKD", text).encode("ascii", "ignore").decode("ascii")
+    return re.sub(r"[^a-z0-9\s]", " ", text.lower()).strip()
+
+
+def _strip_html(text: str) -> str:
+    if not text:
+        return ""
+    clean = re.sub(r"<[^>]+>", " ", text)
+    return html.unescape(clean)
+
+
+def _contains_dirty(text: str) -> bool:
+    norm = _normalize(text)
+    return any(term in norm for term in DIRTY_TERMS)
+
+
+def _looks_like_menu(text: str) -> bool:
+    norm = _normalize(text)
+    menu_hints = {"menu", "categorias", "ver todo", "ver todos", "subcategorias"}
+    return any(hint in norm for hint in menu_hints)
 
 
 class BaseCriterion:
@@ -368,9 +423,9 @@ class IndustryFitCriterion(BaseCriterion):
                 aligned += 1
                 aligned_names.append(item.name)
         if avoided > 0 and aligned == 0:
-            score = 10.0
+            score = 0.0
         elif avoided > 0:
-            score = 40.0
+            score = 30.0
         elif aligned > 0:
             score = min(100.0, 60.0 + aligned / len(proposal.items) * 40.0)
         else:
@@ -414,6 +469,283 @@ class ComplementarityCriterion(BaseCriterion):
         return CriterionResult(self.name, score, reason)
 
 
+class CategoryQualityCriterion(BaseCriterion):
+    name = "Category Quality"
+    weight_key = "category_quality"
+
+    def evaluate(self, proposal, intent, plan):
+        if not proposal.items:
+            return CriterionResult(self.name, 0.0, "Sin productos.")
+        scores = []
+        dirty = []
+        multi = []
+        unknown = []
+        for item in proposal.items:
+            raw = (item.category or "").strip()
+            if not raw:
+                scores.append(0.0)
+                unknown.append(item.name)
+                continue
+            if len(raw) > 60 or _contains_dirty(raw) or _looks_like_menu(raw):
+                scores.append(0.0)
+                dirty.append(item.name)
+                continue
+            cleaned = _strip_html(raw)
+            parts = [p.strip() for p in CATEGORY_SPLIT_RE.split(cleaned) if p.strip()]
+            if len(parts) > 1:
+                scores.append(20.0)
+                multi.append(item.name)
+                continue
+            norm = _normalize(parts[0])
+            if norm in CANONICAL_CATEGORIES:
+                scores.append(100.0)
+            else:
+                scores.append(40.0)
+                unknown.append(item.name)
+        score = sum(scores) / len(scores) if scores else 0.0
+        notes = []
+        if dirty:
+            notes.append(f"{len(dirty)} con texto sucio")
+        if multi:
+            notes.append(f"{len(multi)} con múltiples categorías")
+        if unknown:
+            notes.append(f"{len(unknown)} no canónicas")
+        reason = (
+            f"Categorías comerciales: {sum(1 for s in scores if s == 100.0)} de {len(scores)} limpias"
+            + (f" ({', '.join(notes)})." if notes else ".")
+        )
+        return CriterionResult(self.name, score, reason)
+
+
+class MaterialCleanlinessCriterion(BaseCriterion):
+    name = "Material Cleanliness"
+    weight_key = "material_cleanliness"
+
+    def evaluate(self, proposal, intent, plan):
+        if not proposal.items:
+            return CriterionResult(self.name, 0.0, "Sin productos.")
+        scores = []
+        dirty = []
+        unknown = []
+        for item in proposal.items:
+            raw = (item.materials or "").strip()
+            if not raw:
+                scores.append(50.0)
+                continue
+            if len(raw) > 100 or _contains_dirty(raw) or "<" in raw:
+                scores.append(0.0)
+                dirty.append(item.name)
+                continue
+            cleaned = _strip_html(raw)
+            tokens = [t for t in re.split(r"[,;/|&\s]+", cleaned.lower()) if t and len(t) > 2]
+            if not tokens:
+                scores.append(50.0)
+                continue
+            known_count = 0
+            for token in tokens:
+                if token in KNOWN_MATERIALS or material_families(token):
+                    known_count += 1
+            ratio = known_count / len(tokens)
+            if ratio >= 0.75:
+                scores.append(100.0)
+            elif ratio >= 0.5:
+                scores.append(70.0)
+            else:
+                scores.append(30.0)
+                unknown.append(item.name)
+        score = sum(scores) / len(scores) if scores else 0.0
+        reason = (
+            f"Materiales limpios: {sum(1 for s in scores if s == 100.0)} de {len(scores)}"
+            + (f" ({len(dirty)} sucios, {len(unknown)} desconocidos)." if dirty or unknown else ".")
+        )
+        return CriterionResult(self.name, score, reason)
+
+
+class ModeCoherenceCriterion(BaseCriterion):
+    name = "Mode Coherence"
+    weight_key = "mode_coherence"
+
+    def evaluate(self, proposal, intent, plan):
+        if not proposal.items:
+            return CriterionResult(self.name, 0.0, "Sin productos.")
+        mode = (proposal.generation_mode or (intent.generation_mode if intent else "") or "balanced").lower()
+        n = len(proposal.items)
+        if mode == "premium":
+            hits = sum(
+                1
+                for it in proposal.items
+                if it.role == "PREMIUM"
+                or any(m in self._text(it) for m in PREMIUM_MATERIALS)
+                or it.perceived_value_level == "alto"
+            )
+            score = hits / n * 100.0
+            reason = f"{hits} de {n} productos con apariencia premium (modo {mode})."
+        elif mode == "eco":
+            hits = sum(
+                1
+                for it in proposal.items
+                if it.eco or any(k in self._text(it) for k in ECO_KEYWORDS)
+            )
+            score = hits / n * 100.0
+            reason = f"{hits} de {n} productos con atributos eco/sostenibles (modo {mode})."
+        elif mode == "budget":
+            ceiling = plan.per_unit_ceiling if plan else 0.0
+            if ceiling <= 0:
+                score = 50.0
+                reason = "Sin tope presupuestario; coherencia de modo budget neutral."
+            else:
+                hits = sum(1 for it in proposal.items if it.unit_price.amount <= ceiling * 0.6)
+                score = hits / n * 100.0
+                reason = f"{hits} de {n} productos bajo costo (<=60% del tope; modo {mode})."
+        else:
+            score = 70.0
+            reason = f"Modo {mode}; coherencia balanceada sin penalización."
+        return CriterionResult(self.name, score, reason)
+
+
+class AvailabilityCriterion(BaseCriterion):
+    name = "Availability"
+    weight_key = "availability"
+
+    def evaluate(self, proposal, intent, plan):
+        if not proposal.items:
+            return CriterionResult(self.name, 0.0, "Sin productos.")
+        known = 0
+        ok = 0
+        short = []
+        for item in proposal.items:
+            availability = getattr(item, "availability", None)
+            if availability is None:
+                continue
+            known += 1
+            if availability >= item.quantity:
+                ok += 1
+            else:
+                short.append(item.name)
+        if known == 0:
+            return CriterionResult(
+                self.name, 50.0, "Disponibilidad desconocida; criterio neutral."
+            )
+        score = ok / known * 100.0
+        reason = (
+            f"Disponibilidad: {ok} de {known} productos con stock suficiente"
+            + (f" ({', '.join(short[:3])} con faltante)." if short else ".")
+        )
+        return CriterionResult(self.name, score, reason)
+
+
+class SelectionReasonQualityCriterion(BaseCriterion):
+    name = "Selection Reason Quality"
+    weight_key = "selection_reason_quality"
+
+    def evaluate(self, proposal, intent, plan):
+        if not proposal.items:
+            return CriterionResult(self.name, 0.0, "Sin productos.")
+        scores = []
+        bad = []
+        for item in proposal.items:
+            reason = (item.selection_reason or "").strip()
+            if not reason:
+                scores.append(0.0)
+                bad.append(item.name)
+                continue
+            if len(reason) > 300:
+                scores.append(30.0)
+                bad.append(item.name)
+                continue
+            if _contains_dirty(reason) or "<" in reason:
+                scores.append(10.0)
+                bad.append(item.name)
+                continue
+            scores.append(100.0)
+        score = sum(scores) / len(scores) if scores else 0.0
+        reason = (
+            f"Justificaciones válidas: {sum(1 for s in scores if s == 100.0)} de {len(scores)}"
+            + (f" ({len(bad)} deficientes)." if bad else ".")
+        )
+        return CriterionResult(self.name, score, reason)
+
+
+class ConsistencyCriterion(BaseCriterion):
+    name = "Consistency"
+    weight_key = "consistency"
+
+    def evaluate(self, proposal, intent, plan):
+        items = proposal.items
+        if not items:
+            return CriterionResult(self.name, 0.0, "Sin productos.")
+        industry = (intent.industry or "").lower() if intent else ""
+        per_item = []
+        for item in items:
+            reason = (item.selection_reason or "").lower()
+            score = 50.0
+            if item.category and item.category.lower() in reason:
+                score += 15.0
+            if item.materials:
+                mat_families = material_families(item.materials)
+                if mat_families and any(m in reason for m in mat_families):
+                    score += 15.0
+            if industry and industry in reason:
+                score += 15.0
+            if item.role and item.role.lower() in reason:
+                score += 5.0
+            per_item.append(min(100.0, score))
+        # Penalización por repeticiones de categoría o material.
+        categories = [self._category(it) for it in items]
+        materials = [item.materials.lower() if item.materials else None for item in items]
+        repeated = 0
+        for idx in range(len(items)):
+            for jdx in range(idx + 1, len(items)):
+                if categories[idx] == categories[jdx] and categories[idx] != "otros":
+                    repeated += 1
+                if materials[idx] and materials[idx] == materials[jdx]:
+                    repeated += 1
+        penalty = min(40.0, repeated * 10.0)
+        score = max(0.0, sum(per_item) / len(per_item) - penalty)
+        reason = (
+            f"Coherencia interna del kit: {score:.0f}/100 "
+            f"({repeated} repeticiones detectadas)."
+        )
+        return CriterionResult(self.name, score, reason)
+
+
+class ExplainabilityCriterion(BaseCriterion):
+    name = "Explainability"
+    weight_key = "explainability"
+
+    def evaluate(self, proposal, intent, plan):
+        if not proposal.items:
+            return CriterionResult(self.name, 0.0, "Sin productos.")
+        industry = (intent.industry or "").lower() if intent else ""
+        total = 0.0
+        bad = []
+        for item in proposal.items:
+            reason = (item.selection_reason or "").strip()
+            if not reason or len(reason) > 200 or _contains_dirty(reason):
+                total += 0.0
+                bad.append(item.name)
+                continue
+            # Base por tener una justificación clara y corta.
+            score = 60.0
+            # Bonus si menciona el rol.
+            if item.role and item.role.lower() in reason.lower():
+                score += 20.0
+            # Bonus si menciona la industria o segmentos.
+            if industry and industry in reason.lower():
+                score += 20.0
+            elif intent and intent.segment_tags and any(
+                k in reason.lower() for k in intent.segment_tags
+            ):
+                score += 20.0
+            total += min(100.0, score)
+        score = total / len(proposal.items) if proposal.items else 0.0
+        reason = (
+            f"Justificaciones explicables: {sum(1 for it in proposal.items if (it.selection_reason or '').strip() and len(it.selection_reason) <= 200)} de {len(proposal.items)}"
+            + (f" ({len(bad)} deficientes)." if bad else ".")
+        )
+        return CriterionResult(self.name, score, reason)
+
+
 ALL_CRITERIA = [
     BudgetEfficiencyCriterion,
     CommercialValueCriterion,
@@ -430,4 +762,11 @@ ALL_CRITERIA = [
     ProposalBalanceCriterion,
     IndustryFitCriterion,
     ComplementarityCriterion,
+    CategoryQualityCriterion,
+    MaterialCleanlinessCriterion,
+    ModeCoherenceCriterion,
+    AvailabilityCriterion,
+    SelectionReasonQualityCriterion,
+    ConsistencyCriterion,
+    ExplainabilityCriterion,
 ]

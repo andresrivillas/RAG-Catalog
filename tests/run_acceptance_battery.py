@@ -176,11 +176,30 @@ def Analyzer():
 
 
 def main() -> None:
-    RESULTS_DIR.mkdir(parents=True, exist_ok=True)
+    import argparse
+
+    parser = argparse.ArgumentParser(
+        description="Bateria de aceptacion para el motor de recomendaciones."
+    )
+    parser.add_argument(
+        "--output-dir",
+        type=Path,
+        default=RESULTS_DIR,
+        help="Directorio donde se guardan los resultados (default: tests/results)",
+    )
+    parser.add_argument(
+        "--overwrite",
+        action="store_true",
+        help="Sobrescribir resultados existentes",
+    )
+    args = parser.parse_args()
+
+    results_dir: Path = args.output_dir
+    results_dir.mkdir(parents=True, exist_ok=True)
 
     for case in CASES:
-        output_path = RESULTS_DIR / f"{case['id']}.json"
-        if output_path.exists():
+        output_path = results_dir / f"{case['id']}.json"
+        if output_path.exists() and not args.overwrite:
             print(f"[SKIP] {output_path.name} ya existe; no se sobrescribe.")
             continue
 
@@ -190,12 +209,12 @@ def main() -> None:
             json.dump(result, fh, ensure_ascii=False, indent=2)
 
         if "error" in result:
-            print(f"[ERROR] {case['id']} guardado con diagnóstico en {output_path.name}")
+            print(f"[ERROR] {case['id']} guardado con diagnostico en {output_path.name}")
         else:
             proposals = result["proposal_set"].get("proposals", [])
             print(f"[OK] {case['id']}: {len(proposals)} propuesta(s) guardadas en {output_path.name}")
 
-    print(f"\nResultados en: {RESULTS_DIR}")
+    print(f"\nResultados en: {results_dir}")
 
 
 if __name__ == "__main__":

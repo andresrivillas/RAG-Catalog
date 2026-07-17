@@ -1,0 +1,214 @@
+{
+  "request": {
+    "id": "test_04_eco",
+    "name": "Campaña Ambiental",
+    "query": "Necesito 1.500 regalos para una campaña ambiental. Todos deben ser ecológicos. Personalizables. Presupuesto máximo de 30.000 COP por unidad.",
+    "mode": "eco",
+    "parsed_intent": {
+      "quantity": 1500,
+      "budget_per_unit": 30000.0,
+      "budget_total": null,
+      "occasion": "campana",
+      "target_audience": null,
+      "industry": null,
+      "eco": true,
+      "personalizable": true,
+      "preferred_categories": [],
+      "preferred_materials": [],
+      "generation_mode": "eco"
+    }
+  },
+  "generated_at": "2026-07-16T19:17:32",
+  "finished_at": "2026-07-16T19:17:36",
+  "proposal_set": {
+    "intent": {
+      "occasion": "campana",
+      "quantity": 1500,
+      "budget_per_unit": 30000.0,
+      "budget_total": null,
+      "target_audience": null,
+      "eco": true,
+      "personalizable": true,
+      "industry": null
+    },
+    "budget_plan": {
+      "total_budget": 45000000.0,
+      "spendable_budget": 42750000.0,
+      "per_unit_ceiling": 30000.0,
+      "quantity": 1500
+    },
+    "proposal_count": 3,
+    "generation_strategy": "global_diversity",
+    "global_observations": [
+      "Set global de 3 propuestas con 4 categorias distintas cubiertas.",
+      "Similitud maxima entre propuestas: 31%."
+    ],
+    "reused_products": [],
+    "statistics": {
+      "total_proposals": 3,
+      "total_products_considered": 9,
+      "unique_products_used": 9,
+      "reused_products": 0,
+      "reuse_ratio": 0.0,
+      "shared_product_count": 0,
+      "shared_product_ratio": 0.0,
+      "category_coverage": 4,
+      "max_similarity": 0.313,
+      "avg_similarity": 0.282,
+      "budget_utilization_min": 96.4,
+      "budget_utilization_max": 99.8,
+      "budget_utilization_avg": 97.8,
+      "reused_references": [],
+      "shared_references": [],
+      "category_list": [
+        "eco",
+        "escritura",
+        "oficina",
+        "tecnología"
+      ],
+      "warnings": [
+        "PROPUESTA 3: kit con pocos productos (2)."
+      ]
+    },
+    "proposals": [
+      {
+        "name": "PROPUESTA 1",
+        "score": 126.1,
+        "generation_mode": "eco",
+        "total_cost": 41197500.0,
+        "per_unit_cost": 27465.0,
+        "warnings": [],
+        "occasion": "",
+        "target_audience": "",
+        "commercial_description": "",
+        "items": [
+          {
+            "reference": "HE-301",
+            "name": "MARTILLO CON NAVAJA ECO",
+            "unit_price": 21900.0,
+            "quantity": 1500,
+            "role": "PREMIUM",
+            "category": "Eco",
+            "materials": "",
+            "selection_reason": "MARTILLO CON NAVAJA ECO aporta coherencia al kit. Aporta alto valor percibido y reafirma la imagen de marca (opción eco).",
+            "detail_url": "https://catalogospromocionales.com/producto-cataprom/HE-301/martillo-con-navaja-eco"
+          },
+          {
+            "reference": "LL-101",
+            "name": "LLAVERO CORCHO - OFERTA Oferta",
+            "unit_price": 670.0,
+            "quantity": 1500,
+            "role": "CORE",
+            "category": "Eco",
+            "materials": "corcho",
+            "selection_reason": "LLAVERO CORCHO - OFERTA Oferta aporta coherencia al kit. Funciona como pieza central de la propuesta (opción eco, corcho).",
+            "detail_url": "https://catalogospromocionales.com/producto-cataprom/LL-101/llavero-corcho-oferta-oferta"
+          },
+          {
+            "reference": "JU-105",
+            "name": "TANGRAM ECO Nuevo",
+            "unit_price": 3900.0,
+            "quantity": 1500,
+            "role": "UTILITY",
+            "category": "Eco",
+            "materials": "",
+            "selection_reason": "TANGRAM ECO Nuevo aporta coherencia al kit. Aporta utilidad diaria que prolonga la exposición de la marca (opción eco).",
+            "detail_url": "https://catalogospromocionales.com/producto-cataprom/JU-105/tangram-eco-nuevo"
+          },
+          {
+            "reference": "ECO PEN",
+            "name": "LAPIZ ECO",
+            "unit_price": 995.0,
+            "quantity": 1500,
+            "role": "UTILITY",
+            "category": "Escritura",
+            "materials": "",
+            "selection_reason": "LAPIZ ECO aporta coherencia al kit. Aporta utilidad diaria que prolonga la exposición de la marca (opción eco).",
+            "detail_url": "https://catalogospromocionales.com/producto-cataprom/ECO PEN/lapiz-eco"
+          }
+        ]
+      },
+      {
+        "name": "PROPUESTA 2",
+        "score": 117.5,
+        "generation_mode": "balanced",
+        "total_cost": 41595000.0,
+        "per_unit_cost": 27730.0,
+        "warnings": [],
+        "occasion": "",
+        "target_audience": "",
+        "commercial_description": "",
+        "items": [
+          {
+            "reference": "OF-660",
+            "name": "SET DE ESCRITORIO LYNX ECO",
+            "unit_price": 18110.0,
+            "quantity": 1500,
+            "role": "PREMIUM",
+            "category": "Oficina",
+            "materials": "",
+            "selection_reason": "SET DE ESCRITORIO LYNX ECO aporta coherencia al kit. Aporta alto valor percibido y reafirma la imagen de marca (opción eco).",
+            "detail_url": "https://catalogospromocionales.com/producto-cataprom/OF-660/set-de-escritorio-lynx-eco"
+          },
+          {
+            "reference": "LL-117",
+            "name": "LLAVERO DESTAPADOR VIGGO ECO",
+            "unit_price": 4070.0,
+            "quantity": 1500,
+            "role": "CORE",
+            "category": "Eco",
+            "materials": "",
+            "selection_reason": "LLAVERO DESTAPADOR VIGGO ECO aporta coherencia al kit. Funciona como pieza central de la propuesta (opción eco).",
+            "detail_url": "https://catalogospromocionales.com/producto-cataprom/LL-117/llavero-destapador-viggo-eco"
+          },
+          {
+            "reference": "JU-102",
+            "name": "JUEGO TRIQUI ECO Nuevo",
+            "unit_price": 5550.0,
+            "quantity": 1500,
+            "role": "UTILITY",
+            "category": "Eco",
+            "materials": "",
+            "selection_reason": "JUEGO TRIQUI ECO Nuevo aporta coherencia al kit. Aporta utilidad diaria que prolonga la exposición de la marca (opción eco).",
+            "detail_url": "https://catalogospromocionales.com/producto-cataprom/JU-102/juego-triqui-eco-nuevo"
+          }
+        ]
+      },
+      {
+        "name": "PROPUESTA 3",
+        "score": 115.2,
+        "generation_mode": "premium",
+        "total_cost": 42675000.0,
+        "per_unit_cost": 28450.0,
+        "warnings": [],
+        "occasion": "",
+        "target_audience": "",
+        "commercial_description": "",
+        "items": [
+          {
+            "reference": "TE-656",
+            "name": "SOPORTE PARA CELULAR MAGMOUNT ECO Nuevo",
+            "unit_price": 21900.0,
+            "quantity": 1500,
+            "role": "PREMIUM",
+            "category": "Tecnología",
+            "materials": "",
+            "selection_reason": "SOPORTE PARA CELULAR MAGMOUNT ECO Nuevo aporta coherencia al kit. Aporta alto valor percibido y reafirma la imagen de marca (opción eco).",
+            "detail_url": "https://catalogospromocionales.com/producto-cataprom/TE-656/soporte-para-celular-magmount-eco-nuevo"
+          },
+          {
+            "reference": "HO-375",
+            "name": "DESTAPADOR CON NAVAJA ECO",
+            "unit_price": 6550.0,
+            "quantity": 1500,
+            "role": "CORE",
+            "category": "Eco",
+            "materials": "",
+            "selection_reason": "DESTAPADOR CON NAVAJA ECO aporta coherencia al kit. Funciona como pieza central de la propuesta (opción eco).",
+            "detail_url": "https://catalogospromocionales.com/producto-cataprom/HO-375/destapador-con-navaja-eco"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -45,7 +45,8 @@ class ChromaVectorStore(VectorStorePort):
             for p in products
         ]
 
-        self.collection.add(
+        # Usar upsert para permitir re-indexaciones sin duplicados ni fallos.
+        self.collection.upsert(
             ids=ids,
             documents=documents,
             metadatas=metadatas,

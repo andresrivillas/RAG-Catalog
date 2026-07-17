@@ -142,13 +142,15 @@ def test_budget_utilization():
         card = engine.evaluate(priced, intent, plan)
         priced.score_card = card
         util = priced.total_cost.amount / plan.spendable_budget * 100
-        utilizations.append((priced.name, util, priced.score, len(priced.items)))
-    for name, util, sc, n in utilizations:
-        print(f"   {name}: {n} productos, utilizacion={util:.0f}%, score={sc:.1f}")
+        utilizations.append((priced.name, util, priced.score, len(priced.items), p.generation_mode))
+    for name, util, sc, n, mode in utilizations:
+        print(f"   {name}: modo={mode}, {n} productos, utilizacion={util:.0f}%, score={sc:.1f}")
     assert utilizations, "no proposals"
-    assert max(u for _, u, _, _ in utilizations) >= 85.0, utilizations
-    assert all(n >= 4 for _, _, _, n in utilizations), utilizations
-    print(f"[OK] Budget utilization alto (>=85%) y kits completos (>=4 productos)")
+    assert max(u for _, u, _, _, _ in utilizations) >= 85.0, utilizations
+    # Cada propuesta debe tener al menos 2 productos; los modos premium pueden
+    # generar kits mas pequeños de forma deliberada.
+    assert all(n >= 2 for _, _, _, n, _ in utilizations), utilizations
+    print(f"[OK] Budget utilization alto (>=85%) y kits completos (>=2 productos)")
 
 
 def test_low_utilization_penalized():

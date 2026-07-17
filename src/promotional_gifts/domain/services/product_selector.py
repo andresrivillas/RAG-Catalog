@@ -8,10 +8,12 @@ from ..services.commercial_scorer import CommercialScorer
 from ..services.complementarity import products_complement
 from ..services.decision_trace import DecisionTrace
 from ..services.generation_mode import GenerationMode, ModeProfile, get_profile
+from ..services.industry_affinity_service import IndustryAffinityService
 from ..services.industry_knowledge import IndustryKnowledge
 from ..services.material_reasoner import material_families
 from ..services.negative_filter import NegativeFilter
 from ..services.occasion_matcher import OccasionMatcher
+from ..services.reason_generator import generate as generate_reason
 
 ECO_KEYWORDS = ["eco", "ecologico", "ecológico", "sostenible", "rpet", "recicl"]
 PERSONALIZABLE_KEYWORDS = [
@@ -38,11 +40,15 @@ class ProductSelector:
         commercial_scorer: CommercialScorer,
         negative_filter: NegativeFilter,
         industry_knowledge: IndustryKnowledge = None,
+        industry_affinity_service: IndustryAffinityService = None,
     ) -> None:
         self.occasion_matcher = occasion_matcher
         self.commercial_scorer = commercial_scorer
         self.negative_filter = negative_filter
         self.industry_knowledge = industry_knowledge or IndustryKnowledge()
+        self.industry_affinity_service = industry_affinity_service or IndustryAffinityService(
+            self.industry_knowledge
+        )
 
     def select(
         self,
@@ -73,8 +79,14 @@ class ProductSelector:
             trace.budget_score = self._budget_utilization_score(product, plan, profile)
             trace.context_score = self._context_match_score(intent, product)
             trace.industry_score = self._industry_score(intent, product)
+            trace.affinity_score = self.industry_affinity_service.affinity(product, intent)
+            trace.availability_score = self._availability_score(product, intent, trace)
+            if trace.availability_score == 0.0:
+                trace.reason = "Stock insuficiente para la cantidad solicitada."
+                continue
+
             trace.final_score = self._combine(trace, profile, product, plan, intent)
-            trace.reason = self._reason(intent, product, trace)
+            trace.reason = generate_reason(product, intent, None, trace)
             eligible.append(ScoredProduct(product, similarity, trace.final_score, trace))
 
         eligible.sort(key=lambda sp: sp.score, reverse=True)
@@ -170,6 +182,20 @@ class ProductSelector:
         distance = abs(ratio - target_mid)
         return max(0.0, 1.0 - distance / tolerance)
 
+    def _availability_score(
+        self,
+        product: ProductKnowledge,
+        intent: CommercialIntent,
+        trace: DecisionTrace,
+    ) -> float:
+        if product.availability is None:
+            return 0.5
+        quantity = intent.quantity or 0
+        if quantity <= 0:
+            # Sin cantidad explicita: cualquier stock positivo es neutral-alto.
+            return 1.0 if product.availability > 0 else 0.0
+        return 1.0 if product.availability >= quantity else 0.0
+
     def _combine(
         self,
         trace: DecisionTrace,
@@ -178,13 +204,16 @@ class ProductSelector:
         plan: BudgetPlan,
         intent: CommercialIntent,
     ) -> float:
+        # La afinidad de industria es la señal dominante; semantic queda reducido.
         base = (
             trace.semantic_score * profile.weight_semantic
+            + trace.context_score * profile.weight_context
             + trace.occasion_score * profile.weight_occasion
             + trace.commercial_score / 100 * profile.weight_commercial
             + trace.budget_score * profile.weight_budget_util
-            + trace.context_score * profile.weight_commercial * 0.5
-            + trace.industry_score * profile.weight_industry
+            + trace.availability_score * profile.weight_availability
+            + trace.industry_score * 5.0
+            + trace.affinity_score * profile.weight_industry
         )
         adjustment = 0.0
         text = self._product_signals(product)
@@ -193,6 +222,9 @@ class ProductSelector:
             intent.industry, text
         ):
             adjustment -= 60
+        # Penalizacion general comercial (no excluye, pero baja la prioridad).
+        if self.industry_knowledge.is_general_blacklisted(text):
+            adjustment -= 30
         if profile.prefer_premium:
             if product.perceived_value_level == "alto":
                 adjustment += 12
@@ -208,46 +240,7 @@ class ProductSelector:
     def _reason(
         self, intent: CommercialIntent, product: ProductKnowledge, trace: DecisionTrace
     ) -> str:
-        parts = []
-        # Justificacion concreta basada en atributos y contexto.
-        if intent.industry:
-            if trace.industry_score >= 0.9:
-                parts.append(
-                    f"se alinea con el sector {intent.industry} "
-                    f"(materiales/uso acordes a esa industria)"
-                )
-            elif trace.industry_score <= 0.1:
-                parts.append(f"poco relacionado con el sector {intent.industry}")
-        if intent.occasion:
-            parts.append(
-                f"adecuado para campanas de {intent.occasion}"
-                if trace.occasion_score >= 0.7
-                else f"relacionado con {intent.occasion}"
-            )
-        if intent.segment_tags:
-            parts.append(f"para {', '.join(intent.segment_tags)}")
-        if product.perceived_value_level == "alto":
-            parts.append("alto valor percibido")
-        if "personalizable" in product.commercial_tags or product.customization:
-            parts.append("personalizable")
-        if trace.context_score >= 0.75:
-            parts.append("coincide con el contexto comercial del cliente")
-        attrs = []
-        if product.materials:
-            attrs.append(f"material: {product.materials}")
-        if product.colors:
-            attrs.append(f"color: {product.colors}")
-        if product.capacity:
-            attrs.append(f"capacidad: {product.capacity}")
-        if product.customization:
-            attrs.append(f"personalizacion: {product.customization}")
-        if attrs:
-            parts.append("; ".join(attrs))
-        if trace.budget_score >= 0.7:
-            parts.append("aprovecha bien el presupuesto por unidad")
-        else:
-            parts.append("cumple el presupuesto por unidad")
-        return "Seleccionado por " + "; ".join(parts) + "."
+        return generate_reason(product, intent, None, trace)
 
     def _is_eco(self, product: ProductKnowledge) -> bool:
         text = self._product_signals(product)

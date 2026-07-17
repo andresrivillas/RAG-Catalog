@@ -1,8 +1,9 @@
+import unicodedata
 from typing import Optional
 
 from ...domain.entities.commercial_intent import CommercialIntent
 from ...domain.entities.product_knowledge import ProductKnowledge
-from ..industry_knowledge import IndustryKnowledge, IndustryProfile
+from .industry_knowledge import IndustryKnowledge, IndustryProfile
 
 
 class IndustryAffinityService:
@@ -32,36 +33,40 @@ class IndustryAffinityService:
     def _score(
         self, product: ProductKnowledge, profile: IndustryProfile, role: Optional[str]
     ) -> float:
+        # Base neutral: 0.5. Señal fuerte en [0, 1].
         score = 0.5
-        product_category = (product.category or "").lower()
-        product_tags = {t.lower() for t in (product.commercial_tags or [])}
-        product_tags |= {t.lower() for t in (product.audience_tags or [])}
-        product_tags |= {t.lower() for t in (product.occasion_tags or [])}
-        product_materials = {m.lower() for m in (product.materials or "").replace(",", " ").replace(";", " ").split()}
-        product_keywords = {k.lower() for k in (product.keywords or [])}
+        product_category = self._ascii((product.category or "").lower())
+        product_tags = {self._ascii(t.lower()) for t in (product.commercial_tags or [])}
+        product_tags |= {self._ascii(t.lower()) for t in (product.audience_tags or [])}
+        product_tags |= {self._ascii(t.lower()) for t in (product.occasion_tags or [])}
+        product_materials = {
+            self._ascii(m.lower())
+            for m in (product.materials or "").replace(",", " ").replace(";", " ").split()
+        }
+        product_keywords = {self._ascii(k.lower()) for k in (product.keywords or [])}
         all_signals = product_tags | product_keywords | {product_category}
 
         # Coincidencias positivas.
         if product_category in profile.preferred_categories:
-            score += 0.25
+            score += 0.30
         tag_hits = len(product_tags & profile.preferred_tags)
         if tag_hits:
-            score += min(0.25, tag_hits * 0.08)
+            score += min(0.25, tag_hits * 0.09)
         keyword_hits = len(product_keywords & profile.preferred_tags)
         if keyword_hits:
             score += min(0.15, keyword_hits * 0.05)
         material_hits = len(product_materials & profile.preferred_materials)
         if material_hits:
-            score += min(0.15, material_hits * 0.07)
+            score += min(0.15, material_hits * 0.08)
         if role and role.lower() in profile.preferred_roles:
-            score += 0.08
+            score += 0.10
 
-        # Penalizaciones por blacklist.
+        # Penalizaciones por blacklist de la industria.
         if product_category in profile.blacklisted_categories:
-            score -= 0.40
+            score -= 0.45
         blacklist_tag_hits = len(product_tags & profile.blacklisted_tags)
         if blacklist_tag_hits:
-            score -= min(0.35, blacklist_tag_hits * 0.15)
+            score -= min(0.40, blacklist_tag_hits * 0.18)
         blacklist_keyword_hits = len(product_keywords & profile.blacklisted_tags)
         if blacklist_keyword_hits:
             score -= min(0.25, blacklist_keyword_hits * 0.10)
@@ -69,3 +74,9 @@ class IndustryAffinityService:
             score -= 0.10
 
         return max(0.0, min(1.0, score))
+
+    @staticmethod
+    def _ascii(text: str) -> str:
+        return (
+            unicodedata.normalize("NFKD", text).encode("ascii", "ignore").decode("ascii")
+        )

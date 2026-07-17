@@ -8,6 +8,7 @@ from ..services.compatibility_checker import CompatibilityChecker
 from ..services.generation_mode import GenerationMode, get_profile
 from ..services.perceived_value import PerceivedValueEstimator
 from ..services.product_selector import ScoredProduct
+from ..services.reason_generator import generate as generate_reason
 from ..services.role_classifier import RoleClassifier
 
 
@@ -53,9 +54,9 @@ class KitBuilder:
             if i >= len(anchors):
                 break
             anchor = anchors[i]
-            kit = self._build_kit(anchor, scored_products, plan, scored_by_ref)
+            kit = self._build_kit(anchor, scored_products, plan, scored_by_ref, intent)
             if kit:
-                upgraded = self._upgrade_to_budget(kit, scored_products, plan, scored_by_ref)
+                upgraded = self._upgrade_to_budget(kit, scored_products, plan, scored_by_ref, intent)
                 kits.append(upgraded)
         return kits
 
@@ -119,12 +120,24 @@ class KitBuilder:
         "PACKAGING": 1,
     }
 
+    MODE_FILL_ORDER = {
+        "BALANCED": ["CORE", "UTILITY", "PROMOTIONAL", "ACCESSORY", "PACKAGING"],
+        "PREMIUM": ["CORE", "PREMIUM", "UTILITY", "ACCESSORY", "PROMOTIONAL", "PACKAGING"],
+        "BUDGET": ["UTILITY", "PROMOTIONAL", "ACCESSORY", "CORE", "PACKAGING"],
+        "ECO": ["CORE", "UTILITY", "ACCESSORY", "PROMOTIONAL", "PACKAGING"],
+    }
+
+    def _role_fill_order(self) -> List[str]:
+        mode = (self.config.mode or GenerationMode.BALANCED).value
+        return self.MODE_FILL_ORDER.get(mode, self.MODE_FILL_ORDER["BALANCED"])
+
     def _build_kit(
         self,
         anchor: ScoredProduct,
         pool: List[ScoredProduct],
         plan: BudgetPlan,
         scored_by_ref: dict,
+        intent: CommercialIntent,
     ) -> List[KitLine]:
         lines: List[KitLine] = []
         roles_used: dict = {}
@@ -146,7 +159,7 @@ class KitBuilder:
             KitLine(
                 anchor.product,
                 anchor_role,
-                anchor.trace.reason if anchor.trace else "Producto principal del kit.",
+                generate_reason(anchor.product, intent, anchor_role, anchor.trace),
                 anchor.trace,
             )
         )
@@ -185,9 +198,13 @@ class KitBuilder:
             if roles_used.get(role, 0) >= self.ROLE_MAX.get(role, 1):
                 continue
 
-            reason = candidate.trace.reason if candidate.trace else self._reason(role, candidate.product, plan)
             lines.append(
-                KitLine(candidate.product, role, reason, candidate.trace)
+                KitLine(
+                    candidate.product,
+                    role,
+                    generate_reason(candidate.product, intent, role, candidate.trace),
+                    candidate.trace,
+                )
             )
             roles_used[role] = roles_used.get(role, 0) + 1
             remaining -= candidate.product.price.amount * plan.quantity
@@ -221,9 +238,13 @@ class KitBuilder:
                 )
                 if role == "PREMIUM":
                     role = "CORE"
-                reason = candidate.trace.reason if candidate.trace else self._reason(role, candidate.product, plan)
                 lines.append(
-                    KitLine(candidate.product, role, reason, candidate.trace)
+                    KitLine(
+                        candidate.product,
+                        role,
+                        generate_reason(candidate.product, intent, role, candidate.trace),
+                        candidate.trace,
+                    )
                 )
                 remaining -= candidate.product.price.amount * plan.quantity
 
@@ -232,23 +253,26 @@ class KitBuilder:
     def _order_by_role_and_score(
         self, pool: List[ScoredProduct], anchor: ScoredProduct
     ) -> List[ScoredProduct]:
+        fill_order = self._role_fill_order()
+
         def role_rank(sp: ScoredProduct) -> int:
             role = self.role_classifier.classify(
                 sp.product, self.config.price_median
             )
-            role = "CORE" if role == "PREMIUM" else role
             try:
-                return self.ROLE_FILL_ORDER.index(role)
+                return fill_order.index(role)
             except ValueError:
-                return len(self.ROLE_FILL_ORDER)
+                return len(fill_order)
 
-        # Prioriza roles en el orden recomendado y, dentro de cada rol,
-        # productos mas economicos para completar el kit con mas lineas y
-        # aprovechar mejor el presupuesto.
-        return sorted(
-            pool,
-            key=lambda sp: (role_rank(sp), sp.product.price.amount, -sp.score),
-        )
+        # Modo Premium: prioriza valor percibido incluso dentro de un rol.
+        # Modo Budget: prioriza los productos mas economicos para maximizar lineas.
+        profile = get_profile(self.config.mode)
+        if profile.prefer_premium:
+            sort_key = lambda sp: (role_rank(sp), -sp.product.price.amount, -sp.score)
+        else:
+            sort_key = lambda sp: (role_rank(sp), sp.product.price.amount, -sp.score)
+
+        return sorted(pool, key=sort_key)
 
     def _cheapest_price(self, pool: List[ScoredProduct]) -> float:
         valid = [sp.product.price.amount for sp in pool if sp.product.price.amount > 0]
@@ -264,7 +288,9 @@ class KitBuilder:
             return anchor
         if plan.per_unit_ceiling <= 0:
             return anchor
-        unit_remaining = plan.per_unit_ceiling
+        # El espacio real disponible es el presupuesto usable por unidad,
+        # no el techo bruto (el optimizador reserva un margen).
+        unit_remaining = plan.spendable_budget / plan.quantity if plan.quantity > 0 else plan.per_unit_ceiling
         cheapest = self._cheapest_price(pool)
         # Costo por unidad que deberia dejar libre el ancla para completar el kit.
         room_needed = (self.config.min_lines - 1) * cheapest
@@ -303,6 +329,7 @@ class KitBuilder:
         pool: List[ScoredProduct],
         plan: BudgetPlan,
         scored_by_ref: dict,
+        intent: CommercialIntent,
     ) -> List[KitLine]:
         profile = get_profile(self.config.mode)
         target_min = profile.utilization_target_min
@@ -358,9 +385,7 @@ class KitBuilder:
                             KitLine(
                                 cand,
                                 new_role,
-                                candidate.trace.reason
-                                if candidate.trace
-                                else self._reason(new_role, cand, plan),
+                                generate_reason(cand, intent, new_role, candidate.trace),
                                 candidate.trace,
                             ),
                         )

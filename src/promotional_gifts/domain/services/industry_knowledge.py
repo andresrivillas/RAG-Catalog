@@ -1,6 +1,29 @@
 from typing import Dict, List, Optional, Set
 
 
+# Lista comercial general de términos que penalizan cualquier producto,
+# independientemente de la industria del cliente.
+GENERAL_BLACKLIST_TAGS: Set[str] = {
+    "productos médicos",
+    "productos medicos",
+    "producto médico",
+    "producto medico",
+    "cepillos",
+    "cepillo",
+    "pastilleros",
+    "pastillero",
+    "borradores",
+    "borrador",
+    "medicamentos",
+    "medicamento",
+    "material médico",
+    "material medico",
+    "hospitalario",
+    "clínico",
+    "clinico",
+}
+
+
 class IndustryProfile:
     """Perfil comercial configurable de una industria.
 
@@ -341,3 +364,8 @@ class IndustryKnowledge:
             return False
         text = product_signals.lower()
         return any(a in text for a in profile.avoid)
+
+    def is_general_blacklisted(self, product_signals: str) -> bool:
+        """Penaliza productos con términos comercialmente inapropiados para regalos."""
+        text = product_signals.lower()
+        return any(term in text for term in GENERAL_BLACKLIST_TAGS)

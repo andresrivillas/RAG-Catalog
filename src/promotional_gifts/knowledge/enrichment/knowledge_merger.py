@@ -1,5 +1,10 @@
-from ..enrichment.product_html_parser import ScrapedProduct
+from ..enrichment.product_html_parser import SCRAPER_DENYLIST, ScrapedProduct
 from ...domain.entities.product_knowledge import ProductKnowledge
+
+
+EXCEL_CONFIDENCE = 0.9
+SCRAPER_CONFIDENCE = 0.7
+TAINTED_CONFIDENCE = 0.3
 
 
 class KnowledgeMerger:
@@ -40,11 +45,69 @@ class KnowledgeMerger:
 
         product.detail_url = product.url or product.detail_url
 
+        # Datos estructurados del scraper.
+        if scraped.availability is not None:
+            product.availability = scraped.availability
+        if scraped.breadcrumb:
+            product.breadcrumb = scraped.breadcrumb
+
         return product
 
     def _best(self, current: str, scraped: str) -> str:
         current = (current or "").strip()
         scraped = (scraped or "").strip()
-        if len(scraped) > len(current):
+
+        if not scraped:
+            return current
+
+        current_conf = EXCEL_CONFIDENCE if current else 0.0
+        scraped_conf = SCRAPER_CONFIDENCE
+        if self._contains_denylist(scraped):
+            scraped_conf = TAINTED_CONFIDENCE
+
+        clean_scraped = self._clean_scraped(scraped)
+        is_scraped_noise = not clean_scraped
+
+        if not current:
+            # Usar el scraped si tiene algún contenido limpio, aunque esté manchado.
+            return scraped if not is_scraped_noise else current
+
+        if is_scraped_noise:
+            return current
+
+        if scraped_conf > current_conf:
+            return scraped
+        if current_conf > scraped_conf:
+            return current
+        # Empate: preferir el texto limpio más corto.
+        clean_current = self._clean_scraped(current)
+        if len(clean_scraped) < len(clean_current):
             return scraped
         return current
+
+    @staticmethod
+    def _contains_denylist(text: str) -> bool:
+        lower = text.lower()
+        return any(deny in lower for deny in SCRAPER_DENYLIST)
+
+    @staticmethod
+    def _clean_scraped(text: str) -> str:
+        """Devuelve el contenido limpio del texto eliminando fragmentos con términos
+        no deseados. Se usa para decidir si el scraped aporta valor real.
+        """
+        if not text:
+            return ""
+        fragments = [f.strip() for f in text.replace("\r", "\n").split("\n") if f.strip()]
+        if not fragments:
+            import re
+
+            fragments = [
+                s.strip() for s in re.split(r"(?<=[.!?])\s+", text) if s.strip()
+            ]
+        clean = []
+        for fragment in fragments:
+            lower = fragment.lower()
+            if any(deny in lower for deny in SCRAPER_DENYLIST):
+                continue
+            clean.append(fragment)
+        return " ".join(" ".join(clean).split())

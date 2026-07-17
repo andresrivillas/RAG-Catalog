@@ -1,0 +1,231 @@
+{
+  "request": {
+    "id": "test_05_vip",
+    "name": "Clientes VIP",
+    "query": "Necesito 200 regalos para clientes VIP. Quiero transmitir exclusividad. Presupuesto máximo de 180.000 COP por unidad.",
+    "mode": "premium",
+    "parsed_intent": {
+      "quantity": 200,
+      "budget_per_unit": 180000.0,
+      "budget_total": null,
+      "occasion": null,
+      "target_audience": null,
+      "industry": null,
+      "eco": false,
+      "personalizable": false,
+      "preferred_categories": [],
+      "preferred_materials": [],
+      "generation_mode": "balanced"
+    }
+  },
+  "generated_at": "2026-07-16T19:17:36",
+  "finished_at": "2026-07-16T19:17:40",
+  "proposal_set": {
+    "intent": {
+      "occasion": null,
+      "quantity": 200,
+      "budget_per_unit": 180000.0,
+      "budget_total": null,
+      "target_audience": null,
+      "eco": false,
+      "personalizable": false,
+      "industry": null
+    },
+    "budget_plan": {
+      "total_budget": 36000000.0,
+      "spendable_budget": 34200000.0,
+      "per_unit_ceiling": 180000.0,
+      "quantity": 200
+    },
+    "proposal_count": 3,
+    "generation_strategy": "global_diversity",
+    "global_observations": [
+      "Set global de 3 propuestas con 5 categorias distintas cubiertas.",
+      "1 producto(s) reutilizado(s) entre propuestas: OF-353E.",
+      "Similitud maxima entre propuestas: 31%."
+    ],
+    "reused_products": [
+      "OF-353E"
+    ],
+    "statistics": {
+      "total_proposals": 3,
+      "total_products_considered": 9,
+      "unique_products_used": 9,
+      "reused_products": 1,
+      "reuse_ratio": 0.111,
+      "shared_product_count": 0,
+      "shared_product_ratio": 0.0,
+      "category_coverage": 5,
+      "max_similarity": 0.31,
+      "avg_similarity": 0.229,
+      "budget_utilization_min": 91.4,
+      "budget_utilization_max": 99.9,
+      "budget_utilization_avg": 96.0,
+      "reused_references": [
+        "OF-353E"
+      ],
+      "shared_references": [],
+      "category_list": [
+        "escritura",
+        "herramientas",
+        "oficina",
+        "otros",
+        "viaje"
+      ],
+      "warnings": [
+        "PROPUESTA 2: kit con pocos productos (1)."
+      ]
+    },
+    "proposals": [
+      {
+        "name": "PROPUESTA 1",
+        "score": 111.9,
+        "generation_mode": "eco",
+        "total_cost": 31262000.0,
+        "per_unit_cost": 156310.0,
+        "warnings": [],
+        "occasion": "",
+        "target_audience": "",
+        "commercial_description": "",
+        "items": [
+          {
+            "reference": "VA-1099-1",
+            "name": "CUERPO EN MADERA PARA ABANICO",
+            "unit_price": 19400.0,
+            "quantity": 200,
+            "role": "CORE",
+            "category": "Otros",
+            "materials": "madera",
+            "selection_reason": "CUERPO EN MADERA PARA ABANICO aporta coherencia al kit. Funciona como pieza central de la propuesta (madera).",
+            "detail_url": "https://catalogospromocionales.com/producto-cataprom/VA-1099-1/cuerpo-en-madera-para-abanico"
+          },
+          {
+            "reference": "SO-84",
+            "name": "PARAGUAS AUTOLIGHT 23\" URBAN TRAVEL Nuevo",
+            "unit_price": 123900.0,
+            "quantity": 200,
+            "role": "CORE",
+            "category": "Viaje",
+            "materials": "",
+            "selection_reason": "PARAGUAS AUTOLIGHT 23\" URBAN TRAVEL Nuevo aporta coherencia al kit. Funciona como pieza central de la propuesta.",
+            "detail_url": "https://catalogospromocionales.com/producto-cataprom/SO-84/paraguas-autolight-23-urban-travel-nuevo"
+          },
+          {
+            "reference": "HE-216",
+            "name": "METRO LLAVERO CAR",
+            "unit_price": 2890.0,
+            "quantity": 200,
+            "role": "UTILITY",
+            "category": "Herramientas",
+            "materials": "",
+            "selection_reason": "METRO LLAVERO CAR aporta coherencia al kit. Aporta utilidad diaria que prolonga la exposición de la marca.",
+            "detail_url": "https://catalogospromocionales.com/producto-cataprom/HE-216/metro-llavero-car"
+          },
+          {
+            "reference": "OF-353E",
+            "name": "ESTUCHE PARA RESALTADOR MAGICO MEGA",
+            "unit_price": 10120.0,
+            "quantity": 200,
+            "role": "PACKAGING",
+            "category": "Escritura",
+            "materials": "",
+            "selection_reason": "ESTUCHE PARA RESALTADOR MAGICO MEGA aporta coherencia al kit. Presenta el regalo de forma ordenada y profesional.",
+            "detail_url": "https://catalogospromocionales.com/producto-cataprom/OF-353E/estuche-para-resaltador-magico-mega"
+          }
+        ]
+      },
+      {
+        "name": "PROPUESTA 2",
+        "score": 107.1,
+        "generation_mode": "premium",
+        "total_cost": 34180000.0,
+        "per_unit_cost": 170900.0,
+        "warnings": [],
+        "occasion": "",
+        "target_audience": "",
+        "commercial_description": "",
+        "items": [
+          {
+            "reference": "HO-235",
+            "name": "ASPIRADORA PARA CARRO",
+            "unit_price": 170900.0,
+            "quantity": 200,
+            "role": "PREMIUM",
+            "category": "Otros",
+            "materials": "",
+            "selection_reason": "ASPIRADORA PARA CARRO aporta coherencia al kit. Aporta alto valor percibido y reafirma la imagen de marca.",
+            "detail_url": "https://catalogospromocionales.com/producto-cataprom/HO-235/aspiradora-para-carro"
+          }
+        ]
+      },
+      {
+        "name": "PROPUESTA 3",
+        "score": 106.0,
+        "generation_mode": "balanced",
+        "total_cost": 33072000.0,
+        "per_unit_cost": 165360.0,
+        "warnings": [],
+        "occasion": "",
+        "target_audience": "",
+        "commercial_description": "",
+        "items": [
+          {
+            "reference": "VA-1184",
+            "name": "ORGANIZADOR KAPPA URBAN TRAVEL Nuevo",
+            "unit_price": 98900.0,
+            "quantity": 200,
+            "role": "PREMIUM",
+            "category": "Oficina",
+            "materials": "",
+            "selection_reason": "ORGANIZADOR KAPPA URBAN TRAVEL Nuevo aporta coherencia al kit. Aporta alto valor percibido y reafirma la imagen de marca.",
+            "detail_url": "https://catalogospromocionales.com/producto-cataprom/VA-1184/organizador-kappa-urban-travel-nuevo"
+          },
+          {
+            "reference": "AG-01",
+            "name": "AGARRADERA EN POLIETILENO PARA BOTILITO",
+            "unit_price": 540.0,
+            "quantity": 200,
+            "role": "CORE",
+            "category": "Otros",
+            "materials": "",
+            "selection_reason": "AGARRADERA EN POLIETILENO PARA BOTILITO aporta coherencia al kit. Funciona como pieza central de la propuesta.",
+            "detail_url": "https://catalogospromocionales.com/producto-cataprom/AG-01/agarradera-en-polietileno-para-botilito"
+          },
+          {
+            "reference": "CA-138",
+            "name": "CALCULADORA MULTICOLOR 12 DÍGITOS",
+            "unit_price": 35900.0,
+            "quantity": 200,
+            "role": "CORE",
+            "category": "Oficina",
+            "materials": "",
+            "selection_reason": "CALCULADORA MULTICOLOR 12 DÍGITOS aporta coherencia al kit. Funciona como pieza central de la propuesta.",
+            "detail_url": "https://catalogospromocionales.com/producto-cataprom/CA-138/calculadora-multicolor-12-digitos"
+          },
+          {
+            "reference": "JU-26",
+            "name": "JUEGO DESESTRESANTE CON CLIPS",
+            "unit_price": 19900.0,
+            "quantity": 200,
+            "role": "CORE",
+            "category": "Oficina",
+            "materials": "",
+            "selection_reason": "JUEGO DESESTRESANTE CON CLIPS aporta coherencia al kit. Funciona como pieza central de la propuesta.",
+            "detail_url": "https://catalogospromocionales.com/producto-cataprom/JU-26/juego-desestresante-con-clips"
+          },
+          {
+            "reference": "OF-353E",
+            "name": "ESTUCHE PARA RESALTADOR MAGICO MEGA",
+            "unit_price": 10120.0,
+            "quantity": 200,
+            "role": "PACKAGING",
+            "category": "Escritura",
+            "materials": "",
+            "selection_reason": "ESTUCHE PARA RESALTADOR MAGICO MEGA aporta coherencia al kit. Presenta el regalo de forma ordenada y profesional.",
+            "detail_url": "https://catalogospromocionales.com/producto-cataprom/OF-353E/estuche-para-resaltador-magico-mega"
+          }
+        ]
+      }
+    ]
+  }
+}

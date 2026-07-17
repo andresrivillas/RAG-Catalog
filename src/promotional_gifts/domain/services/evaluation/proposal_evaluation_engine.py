@@ -27,6 +27,13 @@ class EvaluationWeights:
         "balance": 0.05,
         "industry": 0.20,
         "complementarity": 0.10,
+        "category_quality": 0.08,
+        "material_cleanliness": 0.05,
+        "mode_coherence": 0.08,
+        "availability": 0.10,
+        "selection_reason_quality": 0.06,
+        "consistency": 0.08,
+        "explainability": 0.06,
     }
 
     def __init__(self, mapping: Optional[Dict[str, float]] = None) -> None:
@@ -97,6 +104,13 @@ class ProposalEvaluationEngine:
             "balance": "balance_score",
             "industry": "industry_score",
             "complementarity": "complementarity_score",
+            "category_quality": "category_quality_score",
+            "material_cleanliness": "material_cleanliness_score",
+            "mode_coherence": "mode_coherence_score",
+            "availability": "availability_score",
+            "selection_reason_quality": "selection_reason_quality_score",
+            "consistency": "consistency_score",
+            "explainability": "explainability_score",
         }
         attr = mapping.get(key)
         if attr:
@@ -155,6 +169,34 @@ class ProposalEvaluationEngine:
             )
         if intent and intent.eco and card.eco_score == 0:
             obs.append("Se solicito eco pero ningun producto es sostenible.")
+        if card.category_quality_score < 60:
+            obs.append(
+                "Algunas categorias comerciales estan sucias, son multiples o no son canonicas."
+            )
+        if card.material_cleanliness_score < 60:
+            obs.append(
+                "Los materiales de algunos productos contienen texto HTML o terminos desconocidos."
+            )
+        if card.mode_coherence_score < 60:
+            obs.append(
+                "La propuesta no refleja claramente el modo de generacion solicitado."
+            )
+        if card.availability_score < 100:
+            obs.append(
+                "Algunos productos tienen disponibilidad inferior a la cantidad requerida."
+            )
+        if card.selection_reason_quality_score < 60:
+            obs.append(
+                "Algunas razones de seleccion estan vacias, son muy largas o contienen texto sucio."
+            )
+        if card.consistency_score < 60:
+            obs.append(
+                "El kit presenta baja consistencia entre categoria, materiales y justificaciones."
+            )
+        if card.explainability_score < 60:
+            obs.append(
+                "Algunos productos carecen de una justificacion clara alineada con su rol o industria."
+            )
         card.observations = obs
 
     def _log_debug(self, card: ProposalScoreCard, proposal: CommercialProposal) -> None:

@@ -3,6 +3,7 @@ from typing import List
 from ...domain.entities.product_knowledge import ProductKnowledge
 from ...domain.ports.embedding_port import EmbeddingPort
 from ...domain.ports.vector_store_port import VectorStorePort
+from ..transform.data_sanitizer import DataSanitizer
 from ..transform.embedding_builder import EmbeddingBuilder
 from ..transform.metadata_builder import MetadataBuilder
 from ..transform.product_cleaner import ProductCleaner
@@ -21,13 +22,14 @@ class KnowledgeIndexer:
         self.embedding_builder = embedding_builder
         self.vector_store = vector_store
 
-    def index(self, products: List[ProductKnowledge]) -> int:
+    def index(self, products: List[ProductKnowledge]) -> List[ProductKnowledge]:
         products = self.cleaner.clean(products)
+        products = DataSanitizer().sanitize(products)
         products = self.metadata_builder.build(products)
         embeddings = self.embedding_builder.build(products)
         self._attach_embeddings(products, embeddings)
         self.vector_store.add_products(products)
-        return len(products)
+        return products
 
     def _attach_embeddings(
         self, products: List[ProductKnowledge], embeddings: List[List[float]]
@@ -68,6 +70,7 @@ class KnowledgeIndexer:
                     images=d.get("images", []),
                     category=d.get("category", ""),
                     subcategory=d.get("subcategory", ""),
+                    excel_category=d.get("excel_category", ""),
                     recommendations=d.get("recommendations", ""),
                     customization=d.get("customization", ""),
                     keywords=d.get("keywords", []),
@@ -76,6 +79,8 @@ class KnowledgeIndexer:
                     commercial_tags=d.get("commercial_tags", []),
                     perceived_value_level=d.get("perceived_value_level", "medio"),
                     enriched=d.get("enriched", False),
+                    availability=d.get("availability"),
+                    breadcrumb=d.get("breadcrumb", ""),
                 )
             )
         return products

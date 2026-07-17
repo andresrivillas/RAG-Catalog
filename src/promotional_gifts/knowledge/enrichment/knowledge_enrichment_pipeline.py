@@ -100,6 +100,7 @@ class KnowledgeEnrichmentPipeline:
             "images": product.images,
             "category": product.category,
             "subcategory": product.subcategory,
+            "excel_category": product.excel_category,
             "recommendations": product.recommendations,
             "customization": product.customization,
             "keywords": product.keywords,
@@ -108,4 +109,6 @@ class KnowledgeEnrichmentPipeline:
             "commercial_tags": product.commercial_tags,
             "perceived_value_level": product.perceived_value_level,
             "enriched": product.enriched,
+            "availability": product.availability,
+            "breadcrumb": product.breadcrumb,
         }

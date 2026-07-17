@@ -39,10 +39,18 @@ class ModeProfile:
     weight_budget_util: float
     # Peso del Industry Match (senal principal del Business Engine).
     weight_industry: float = 0.0
+    # Peso del contexto comercial y disponibilidad.
+    weight_context: float = 5.0
+    weight_availability: float = 5.0
     # Ajustes deterministas por modo.
     prefer_eco: bool = False
     prefer_premium: bool = False
     prefer_low_cost: bool = False
+    # Parametros de construccion de kits por modo.
+    min_lines: int = 5
+    max_lines: int = 6
+    target_products: int = 3
+    target_value_per_unit: Optional[float] = None
     # Pesos de la ScoreCard (EvaluationWeights).
     evaluation_weights: Dict[str, float] = field(default_factory=dict)
 
@@ -136,11 +144,16 @@ MODE_PROFILES: Dict[GenerationMode, ModeProfile] = {
         mode=GenerationMode.BALANCED,
         utilization_target_min=0.90,
         utilization_target_max=0.98,
-        weight_semantic=12,
-        weight_occasion=18,
-        weight_commercial=38,
-        weight_budget_util=22,
-        weight_industry=30,
+        weight_semantic=10,
+        weight_occasion=10,
+        weight_commercial=20,
+        weight_budget_util=15,
+        weight_industry=35,
+        weight_context=5,
+        weight_availability=5,
+        min_lines=5,
+        max_lines=6,
+        target_products=3,
         evaluation_weights=_balanced_weights(),
     ),
     GenerationMode.PREMIUM: ModeProfile(
@@ -148,35 +161,52 @@ MODE_PROFILES: Dict[GenerationMode, ModeProfile] = {
         utilization_target_min=0.95,
         utilization_target_max=1.00,
         weight_semantic=10,
-        weight_occasion=16,
-        weight_commercial=40,
-        weight_budget_util=24,
-        weight_industry=30,
+        weight_occasion=10,
+        weight_commercial=25,
+        weight_budget_util=10,
+        weight_industry=35,
+        weight_context=5,
+        weight_availability=5,
         prefer_premium=True,
+        min_lines=2,
+        max_lines=4,
+        target_products=2,
+        target_value_per_unit=1.0,
         evaluation_weights=_premium_weights(),
     ),
     GenerationMode.BUDGET: ModeProfile(
         mode=GenerationMode.BUDGET,
         utilization_target_min=0.75,
         utilization_target_max=0.95,
-        weight_semantic=14,
-        weight_occasion=18,
-        weight_commercial=36,
-        weight_budget_util=24,
-        weight_industry=28,
+        weight_semantic=10,
+        weight_occasion=10,
+        weight_commercial=20,
+        weight_budget_util=25,
+        weight_industry=35,
+        weight_context=5,
+        weight_availability=5,
         prefer_low_cost=True,
+        min_lines=5,
+        max_lines=7,
+        target_products=5,
+        target_value_per_unit=0.5,
         evaluation_weights=_budget_weights(),
     ),
     GenerationMode.ECO: ModeProfile(
         mode=GenerationMode.ECO,
         utilization_target_min=0.88,
         utilization_target_max=0.96,
-        weight_semantic=12,
-        weight_occasion=18,
-        weight_commercial=36,
-        weight_budget_util=24,
-        weight_industry=30,
+        weight_semantic=10,
+        weight_occasion=10,
+        weight_commercial=20,
+        weight_budget_util=15,
+        weight_industry=35,
+        weight_context=5,
+        weight_availability=5,
         prefer_eco=True,
+        min_lines=4,
+        max_lines=6,
+        target_products=4,
         evaluation_weights=_eco_weights(),
     ),
 }

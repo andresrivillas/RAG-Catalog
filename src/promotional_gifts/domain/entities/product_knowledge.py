@@ -27,6 +27,7 @@ class ProductKnowledge:
     images: List[str] = field(default_factory=list)
     category: str = ""
     subcategory: str = ""
+    excel_category: str = ""
     recommendations: str = ""
     customization: str = ""
     keywords: List[str] = field(default_factory=list)
@@ -37,6 +38,8 @@ class ProductKnowledge:
     embedding: list = field(default_factory=list)
     perceived_value_level: str = "medio"
     enriched: bool = False
+    availability: Optional[int] = None
+    breadcrumb: str = ""
 
     def to_embedding_text(self) -> str:
         parts = [

@@ -1,0 +1,253 @@
+{
+  "request": {
+    "id": "test_01_software",
+    "name": "Empresa de Software",
+    "query": "Necesito 500 regalos para una empresa de software. Quiero transmitir innovación. Presupuesto máximo de 60.000 COP por unidad.",
+    "mode": "balanced",
+    "parsed_intent": {
+      "quantity": 500,
+      "budget_per_unit": 60000.0,
+      "budget_total": null,
+      "occasion": null,
+      "target_audience": null,
+      "industry": "tecnologia",
+      "eco": false,
+      "personalizable": false,
+      "preferred_categories": [],
+      "preferred_materials": [],
+      "generation_mode": "balanced"
+    }
+  },
+  "generated_at": "2026-07-16T19:17:16",
+  "finished_at": "2026-07-16T19:17:21",
+  "proposal_set": {
+    "intent": {
+      "occasion": null,
+      "quantity": 500,
+      "budget_per_unit": 60000.0,
+      "budget_total": null,
+      "target_audience": null,
+      "eco": false,
+      "personalizable": false,
+      "industry": "tecnologia"
+    },
+    "budget_plan": {
+      "total_budget": 30000000.0,
+      "spendable_budget": 28500000.0,
+      "per_unit_ceiling": 60000.0,
+      "quantity": 500
+    },
+    "proposal_count": 3,
+    "generation_strategy": "global_diversity",
+    "global_observations": [
+      "Set global de 3 propuestas con 3 categorias distintas cubiertas.",
+      "2 producto(s) reutilizado(s) entre propuestas: HE-224, HE-291.",
+      "Similitud maxima entre propuestas: 52%."
+    ],
+    "reused_products": [
+      "HE-224",
+      "HE-291"
+    ],
+    "statistics": {
+      "total_proposals": 3,
+      "total_products_considered": 10,
+      "unique_products_used": 10,
+      "reused_products": 2,
+      "reuse_ratio": 0.2,
+      "shared_product_count": 0,
+      "shared_product_ratio": 0.0,
+      "category_coverage": 3,
+      "max_similarity": 0.518,
+      "avg_similarity": 0.351,
+      "budget_utilization_min": 92.9,
+      "budget_utilization_max": 99.6,
+      "budget_utilization_avg": 96.8,
+      "reused_references": [
+        "HE-224",
+        "HE-291"
+      ],
+      "shared_references": [],
+      "category_list": [
+        "herramientas",
+        "oficina",
+        "otros"
+      ],
+      "warnings": [
+        "PROPUESTA 1: kit con pocos productos (2)."
+      ]
+    },
+    "proposals": [
+      {
+        "name": "PROPUESTA 1",
+        "score": 122.7,
+        "generation_mode": "premium",
+        "total_cost": 28400000.0,
+        "per_unit_cost": 56800.0,
+        "warnings": [],
+        "occasion": "",
+        "target_audience": "",
+        "commercial_description": "",
+        "items": [
+          {
+            "reference": "VA-1017",
+            "name": "ORGANIZADOR MULTIUSOS TECH",
+            "unit_price": 51900.0,
+            "quantity": 500,
+            "role": "PREMIUM",
+            "category": "Oficina",
+            "materials": "",
+            "selection_reason": "ORGANIZADOR MULTIUSOS TECH se alinea con el sector tecnologia (Oficina). Aporta alto valor percibido y reafirma la imagen de marca.",
+            "detail_url": "https://catalogospromocionales.com/producto-cataprom/VA-1017/organizador-multiusos-tech"
+          },
+          {
+            "reference": "HE-324",
+            "name": "LLAVERO METRO TOOLS Nuevo",
+            "unit_price": 4900.0,
+            "quantity": 500,
+            "role": "CORE",
+            "category": "Herramientas",
+            "materials": "",
+            "selection_reason": "LLAVERO METRO TOOLS Nuevo aporta coherencia al kit. Funciona como pieza central de la propuesta.",
+            "detail_url": "https://catalogospromocionales.com/producto-cataprom/HE-324/llavero-metro-tools-nuevo"
+          }
+        ]
+      },
+      {
+        "name": "PROPUESTA 2",
+        "score": 116.7,
+        "generation_mode": "eco",
+        "total_cost": 27895000.0,
+        "per_unit_cost": 55790.0,
+        "warnings": [],
+        "occasion": "",
+        "target_audience": "",
+        "commercial_description": "",
+        "items": [
+          {
+            "reference": "VA-1009",
+            "name": "ORGANIZADOR DE VIAJE MERRICK",
+            "unit_price": 46900.0,
+            "quantity": 500,
+            "role": "PREMIUM",
+            "category": "Oficina",
+            "materials": "",
+            "selection_reason": "ORGANIZADOR DE VIAJE MERRICK se alinea con el sector tecnologia (Oficina). Aporta alto valor percibido y reafirma la imagen de marca.",
+            "detail_url": "https://catalogospromocionales.com/producto-cataprom/VA-1009/organizador-de-viaje-merrick"
+          },
+          {
+            "reference": "HE-216",
+            "name": "METRO LLAVERO CAR",
+            "unit_price": 2890.0,
+            "quantity": 500,
+            "role": "CORE",
+            "category": "Herramientas",
+            "materials": "",
+            "selection_reason": "METRO LLAVERO CAR aporta coherencia al kit. Funciona como pieza central de la propuesta.",
+            "detail_url": "https://catalogospromocionales.com/producto-cataprom/HE-216/metro-llavero-car"
+          },
+          {
+            "reference": "HE-224",
+            "name": "LLAVERO METRO CON NIVELADOR",
+            "unit_price": 2990.0,
+            "quantity": 500,
+            "role": "UTILITY",
+            "category": "Herramientas",
+            "materials": "",
+            "selection_reason": "LLAVERO METRO CON NIVELADOR aporta coherencia al kit. Aporta utilidad diaria que prolonga la exposición de la marca.",
+            "detail_url": "https://catalogospromocionales.com/producto-cataprom/HE-224/llavero-metro-con-nivelador"
+          },
+          {
+            "reference": "HE-291",
+            "name": "PORTAIDENTIFICADOR DE CARNET CON METRO",
+            "unit_price": 3010.0,
+            "quantity": 500,
+            "role": "UTILITY",
+            "category": "Otros",
+            "materials": "",
+            "selection_reason": "PORTAIDENTIFICADOR DE CARNET CON METRO aporta coherencia al kit. Aporta utilidad diaria que prolonga la exposición de la marca.",
+            "detail_url": "https://catalogospromocionales.com/producto-cataprom/HE-291/portaidentificador-de-carnet-con-metro"
+          }
+        ]
+      },
+      {
+        "name": "PROPUESTA 3",
+        "score": 116.4,
+        "generation_mode": "balanced",
+        "total_cost": 26487500.0,
+        "per_unit_cost": 52975.0,
+        "warnings": [],
+        "occasion": "",
+        "target_audience": "",
+        "commercial_description": "",
+        "items": [
+          {
+            "reference": "TE-647",
+            "name": "ORGANIZADOR MULTIUSOS LINK Nuevo",
+            "unit_price": 17200.0,
+            "quantity": 500,
+            "role": "CORE",
+            "category": "Oficina",
+            "materials": "",
+            "selection_reason": "ORGANIZADOR MULTIUSOS LINK Nuevo se alinea con el sector tecnologia (Oficina). Funciona como pieza central de la propuesta.",
+            "detail_url": "https://catalogospromocionales.com/producto-cataprom/TE-647/organizador-multiusos-link-nuevo"
+          },
+          {
+            "reference": "OF-529",
+            "name": "SET DE ESCRITORIO OFFICE",
+            "unit_price": 11690.0,
+            "quantity": 500,
+            "role": "CORE",
+            "category": "Oficina",
+            "materials": "",
+            "selection_reason": "SET DE ESCRITORIO OFFICE se alinea con el sector tecnologia (Oficina). Funciona como pieza central de la propuesta.",
+            "detail_url": "https://catalogospromocionales.com/producto-cataprom/OF-529/set-de-escritorio-office"
+          },
+          {
+            "reference": "HE-224",
+            "name": "LLAVERO METRO CON NIVELADOR",
+            "unit_price": 2990.0,
+            "quantity": 500,
+            "role": "UTILITY",
+            "category": "Herramientas",
+            "materials": "",
+            "selection_reason": "LLAVERO METRO CON NIVELADOR aporta coherencia al kit. Aporta utilidad diaria que prolonga la exposición de la marca.",
+            "detail_url": "https://catalogospromocionales.com/producto-cataprom/HE-224/llavero-metro-con-nivelador"
+          },
+          {
+            "reference": "HE-291",
+            "name": "PORTAIDENTIFICADOR DE CARNET CON METRO",
+            "unit_price": 3010.0,
+            "quantity": 500,
+            "role": "CORE",
+            "category": "Otros",
+            "materials": "",
+            "selection_reason": "PORTAIDENTIFICADOR DE CARNET CON METRO aporta coherencia al kit. Funciona como pieza central de la propuesta.",
+            "detail_url": "https://catalogospromocionales.com/producto-cataprom/HE-291/portaidentificador-de-carnet-con-metro"
+          },
+          {
+            "reference": "OF-97",
+            "name": "MINISET DE ESCRITORIO",
+            "unit_price": 8190.0,
+            "quantity": 500,
+            "role": "CORE",
+            "category": "Oficina",
+            "materials": "",
+            "selection_reason": "MINISET DE ESCRITORIO se alinea con el sector tecnologia (Oficina). Funciona como pieza central de la propuesta.",
+            "detail_url": "https://catalogospromocionales.com/producto-cataprom/OF-97/miniset-de-escritorio"
+          },
+          {
+            "reference": "ML-121",
+            "name": "GANCHO PORTACARTERA",
+            "unit_price": 9895.0,
+            "quantity": 500,
+            "role": "CORE",
+            "category": "Otros",
+            "materials": "",
+            "selection_reason": "GANCHO PORTACARTERA aporta coherencia al kit. Funciona como pieza central de la propuesta.",
+            "detail_url": "https://catalogospromocionales.com/producto-cataprom/ML-121/gancho-portacartera"
+          }
+        ]
+      }
+    ]
+  }
+}
