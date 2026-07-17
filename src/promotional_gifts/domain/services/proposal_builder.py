@@ -105,6 +105,7 @@ class ProposalBuilder:
                     max_lines=profile.max_lines,
                     price_median=price_median,
                     mode=strategy.generation_mode,
+                    concept=strategy.label,
                 )
             )
             # KitBuilder.build espera la lista completa; construimos 1 kit.

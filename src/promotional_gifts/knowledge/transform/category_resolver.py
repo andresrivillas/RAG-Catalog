@@ -8,7 +8,7 @@ from ...domain.entities.product_knowledge import ProductKnowledge
 CANONICAL_CATEGORIES = {
     "tecnología", "oficina", "viaje", "hogar", "eco", "bebidas", "textiles",
     "herramientas", "maletines", "termos", "libretas", "escritura", "bolsos",
-    "salud", "eventos", "deportes", "accesorios", "limpieza", "otros",
+    "salud", "eventos", "deportes", "accesorios", "limpieza", "juegos", "otros",
 }
 
 # Alias exactos que pueden venir del Excel o del breadcrumb.
@@ -78,19 +78,20 @@ CATEGORY_RULES: List[Tuple[str, List[str]]] = [
     ("Termos", ["termo", "termos", "cantimplora", "botella térmica", "botella termica", "termica", "térmica"]),
     ("Escritura", ["bolígrafo", "boligrafo", "pluma", "marcador", "resaltador", "lapicero", "portaminas", "tinta", "roller", "escritura", "lápiz", "lapiz"]),
     ("Libretas", ["libreta", "cuaderno", "agenda", "anotador", "planner", "diario"]),
-    ("Tecnología", ["usb", "cargador", "cable", "power bank", "powerbank", "batería", "bateria", "auricular", "audífonos", "audifonos", "altavoz", "parlante", "bluetooth", "mouse", "ratón", "teclado", "soporte móvil", "soporte movil", "celular", "móvil", "movil", "gadget", "adaptador", "hub usb", "memoria usb", "pendrive", "memoria"]),
+    ("Tecnología", ["usb", "cargador", "cable", "power bank", "powerbank", "batería", "bateria", "auricular", "audífonos", "audifonos", "altavoz", "parlante", "bluetooth", "mouse", "ratón", "teclado", "soporte móvil", "soporte movil", "celular", "móvil", "movil", "gadget", "adaptador", "hub usb", "memoria usb", "pendrive", "memoria", "tech", "tecnologico", "tecnológico", "digital"]),
     ("Maletines", ["maletín", "maletin", "maleta ejecutiva", "portafolio", "portadocumentos"]),
     ("Viaje", ["maleta", "mochila", "bolso de viaje", "neceser", "pasaporte", "tag de maleta", "paraguas", "viajero"]),
     ("Bolsos", ["bolso", "bolsa", "tote", "morral", "lonchera"]),
-    ("Hogar", ["taza", "mug", "vaso", "plato", "cuchara", "cocina", "cafetera", "hervidor", "reloj", "alarma", "ambientador", "cojín", "cojin", "almohada", "toalla", "mantel", "set de cocina"]),
+    ("Hogar", ["taza", "mug", "vaso", "plato", "cuchara", "cocina", "cafetera", "hervidor", "reloj", "alarma", "ambientador", "cojín", "cojin", "almohada", "toalla", "mantel", "set de cocina", "portacomidas", "portavasos", "aspiradora", "abanico", "portarretrato", "almanaque", "botilito", "coca", "coca cola", "galleta", "chocolate", "termo"]),
     ("Oficina", ["oficina", "escritorio", "organizador", "clipboard", "porta documentos", "sujetapapeles", "clips", "pegamento", "calculadora", "perforadora", "engrapadora", "tijeras", "cinta adhesiva", "post-it", "notas adhesivas"]),
-    ("Bebidas", ["bebida", "botella", "cantimplora", "copas", "vaso"]),
+    ("Bebidas", ["bebida", "botella", "cantimplora", "copas", "vaso", "botilito", "coca", "coca cola", "termo", "cafetera"]),
     ("Eco", ["eco", "ecológico", "ecologico", "sostenible", "reciclado", "reciclable", "rpet", "bambú", "bambu", "corcho", "paja", "trigo", "yute", "algodón", "algodon", "natural"]),
-    ("Textiles", ["camiseta", "polo", "camisa", "gorra", "sombrero", "bufanda", "guante", "mascarilla", "bandana", "cinta", "lanyard", "corbata", "bolsa textil", "mochila textil"]),
-    ("Herramientas", ["destornillador", "llave", "navaja", "multiherramienta", "linterna", "cinta métrica", "cinta metrica", "nivel", "martillo", "alicate"]),
+    ("Textiles", ["camiseta", "polo", "camisa", "gorra", "sombrero", "bufanda", "guante", "mascarilla", "bandana", "cinta", "lanyard", "corbata", "bolsa textil", "mochila textil", "balaca", "cinta para maquillaje", "pañoleta", "bolsa"]),
+    ("Herramientas", ["destornillador", "llave", "navaja", "multiherramienta", "linterna", "cinta métrica", "cinta metrica", "nivel", "martillo", "alicate", "herramienta", "metro", "regla", "llavero", "destapador"]),
     ("Salud", ["botiquín", "botiquin", "tapabocas", "termómetro", "antibacterial", "desinfectante", "higiene", "toalla deportiva", "botella deportiva", "salud"]),
     ("Deportes", ["gimnasio", "balón", "pelota", "raqueta", "bici", "bicicleta", "ciclismo", "botella deportiva", "toalla deportiva", "deporte"]),
     ("Eventos", ["feria", "congreso", "conferencia", "merchandising", "stand", "exposición", "exposicion", "brindis", "celebración", "celebracion", "evento"]),
+    ("Juegos", ["juego", "tangram", "triqui", "desestresante", "rompecabezas", "puzzle", "dado", "cartas", "naipes"]),
 ]
 
 

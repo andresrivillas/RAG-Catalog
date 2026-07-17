@@ -276,6 +276,7 @@ class GenerateProposalUseCase:
                 max_lines=self.proposal_builder.config.max_lines,
                 price_median=price_median,
                 mode=strategy.generation_mode,
+                concept=strategy.label,
             )
         )
         kits = kit_builder.build(intent, ranked, plan)

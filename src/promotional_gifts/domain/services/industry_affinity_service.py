@@ -44,34 +44,51 @@ class IndustryAffinityService:
             for m in (product.materials or "").replace(",", " ").replace(";", " ").split()
         }
         product_keywords = {self._ascii(k.lower()) for k in (product.keywords or [])}
+        signals_text = self._ascii(
+            f"{product.name} {product.description} {product.characteristics} "
+            f"{product.benefits} {product.customization}"
+        )
         all_signals = product_tags | product_keywords | {product_category}
 
         # Coincidencias positivas.
         if product_category in profile.preferred_categories:
-            score += 0.30
+            score += 0.45
         tag_hits = len(product_tags & profile.preferred_tags)
         if tag_hits:
-            score += min(0.25, tag_hits * 0.09)
+            score += min(0.30, tag_hits * 0.10)
         keyword_hits = len(product_keywords & profile.preferred_tags)
         if keyword_hits:
-            score += min(0.15, keyword_hits * 0.05)
+            score += min(0.20, keyword_hits * 0.06)
         material_hits = len(product_materials & profile.preferred_materials)
         if material_hits:
-            score += min(0.15, material_hits * 0.08)
+            score += min(0.20, material_hits * 0.10)
         if role and role.lower() in profile.preferred_roles:
             score += 0.10
 
+        # Conceptos comerciales (palabras preferidas en texto libre).
+        concept_hits = sum(
+            1 for term in profile.prefer if term in signals_text
+        )
+        if concept_hits:
+            score += min(0.25, concept_hits * 0.08)
+
         # Penalizaciones por blacklist de la industria.
         if product_category in profile.blacklisted_categories:
-            score -= 0.45
+            score -= 0.55
         blacklist_tag_hits = len(product_tags & profile.blacklisted_tags)
         if blacklist_tag_hits:
-            score -= min(0.40, blacklist_tag_hits * 0.18)
+            score -= min(0.50, blacklist_tag_hits * 0.20)
         blacklist_keyword_hits = len(product_keywords & profile.blacklisted_tags)
         if blacklist_keyword_hits:
-            score -= min(0.25, blacklist_keyword_hits * 0.10)
+            score -= min(0.30, blacklist_keyword_hits * 0.12)
         if product_materials & profile.blacklisted_tags:
-            score -= 0.10
+            score -= 0.15
+
+        # Penalizacion por productos genericos rompe-kit (metros, llaveros, etc.).
+        breaker_terms = {"metro", "llavero", "llaveros", "regla", "cinta metrica", "casco", "pito", "silbato", "repuesto", "adhesivo", "pegatina", "sticker", "aspiradora", "coca", "gancho", "agarradera", "balaca", "tangram", "triqui", "juego desestresante"}
+        breaker_hits = sum(1 for term in breaker_terms if term in signals_text)
+        if breaker_hits:
+            score -= min(0.35, breaker_hits * 0.18)
 
         return max(0.0, min(1.0, score))
 

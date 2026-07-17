@@ -80,7 +80,9 @@ class DataSanitizer:
             product.materials = self._sanitize_materials(product.materials)
             if not product.materials:
                 product.materials = self._infer_materials_from_text(
-                    f"{product.description} {product.characteristics} {product.name}"
+                    f"{product.name} {product.description} {product.characteristics} "
+                    f"{product.benefits} {product.customization} "
+                    f"{' '.join(product.keywords)}"
                 )
 
             # Resolver categoría y subcategoría de forma determinista.

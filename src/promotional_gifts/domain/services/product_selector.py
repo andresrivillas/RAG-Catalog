@@ -4,7 +4,9 @@ from typing import List, Optional, Tuple
 from ..entities.commercial_intent import CommercialIntent
 from ..entities.product_knowledge import ProductKnowledge
 from ..services.budget_plan import BudgetPlan
+from ..services.commercial_harmony_scorer import CommercialHarmonyScorer
 from ..services.commercial_scorer import CommercialScorer
+from ..services.commercial_value_scorer import CommercialValueScorer
 from ..services.complementarity import products_complement
 from ..services.decision_trace import DecisionTrace
 from ..services.generation_mode import GenerationMode, ModeProfile, get_profile
@@ -14,6 +16,8 @@ from ..services.material_reasoner import material_families
 from ..services.negative_filter import NegativeFilter
 from ..services.occasion_matcher import OccasionMatcher
 from ..services.reason_generator import generate as generate_reason
+from ...knowledge.transform.category_resolver import CategoryResolver
+from ...knowledge.transform.data_sanitizer import DataSanitizer
 
 ECO_KEYWORDS = ["eco", "ecologico", "ecológico", "sostenible", "rpet", "recicl"]
 PERSONALIZABLE_KEYWORDS = [
@@ -41,6 +45,8 @@ class ProductSelector:
         negative_filter: NegativeFilter,
         industry_knowledge: IndustryKnowledge = None,
         industry_affinity_service: IndustryAffinityService = None,
+        commercial_value_scorer: CommercialValueScorer = None,
+        harmony_scorer: CommercialHarmonyScorer = None,
     ) -> None:
         self.occasion_matcher = occasion_matcher
         self.commercial_scorer = commercial_scorer
@@ -49,6 +55,12 @@ class ProductSelector:
         self.industry_affinity_service = industry_affinity_service or IndustryAffinityService(
             self.industry_knowledge
         )
+        self.commercial_value_scorer = commercial_value_scorer or CommercialValueScorer(
+            self.industry_affinity_service
+        )
+        self.harmony_scorer = harmony_scorer or CommercialHarmonyScorer()
+        self.category_resolver = CategoryResolver()
+        self.data_sanitizer = DataSanitizer()
 
     def select(
         self,
@@ -57,12 +69,15 @@ class ProductSelector:
         plan: BudgetPlan,
         mode: GenerationMode = None,
         drop_restrictions: List[str] = None,
+        concept: str = None,
     ) -> List[ScoredProduct]:
         profile = get_profile(mode)
         drop = set(drop_restrictions or [])
         eligible: List[ScoredProduct] = []
 
         for product, similarity in candidates:
+            # Normalización runtime de categoría y materiales sin reindexar.
+            self._normalize_product(product)
             trace = DecisionTrace(semantic_score=max(0.0, min(1.0, similarity)))
 
             if not self._valid_price(product):
@@ -80,6 +95,10 @@ class ProductSelector:
             trace.context_score = self._context_match_score(intent, product)
             trace.industry_score = self._industry_score(intent, product)
             trace.affinity_score = self.industry_affinity_service.affinity(product, intent)
+            trace.commercial_value_score = self.commercial_value_scorer.score(
+                product, intent, concept=concept
+            )
+            trace.harmony_score = self.harmony_scorer.harmony(product, concept, intent)
             trace.availability_score = self._availability_score(product, intent, trace)
             if trace.availability_score == 0.0:
                 trace.reason = "Stock insuficiente para la cantidad solicitada."
@@ -92,7 +111,52 @@ class ProductSelector:
         eligible.sort(key=lambda sp: sp.score, reverse=True)
         return eligible
 
+    def _normalize_product(self, product: ProductKnowledge) -> None:
+        """Inferencia runtime de categoría y materiales para productos sucios o 'Otros'."""
+        # Limpiar campos básicos si están vacíos o sucios.
+        product.name = self.data_sanitizer._sanitize_text(product.name, "name")
+        product.description = self.data_sanitizer._sanitize_text(product.description, "description")
+        product.characteristics = self.data_sanitizer._sanitize_text(product.characteristics, "characteristics")
+        product.benefits = self.data_sanitizer._sanitize_text(product.benefits, "benefits")
+        product.customization = self.data_sanitizer._sanitize_text(product.customization, "customization")
+
+        # Inferir materiales si no están presentes.
+        if not product.materials:
+            inferred = self.data_sanitizer._infer_materials_from_text(
+                f"{product.name} {product.description} {product.characteristics}"
+            )
+            if inferred:
+                product.materials = inferred
+
+        # Resolver categoría en runtime para usar la mejor señal disponible.
+        product.category, product.subcategory = self.category_resolver.resolve(product)
+        # Refinar categoría basada en el nombre cuando la categoría actual es
+        # genérica o contradictoria (ej. 'Oficina' para un producto 'TECH').
+        product.category = self._refine_category_from_name(product)
+
+    def _refine_category_from_name(self, product: ProductKnowledge) -> str:
+        name = (product.name or "").lower()
+        category = product.category or "Otros"
+        # Señales fuertes en el nombre que deben dominar sobre la categoría actual.
+        strong_signals = {
+            "Tecnología": ["tech", "tecnologico", "tecnológico", "usb", "cargador", "cable", "power bank", "auricular", "bluetooth", "soporte movil", "soporte móvil", "adaptador", "hub", "memoria usb", "pendrive"],
+            "Bebidas": ["botilito", "botella", "termo", "cantimplora", "vaso"],
+            "Hogar": ["taza", "mug", "cocina", "cafetera", "toalla", "aspiradora", "portacomidas", "portavasos", "abanico"],
+            "Herramientas": ["metro", "llavero", "destapador", "navaja", "regla", "casco", "herramienta"],
+            "Viaje": ["maleta", "mochila", "paraguas", "neceser", "tag de maleta", "bolso de viaje"],
+            "Textiles": ["camiseta", "polo", "gorra", "bufanda", "lanyard", "balaca", "cinta para maquillaje"],
+            "Juegos": ["juego", "tangram", "triqui", "desestresante"],
+        }
+        for target, terms in strong_signals.items():
+            if any(term in name for term in terms):
+                # Solo sobreescribir si la categoría actual es genérica o contradictoria.
+                if category.lower() in {"otros", "oficina", "hogar", "eventos"}:
+                    return target
+        return category
+
     def _product_signals(self, product: ProductKnowledge) -> str:
+        # Re-normalizar para que los scores usen la categoría inferida.
+        self._normalize_product(product)
         return (
             f"{product.name} {product.description} {product.materials} "
             f"{product.category} {(product.subcategory or '')} "
@@ -204,7 +268,8 @@ class ProductSelector:
         plan: BudgetPlan,
         intent: CommercialIntent,
     ) -> float:
-        # La afinidad de industria es la señal dominante; semantic queda reducido.
+        # Afinidad de industria + valor comercial + armonía son las señales
+        # dominantes; semantic queda reducido.
         base = (
             trace.semantic_score * profile.weight_semantic
             + trace.context_score * profile.weight_context
@@ -212,8 +277,10 @@ class ProductSelector:
             + trace.commercial_score / 100 * profile.weight_commercial
             + trace.budget_score * profile.weight_budget_util
             + trace.availability_score * profile.weight_availability
-            + trace.industry_score * 5.0
-            + trace.affinity_score * profile.weight_industry
+            + trace.industry_score * 8.0
+            + trace.affinity_score * profile.weight_industry * 1.5
+            + trace.commercial_value_score * 25.0
+            + trace.harmony_score * 20.0
         )
         adjustment = 0.0
         text = self._product_signals(product)
@@ -221,20 +288,28 @@ class ProductSelector:
         if intent.industry and self.industry_knowledge.is_avoided(
             intent.industry, text
         ):
-            adjustment -= 60
+            adjustment -= 80
         # Penalizacion general comercial (no excluye, pero baja la prioridad).
         if self.industry_knowledge.is_general_blacklisted(text):
-            adjustment -= 30
+            adjustment -= 40
+        # Penalizacion por productos rompe-kit y categoría genérica.
+        if trace.harmony_score < 0.5:
+            adjustment -= 25
+        if (product.category or "").lower() == "otros":
+            adjustment -= 15
         if profile.prefer_premium:
             if product.perceived_value_level == "alto":
-                adjustment += 12
+                adjustment += 18
             elif any(m in text for m in PREMIUM_MATERIALS):
-                adjustment += 8
+                adjustment += 12
+            # En modo premium se castigan productos baratos.
+            if plan.per_unit_ceiling > 0 and product.price.amount / plan.per_unit_ceiling < 0.25:
+                adjustment -= 15
         if profile.prefer_eco and self._is_eco(product):
-            adjustment += 12
+            adjustment += 18
         if profile.prefer_low_cost and plan.per_unit_ceiling > 0:
             ratio = product.price.amount / plan.per_unit_ceiling
-            adjustment += 6 * (1.0 - min(1.0, ratio))
+            adjustment += 8 * (1.0 - min(1.0, ratio))
         return base + adjustment
 
     def _reason(

@@ -90,7 +90,9 @@ KNOWN_MATERIALS = {
     "neopreno", "nylon", "tela", "yute", "paja", "trigo", "lino", "denim",
     "jeans", "malla", "mesh", "eva", "tpr", "caucho", "goma", "acrílico",
     "acrilico", "sintético", "sintetico", "licra", "lycra", "poliuretano",
-    "cromo", "zinc", "titanio", "metalizado",
+    "cromo", "zinc", "titanio", "metalizado", "pet", "polietileno", "abs",
+    "melamina", "porcelana", "acero inox", "inox", "piel", "suede", "fieltro",
+    "mdf", "bambu natural", "silicon", "termoplastico", "termoplástico",
 }
 
 

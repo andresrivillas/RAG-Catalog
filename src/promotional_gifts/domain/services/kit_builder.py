@@ -27,6 +27,7 @@ class KitBuildConfig:
     max_lines: int = 5
     price_median: float = 0.0
     mode: GenerationMode = None
+    concept: str = ""
 
 
 class KitBuilder:
@@ -65,23 +66,48 @@ class KitBuilder:
     ) -> List[ScoredProduct]:
         import copy
 
-        ordered = list(scored_products)
         profile = get_profile(self.config.mode)
+        # Descartar productos con baja armonía o valor percibido bajo en premium.
+        def anchor_eligible(sp: ScoredProduct) -> bool:
+            if getattr(sp.trace, "harmony_score", 1.0) < 0.5:
+                return False
+            if profile.prefer_premium and sp.product.perceived_value_level == "bajo":
+                return False
+            return True
+
+        ordered = [sp for sp in scored_products if anchor_eligible(sp)]
+        if not ordered:
+            ordered = list(scored_products)
+
         if profile.prefer_premium:
             ordered.sort(
                 key=lambda sp: (
                     0 if sp.product.perceived_value_level == "alto" else 1,
+                    -getattr(sp.trace, "commercial_value_score", 0.0),
                     -sp.product.price.amount,
                 )
             )
         elif profile.prefer_low_cost:
-            ordered.sort(key=lambda sp: sp.product.price.amount)
+            ordered.sort(
+                key=lambda sp: (
+                    -getattr(sp.trace, "harmony_score", 1.0),
+                    sp.product.price.amount,
+                ),
+            )
         elif profile.prefer_eco:
             ordered.sort(
                 key=lambda sp: (
                     0 if self._is_eco(sp.product) else 1,
+                    getattr(sp.trace, "harmony_score", 1.0),
                     -sp.trace.final_score,
                 )
+            )
+        else:
+            ordered.sort(
+                key=lambda sp: (
+                    -getattr(sp.trace, "harmony_score", 1.0),
+                    -sp.trace.final_score,
+                ),
             )
         need = self.config.num_kits * 2
         if len(ordered) > need:
@@ -115,10 +141,29 @@ class KitBuilder:
     ROLE_MAX = {
         "CORE": 1,
         "UTILITY": 2,
+        "PREMIUM": 1,
         "PROMOTIONAL": 1,
         "ACCESSORY": 1,
         "PACKAGING": 1,
     }
+
+    def _role_max(self, role: str) -> int:
+        profile = get_profile(self.config.mode)
+        if profile.prefer_low_cost:
+            if role == "UTILITY":
+                return 4
+            if role == "ACCESSORY":
+                return 3
+            if role == "PROMOTIONAL":
+                return 2
+        if profile.prefer_premium:
+            if role == "PREMIUM":
+                return 1
+            if role == "UTILITY":
+                return 1
+            if role == "ACCESSORY":
+                return 1
+        return self.ROLE_MAX.get(role, 1)
 
     MODE_FILL_ORDER = {
         "BALANCED": ["CORE", "UTILITY", "PROMOTIONAL", "ACCESSORY", "PACKAGING"],
@@ -159,7 +204,7 @@ class KitBuilder:
             KitLine(
                 anchor.product,
                 anchor_role,
-                generate_reason(anchor.product, intent, anchor_role, anchor.trace),
+                generate_reason(anchor.product, intent, anchor_role, anchor.trace, concept=self.config.concept),
                 anchor.trace,
             )
         )
@@ -187,22 +232,27 @@ class KitBuilder:
                 for l in lines
             ):
                 continue
+            # Penalizar productos que rompen el concepto del kit.
+            # En modo budget se relaja ligeramente para permitir mayor cobertura.
+            min_harmony = 0.25 if get_profile(self.config.mode).prefer_low_cost else 0.35
+            if getattr(candidate.trace, "harmony_score", 1.0) < min_harmony:
+                continue
 
             role = self.role_classifier.classify(
                 candidate.product, self.config.price_median
             )
             if role == "PREMIUM":
                 role = "CORE"
-            if role == "CORE" and roles_used.get("CORE", 0) >= self.ROLE_MAX["CORE"]:
+            if role == "CORE" and roles_used.get("CORE", 0) >= self._role_max("CORE"):
                 role = "UTILITY"
-            if roles_used.get(role, 0) >= self.ROLE_MAX.get(role, 1):
+            if roles_used.get(role, 0) >= self._role_max(role):
                 continue
 
             lines.append(
                 KitLine(
                     candidate.product,
                     role,
-                    generate_reason(candidate.product, intent, role, candidate.trace),
+                    generate_reason(candidate.product, intent, role, candidate.trace, concept=self.config.concept),
                     candidate.trace,
                 )
             )
@@ -233,19 +283,27 @@ class KitBuilder:
                     for l in lines
                 ):
                     continue
+                min_harmony_fallback = 0.15 if get_profile(self.config.mode).prefer_low_cost else 0.25
+                if getattr(candidate.trace, "harmony_score", 1.0) < min_harmony_fallback:
+                    continue
                 role = self.role_classifier.classify(
                     candidate.product, self.config.price_median
                 )
                 if role == "PREMIUM":
                     role = "CORE"
+                if role == "CORE" and roles_used.get("CORE", 0) >= self._role_max("CORE"):
+                    role = "UTILITY"
+                if roles_used.get(role, 0) >= self._role_max(role):
+                    continue
                 lines.append(
                     KitLine(
                         candidate.product,
                         role,
-                        generate_reason(candidate.product, intent, role, candidate.trace),
+                        generate_reason(candidate.product, intent, role, candidate.trace, concept=self.config.concept),
                         candidate.trace,
                     )
                 )
+                roles_used[role] = roles_used.get(role, 0) + 1
                 remaining -= candidate.product.price.amount * plan.quantity
 
         return lines
@@ -264,13 +322,43 @@ class KitBuilder:
             except ValueError:
                 return len(fill_order)
 
-        # Modo Premium: prioriza valor percibido incluso dentro de un rol.
+        # Modo Premium: prioriza valor percibido y armonía.
         # Modo Budget: prioriza los productos mas economicos para maximizar lineas.
+        # Modo Eco: prioriza productos eco cuando el score es cercano.
         profile = get_profile(self.config.mode)
+
+        def harmony_rank(sp: ScoredProduct) -> float:
+            return getattr(sp.trace, "harmony_score", 1.0)
+
         if profile.prefer_premium:
-            sort_key = lambda sp: (role_rank(sp), -sp.product.price.amount, -sp.score)
+            sort_key = lambda sp: (
+                role_rank(sp),
+                -harmony_rank(sp),
+                0 if sp.product.perceived_value_level == "alto" else 1,
+                -sp.product.price.amount,
+                -sp.score,
+            )
+        elif profile.prefer_eco:
+            sort_key = lambda sp: (
+                role_rank(sp),
+                0 if self._is_eco(sp.product) else 1,
+                -harmony_rank(sp),
+                -sp.score,
+            )
+        elif profile.prefer_low_cost:
+            sort_key = lambda sp: (
+                role_rank(sp),
+                -harmony_rank(sp),
+                sp.product.price.amount,
+                -sp.score,
+            )
         else:
-            sort_key = lambda sp: (role_rank(sp), sp.product.price.amount, -sp.score)
+            sort_key = lambda sp: (
+                role_rank(sp),
+                -harmony_rank(sp),
+                sp.product.price.amount,
+                -sp.score,
+            )
 
         return sorted(pool, key=sort_key)
 
@@ -369,6 +457,9 @@ class KitBuilder:
                         for l in kit if l is not line
                     ):
                         continue
+                    min_harmony_upgrade = 0.25 if get_profile(self.config.mode).prefer_low_cost else 0.35
+                    if getattr(candidate.trace, "harmony_score", 1.0) < min_harmony_upgrade:
+                        continue
                     new_util = util + (cand.price.amount - line.product.price.amount) / plan.spendable_budget
                     if new_util > target_max:
                         continue
@@ -385,7 +476,7 @@ class KitBuilder:
                             KitLine(
                                 cand,
                                 new_role,
-                                generate_reason(cand, intent, new_role, candidate.trace),
+                                generate_reason(cand, intent, new_role, candidate.trace, concept=self.config.concept),
                                 candidate.trace,
                             ),
                         )

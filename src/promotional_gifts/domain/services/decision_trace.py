@@ -12,6 +12,8 @@ class DecisionTrace:
     industry_score: float = 0.0
     affinity_score: float = 0.0
     availability_score: float = 0.0
+    commercial_value_score: float = 0.0
+    harmony_score: float = 0.0
     final_score: float = 0.0
     reason: str = ""
     detail: dict = field(default_factory=dict)
