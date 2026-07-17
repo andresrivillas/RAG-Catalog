@@ -1,0 +1,8 @@
+pandas
+openpyxl
+chromadb
+sentence-transformers
+pydantic-settings
+streamlit
+requests
+beautifulsoup4

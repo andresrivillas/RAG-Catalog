@@ -89,8 +89,7 @@ El Composition Root está en `src/promotional_gifts/container.py`.
 ## Instalación
 
 ```bash
-python3 -m pip install pandas openpyxl chromadb sentence-transformers \
-  pydantic-settings streamlit requests beautifulsoup4
+python3 -m pip install -r requirements.txt
 ```
 
 ## Uso

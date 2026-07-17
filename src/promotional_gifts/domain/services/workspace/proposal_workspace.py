@@ -19,6 +19,12 @@ class ProposalWorkspace:
         stamp = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
         return f"prop-{stamp}-{uuid.uuid4().hex[:4]}"
 
+    def _version_from_id(self, proposal_id: str, fallback: int = 1) -> int:
+        if "__v" not in proposal_id:
+            return fallback
+        suffix = proposal_id.rsplit("__v", 1)[-1]
+        return int(suffix) if suffix.isdigit() else fallback
+
     def create_document(
         self,
         proposal: CommercialProposal,
@@ -27,10 +33,13 @@ class ProposalWorkspace:
         score_card=None,
         client: str = "",
     ) -> ProposalDocument:
-        root = self._root_id()
+        proposal_id = proposal.proposal_id or self._root_id()
+        version = self._version_from_id(proposal_id, proposal.version)
+        proposal.proposal_id = proposal_id
+        proposal.version = version
         doc = ProposalDocument(
-            proposal_id=root,
-            version=1,
+            proposal_id=proposal_id,
+            version=version,
             created_at=datetime.datetime.now().isoformat(timespec="seconds"),
             updated_at=datetime.datetime.now().isoformat(timespec="seconds"),
             original_query=original_query,
