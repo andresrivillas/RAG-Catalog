@@ -7,6 +7,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[3]))
 import streamlit as st
 
 from config.settings import settings
+from smart_catalog.presentation.smart_catalog_page import render_smart_catalog
 from promotional_gifts.container import (
     build_generate_proposal_use_case,
     build_refine_proposal_use_case,
@@ -236,8 +237,35 @@ section[data-testid="stSidebar"] .stSidebarContent {
     )
 
 
+def render_module_selector():
+    col1, col2 = st.columns([1, 1], gap="small")
+    with col1:
+        re_active = st.session_state.get("active_module", "RE") == "RE"
+        if st.button(
+            "Recommendation Engine",
+            use_container_width=True,
+            type="primary" if re_active else "secondary",
+        ):
+            st.session_state.active_module = "RE"
+    with col2:
+        sc_active = st.session_state.get("active_module") == "SC"
+        if st.button(
+            "Smart Catalog",
+            use_container_width=True,
+            type="primary" if sc_active else "secondary",
+        ):
+            st.session_state.active_module = "SC"
+    return st.session_state.get("active_module", "RE")
+
+
 st.set_page_config(page_title="Promotional Gifts AI", layout="wide")
 inject_styles()
+
+active_module = render_module_selector()
+
+if active_module == "SC":
+    render_smart_catalog()
+    st.stop()
 
 st.markdown(
     "<div style='margin-bottom:4px;font-size:28px;font-weight:700;color:#111827;'>"
